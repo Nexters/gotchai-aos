@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:turing/view/home/home_view.dart';
+import 'package:turing/presentation/navigation_route.dart';
+import 'package:turing/presentation/navigation_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,14 +14,14 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Gotchai',
       theme: ThemeData(
         fontFamily: 'Pretendard',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: MyHomePage(
-        title: 'title',
-      ),
+      initialRoute: NavigationRoute.login,
+      routes: NavigationRoute.routes,
+      navigatorKey: NavigationService.navigatorKey,
     );
   }
 }
