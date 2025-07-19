@@ -1,3 +1,5 @@
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/data/datasources/login_service.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/login_response.dart';
@@ -31,14 +33,38 @@ class LoginViewModel extends _$LoginViewModel {
     return const LoginInitial();
   }
 
-  Future<void> login() async {
+  Future<void> kakaoLogin() async {
     state = const LoginLoading();
+    try {
+      bool isInstalled = await isKakaoTalkInstalled();
 
-    await LoginService().login("", "KAKAO").then((result) {
+      if (isInstalled) {
+        try {
+          OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+          await login(token.accessToken);
+          logger.d(token.accessToken);
+        } catch (e) {
+          state = LoginFailure('로그인 실패 : $e');
+        }
+      } else {
+        try {
+          OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
+          logger.d(token.accessToken);
+        } catch (e) {
+          state = LoginFailure('로그인 실패 : $e');
+        }
+      }
+    } catch (e) {
+      state = LoginFailure('로그인 실패 : $e');
+    }
+  }
+
+  Future<void> login(String accessToken) async {
+    await LoginService().login(accessToken, "KAKAO").then((result) {
       if (result is Success<LoginResponse>) {
         NavigationService().navigateClearTo(NavigationRoute.home);
       } else if (result is Error<LoginResponse>) {
-        state = const LoginFailure('로그인 실패');
+        state = LoginFailure('로그인 실패 : ${result.message}');
       }
     });
   }

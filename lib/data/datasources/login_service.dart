@@ -10,8 +10,8 @@ class LoginService {
   final client = InterceptedClient.build(interceptors: [LoggingInterceptor()]);
 
   Future<BaseResponse<LoginResponse>> login(String token, String type) async {
-    return Success(
-        LoginResponse.fromJson({"access_token": "", "refresh_token": ""}));
+    return Success(LoginResponse.fromJson(
+        {"accessToken": "test", "refreshToken": "test"}));
     // final url = Uri.https(baseDomain, basePath, {
     //   'social': type,
     // });
