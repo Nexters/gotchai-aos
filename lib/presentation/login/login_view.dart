@@ -20,7 +20,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            viewModel.login();
+            viewModel.kakaoLogin();
           },
           child: const Text('Go to Home Page'),
         ),

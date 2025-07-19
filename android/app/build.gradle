@@ -5,6 +5,17 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def getEnvValue(String key) {
+    def file = rootProject.file("C:/Users/realsound/Desktop/turing/assets/config/.env")
+    def properties = new Properties()
+    if (file.exists()) {
+        file.withInputStream { stream -> properties.load(stream) }
+        return properties.getProperty(key)
+    } else {
+        throw new FileNotFoundException("Environment file not found: ${file.path}");
+    }
+}
+
 android {
     namespace = "com.turing.gotchai"
     compileSdk = flutter.compileSdkVersion
@@ -28,6 +39,10 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders = [
+            KAKAO_NATIVE_KEY: getEnvValue("KAKAO_NATIVE_KEY"),
+        ]
     }
 
     buildTypes {
