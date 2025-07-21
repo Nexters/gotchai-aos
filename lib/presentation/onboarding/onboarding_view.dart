@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/onboarding/onboarding_view_model.dart';
@@ -29,24 +30,24 @@ class OnboardingView extends ConsumerWidget {
                   final data = viewModel.onboardingData[index];
                   return Column(
                     children: [
-                      const SizedBox(height: 200),
+                      SizedBox(height: 500.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: SvgPicture.asset(
                           data['image']!,
                           width: double.infinity,
-                          height: 200,
+                          height: 300.h,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 32.h),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
                         child: Text(
                           data['text']!,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style: TextStyle(
+                            fontSize: 40.h,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -56,15 +57,15 @@ class OnboardingView extends ConsumerWidget {
                 },
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 32.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 viewModel.onboardingData.length,
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: state.currentPage == index ? 12 : 8,
+                  margin: EdgeInsets.symmetric(horizontal: 0.1.w),
+                  width: 8.w,
                   height: 8,
                   decoration: BoxDecoration(
                     color:
@@ -76,10 +77,10 @@ class OnboardingView extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 48),
+                  minimumSize: Size(double.infinity, 96.h),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -98,7 +99,7 @@ class OnboardingView extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 32.h),
           ],
         ),
       ),
