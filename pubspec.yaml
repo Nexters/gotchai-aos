@@ -19,6 +19,7 @@ dependencies:
   json_annotation: ^4.8.0
   kakao_flutter_sdk_user: ^1.9.6
   flutter_dotenv: ^5.2.1
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -41,5 +42,6 @@ flutter:
   assets:
     - assets/config/.env
     - assets/icon/icon_logo.png
+    - assets/icon/app_logo.svg
   
 

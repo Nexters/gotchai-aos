@@ -27,7 +27,7 @@ class MyApp extends ConsumerWidget {
         fontFamily: 'Pretendard',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      initialRoute: NavigationRoute.login,
+      initialRoute: NavigationRoute.onboarding,
       routes: NavigationRoute.routes,
       navigatorKey: NavigationService.navigatorKey,
     );
