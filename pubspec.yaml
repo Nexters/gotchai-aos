@@ -19,6 +19,7 @@ dependencies:
   json_annotation: ^4.8.0
   kakao_flutter_sdk_user: ^1.9.6
   flutter_dotenv: ^5.2.1
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -28,11 +29,19 @@ dev_dependencies:
   riverpod_lint: ^2.3.10
   build_runner: ^2.4.11
   json_serializable: ^6.6.1
-
+  flutter_native_splash: ^2.4.4
+flutter_native_splash: 
+  android: true
+  color: "#FFFFFF"
+  image: assets/icon/icon_logo.png
+  fullscreen: true
+ 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/config/.env
+    - assets/icon/icon_logo.png
+    - assets/icon/app_logo.svg
   
 
