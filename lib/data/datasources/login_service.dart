@@ -1,39 +1,36 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:turing/core/utils/logging_interceptor.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/login_response.dart';
 
 class LoginService {
-  final String baseDomain = '';
-  static const String basePath = '';
+  final String baseDomain = dotenv.env['BASE_DEV_URL'] ?? '';
+  final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [LoggingInterceptor()]);
 
-  Future<BaseResponse<LoginResponse>> login(String token, String type) async {
-    return Success(LoginResponse.fromJson(
-        {"accessToken": "test", "refreshToken": "test"}));
-    // final url = Uri.https(baseDomain, basePath, {
-    //   'social': type,
-    // });
+  Future<BaseResponse<LoginResponse>> login(String token) async {
+    final url = Uri.https(baseDomain, '$basePath/auth/login/kakao');
 
-    // try {
-    //   final response = await client.post(
-    //     url,
-    //     headers: {
-    //       "Content-Type": "application/json; charset=UTF-8",
-    //     },
-    //     body: json.encode({'token': token}),
-    //   );
+    try {
+      final response = await client.post(
+        url,
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: json.encode({'accessToken': token}),
+      );
 
-    //   if (response.statusCode >= 200 && response.statusCode < 300) {
-    //     final data = json.decode(response.body);
-    //     final loginData = LoginResponse.fromJson(data);
-    //     return Success(loginData);
-    //   } else {
-    //     return Error('로그인 실패', code: response.statusCode);
-    //   }
-    // } catch (e) {
-    //   return Error('예외 발생: ${e.toString()}');
-    // }
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final data = json.decode(response.body);
+        final loginData = LoginResponse.fromJson(data);
+        return Success(loginData);
+      } else {
+        return Error('로그인 실패', code: response.statusCode);
+      }
+    } catch (e) {
+      return Error('예외 발생: ${e.toString()}');
+    }
   }
 }
