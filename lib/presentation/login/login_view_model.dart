@@ -42,14 +42,13 @@ class LoginViewModel extends _$LoginViewModel {
         try {
           OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
           await login(token.accessToken);
-          logger.d(token.accessToken);
         } catch (e) {
           state = LoginFailure('로그인 실패 : $e');
         }
       } else {
         try {
           OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
-          logger.d(token.accessToken);
+          await login(token.accessToken);
         } catch (e) {
           state = LoginFailure('로그인 실패 : $e');
         }
@@ -60,12 +59,15 @@ class LoginViewModel extends _$LoginViewModel {
   }
 
   Future<void> login(String accessToken) async {
-    await LoginService().login(accessToken, "KAKAO").then((result) {
+    await LoginService().login(accessToken).then((result) {
       if (result is Success<LoginResponse>) {
         NavigationService().navigateClearTo(NavigationRoute.home);
       } else if (result is Error<LoginResponse>) {
         state = LoginFailure('로그인 실패 : ${result.message}');
       }
+    }).catchError((error) {
+      state = LoginFailure('로그인 실패 : $error');
+      logger.e('로그인 실패 : $error');
     });
   }
 }

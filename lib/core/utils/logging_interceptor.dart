@@ -6,9 +6,7 @@ class LoggingInterceptor extends InterceptorContract {
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
-    logger.d('----- Request -----');
-    logger.d(request.toString());
-    logger.d(request.headers.toString());
+    logger.d('----- Request -----\n$request\n${request.headers}');
     return request;
   }
 
@@ -16,10 +14,12 @@ class LoggingInterceptor extends InterceptorContract {
   Future<BaseResponse> interceptResponse({
     required BaseResponse response,
   }) async {
-    logger.d('----- Response -----');
-    logger.d('Code: ${response.statusCode}');
     if (response is Response) {
-      logger.d((response).body);
+      logger.d(
+        '----- Response -----\nCode: ${response.statusCode},\nBody: ${response.body}',
+      );
+    } else {
+      logger.d('----- Response -----\nCode: ${response.statusCode}');
     }
     return response;
   }

@@ -19,7 +19,7 @@ dependencies:
   json_annotation: ^4.8.0
   kakao_flutter_sdk_user: ^1.9.6
   flutter_dotenv: ^5.2.1
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -38,10 +38,23 @@ flutter_native_splash:
  
 flutter:
   uses-material-design: true
+  fonts:
+    - family: PretendardRegular
+      fonts:
+        - asset: assets/fonts/Pretendard-Regular.otf
+    - family: PretendardMedium
+      fonts:
+        - asset: assets/fonts/Pretendard-Medium.otf
+    - family: PretendardSemiBold
+      fonts:
+        - asset: assets/fonts/Pretendard-SemiBold.otf
+    - family: PretendardBold
+      fonts:
+        - asset: assets/fonts/Pretendard-Bold.otf
 
   assets:
     - assets/config/.env
-    - assets/icon/icon_logo.png
-    - assets/icon/app_logo.svg
-  
+    - assets/icon/gotchai_logo.png
+    - assets/icon/icon_back.svg
+    - assets/icon/icon_kakao_login.png
 
