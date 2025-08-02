@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
+import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/onboarding/onboarding_view_model.dart';
@@ -14,6 +15,9 @@ class OnboardingView extends ConsumerWidget {
     final viewModel = ref.read(onboardingViewModelProvider.notifier);
     final state = ref.watch(onboardingViewModelProvider);
 
+    final PageController pageController =
+        PageController(initialPage: state.currentPage);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -21,7 +25,7 @@ class OnboardingView extends ConsumerWidget {
           children: [
             Expanded(
               child: PageView.builder(
-                controller: PageController(initialPage: state.currentPage),
+                controller: pageController,
                 onPageChanged: (index) {
                   viewModel.updatePage(index);
                 },
@@ -32,24 +36,17 @@ class OnboardingView extends ConsumerWidget {
                     children: [
                       SizedBox(height: 500.h),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w),
-                        child: SvgPicture.asset(
-                          data['image']!,
-                          width: double.infinity,
-                          height: 300.h,
-                          fit: BoxFit.fitWidth,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: Image.asset('assets/icon/gotchai_logo.png',
+                            width: double.infinity, height: 500.h),
                       ),
                       SizedBox(height: 32.h),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        padding: EdgeInsets.symmetric(horizontal: 26.w),
                         child: Text(
                           data['text']!,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 40.h,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: GotchaiTextStyles.body1,
                         ),
                       ),
                     ],
@@ -65,41 +62,48 @@ class OnboardingView extends ConsumerWidget {
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   margin: EdgeInsets.symmetric(horizontal: 0.1.w),
-                  width: 8.w,
-                  height: 8,
+                  width: 6.w,
+                  height: 6,
                   decoration: BoxDecoration(
-                    color:
-                        state.currentPage == index ? Colors.black : Colors.grey,
+                    color: state.currentPage == index
+                        ? GotchaiColorStyles.primary400
+                        : GotchaiColorStyles.gray700,
                     shape: BoxShape.circle,
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 80.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 96.h),
+                  minimumSize: Size(double.infinity, 120.h),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  backgroundColor: Colors.black,
+                  backgroundColor: GotchaiColorStyles.primary400,
                 ),
                 onPressed: () {
                   if (state.currentPage < viewModel.onboardingData.length - 1) {
+                    pageController.animateToPage(
+                      state.currentPage + 1,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+
                     viewModel.updatePage(state.currentPage + 1);
                   } else {
                     NavigationService().navigateClearTo(NavigationRoute.login);
                   }
                 },
                 child: Text(
-                  style: const TextStyle(color: Colors.white),
+                  style: GotchaiTextStyles.body2.copyWith(color: Colors.black),
                   state.buttonText,
                 ),
               ),
             ),
-            SizedBox(height: 32.h),
+            SizedBox(height: 50.h),
           ],
         ),
       ),
