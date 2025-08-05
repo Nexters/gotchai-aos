@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
+import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/presentation/home/widget/home_test_widget.dart';
 import 'package:turing/widgets/button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -55,13 +57,27 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
                     Expanded(
                         child: TabBarView(children: [
-                      Center(
-                        child: Text(
-                          '테스트 페이지입니다',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      HomeTestWidget(
+                        items: [
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                          'asdf',
+                        ],
+                        onItemTap: (index) {
+                          logger.d(index);
+                        },
                       ),
                       Center(
                         child: Text(
