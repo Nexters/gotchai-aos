@@ -5,13 +5,13 @@ import 'package:turing/data/datasources/http_interceptor.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/login_response.dart';
 
-class LoginService {
+class TestService {
   final String baseDomain = dotenv.env['BASE_DEV_URL'] ?? '';
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
-  Future<BaseResponse<LoginResponse>> login(String token) async {
-    final url = Uri.https(baseDomain, '$basePath/auth/login/kakao');
+  Future<BaseResponse<LoginResponse>> getExamList() async {
+    final url = Uri.https(baseDomain, '$basePath/exams');
 
     try {
       final response = await client.post(
@@ -19,7 +19,6 @@ class LoginService {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
-        body: json.encode({'accessToken': token}),
       );
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);

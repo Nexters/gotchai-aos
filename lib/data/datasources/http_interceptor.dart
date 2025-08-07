@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:turing/core/utils/log_util.dart';
+import 'package:turing/data/datasources/local/token_service.dart';
 
-class LoggingInterceptor extends InterceptorContract {
+class HttpInterceptor extends InterceptorContract {
   @override
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
@@ -12,7 +15,17 @@ class LoggingInterceptor extends InterceptorContract {
     } else {
       logger.d('----- Request -----\n$request\n${request.headers}');
     }
-    return request;
+
+    try {
+      final accessToken = await TokenService.getAccessToken();
+      if (accessToken != null && accessToken.isNotEmpty) {
+        request.headers['Authorization'] = 'Bearer $accessToken';
+      }
+
+      return request;
+    } catch (e) {
+      return request;
+    }
   }
 
   @override
@@ -26,6 +39,11 @@ class LoggingInterceptor extends InterceptorContract {
     } else {
       logger.d('----- Response -----\nCode: ${response.statusCode}');
     }
+
+    // if (response.statusCode == 401) {
+    //   await TokenService.clearTokens();
+    // }
+
     return response;
   }
 }
