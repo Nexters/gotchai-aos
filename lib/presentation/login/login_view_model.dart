@@ -1,6 +1,6 @@
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:turing/core/utils/log_util.dart';
-import 'package:turing/data/datasources/login_service.dart';
+import 'package:turing/data/datasources/remote/login_service.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/login_response.dart';
 import 'package:turing/presentation/navigation_route.dart';

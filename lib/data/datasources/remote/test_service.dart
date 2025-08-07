@@ -1,33 +1,33 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
-import 'package:turing/core/utils/logging_interceptor.dart';
+import 'package:turing/data/datasources/http_interceptor.dart';
 import 'package:turing/data/models/base_response.dart';
-import 'package:turing/data/models/login_response.dart';
+import 'package:turing/data/models/exam_list_response.dart';
 
-class LoginService {
+class TestService {
   final String baseDomain = dotenv.env['BASE_DEV_URL'] ?? '';
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
-  final client = InterceptedClient.build(interceptors: [LoggingInterceptor()]);
+  final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
-  Future<BaseResponse<LoginResponse>> login(String token) async {
-    final url = Uri.https(baseDomain, '$basePath/auth/login/kakao');
+  Future<BaseResponse<ExamListResponse>> getExamList() async {
+    final url = Uri.https(baseDomain, '$basePath/exams');
 
     try {
-      final response = await client.post(
+      final response = await client.get(
         url,
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
-        body: json.encode({'accessToken': token}),
       );
-
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);
-        final loginData = LoginResponse.fromJson(data);
-        return Success(loginData);
+        final examData = ExamListResponse.fromJson(data['data']);
+        return Success(examData);
       } else {
-        return Error('로그인 실패', code: response.statusCode);
+        final err = json.decode(response.body);
+        return Error('시험 목록 조회 실패 : ${err['data']['message']}',
+            code: response.statusCode);
       }
     } catch (e) {
       return Error('예외 발생: ${e.toString()}');
