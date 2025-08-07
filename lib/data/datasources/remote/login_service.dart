@@ -21,13 +21,14 @@ class LoginService {
         },
         body: json.encode({'accessToken': token}),
       );
-
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);
-        final loginData = LoginResponse.fromJson(data);
+        final loginData = LoginResponse.fromJson(data['data']);
         return Success(loginData);
       } else {
-        return Error('로그인 실패', code: response.statusCode);
+        final err = json.decode(response.body);
+        return Error('로그인 실패 : ${err['data']['message']}',
+            code: response.statusCode);
       }
     } catch (e) {
       return Error('예외 발생: ${e.toString()}');

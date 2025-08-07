@@ -1,0 +1,34 @@
+import 'dart:async';
+
+import 'package:http_interceptor/http_interceptor.dart';
+import 'package:turing/data/datasources/local/token_service.dart';
+
+class AuthInterceptor extends InterceptorContract {
+  @override
+  Future<BaseRequest> interceptRequest({
+    required BaseRequest request,
+  }) async {
+    try {
+      final accessToken = await TokenService.getAccessToken();
+
+      if (accessToken != null && accessToken.isNotEmpty) {
+        request.headers['Authorization'] = 'Bearer $accessToken';
+      }
+
+      return request;
+    } catch (e) {
+      return request;
+    }
+  }
+
+  @override
+  Future<BaseResponse> interceptResponse({
+    required BaseResponse response,
+  }) async {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      await TokenService.clearTokens();
+    }
+
+    return response;
+  }
+}

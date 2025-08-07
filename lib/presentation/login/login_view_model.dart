@@ -63,7 +63,6 @@ class LoginViewModel extends _$LoginViewModel {
       if (result is Success<LoginResponse>) {
         NavigationService().navigateClearTo(NavigationRoute.home);
       } else if (result is Error<LoginResponse>) {
-        NavigationService().navigateClearTo(NavigationRoute.home);
         state = LoginFailure('로그인 실패 : ${result.message}');
       }
     }).catchError((error) {

@@ -20,11 +20,12 @@ class HomeTestWidget extends StatelessWidget {
         color: GotchaiColorStyles.gray900,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 20.h),
             Image.asset(
               'assets/icon/icon_ab.png',
               width: 20.w,
