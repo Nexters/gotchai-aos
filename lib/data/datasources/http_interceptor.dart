@@ -9,21 +9,28 @@ class HttpInterceptor extends InterceptorContract {
   Future<BaseRequest> interceptRequest({
     required BaseRequest request,
   }) async {
-    if (request is Request) {
-      logger.d(
-          '----- Request -----\n$request\n${request.headers}\n${request.body}');
-    } else {
-      logger.d('----- Request -----\n$request\n${request.headers}');
-    }
-
     try {
       final accessToken = await TokenService.getAccessToken();
+
       if (accessToken != null && accessToken.isNotEmpty) {
         request.headers['Authorization'] = 'Bearer $accessToken';
       }
 
+      if (request is Request) {
+        logger.d(
+            '----- Request -----\n$request\n${request.headers}\n${request.body}');
+      } else {
+        logger.d('----- Request -----\n$request\n${request.headers}');
+      }
+
       return request;
     } catch (e) {
+      if (request is Request) {
+        logger.d(
+            '----- Request -----\n$request\n${request.headers}\n${request.body}');
+      } else {
+        logger.d('----- Request -----\n$request\n${request.headers}');
+      }
       return request;
     }
   }

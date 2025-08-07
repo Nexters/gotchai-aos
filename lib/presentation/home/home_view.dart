@@ -4,6 +4,7 @@ import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -17,6 +18,9 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
+    final viewModel = ref.read(homeViewModelProvider.notifier);
+    final homeState = ref.watch(homeViewModelProvider);
+
     return Scaffold(
         body: Padding(
             padding: EdgeInsets.only(top: 100.h, left: 10.w, right: 10.w),
@@ -37,9 +41,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ),
                     SizedBox(height: 20.h),
                     Align(
-                      alignment: Alignment.topLeft, // TabBar를 중앙 정렬
+                      alignment: Alignment.topLeft,
                       child: SizedBox(
-                        width: 80.w, // TabBar의 가로 크기를 제한
+                        width: 80.w,
                         child: TabBar(
                           dividerHeight: 0,
                           labelColor: GotchaiColorStyles.primary400,
@@ -62,23 +66,32 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ),
                     Expanded(
                         child: TabBarView(children: [
-                      HomeTestWidget(
-                        items: [
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                          'asdf',
-                        ],
-                        onItemTap: (index) {
-                          logger.d(index);
-                        },
-                      ),
+                      switch (homeState) {
+                        HomeInitial() => const Center(
+                            child: Text('초기화 중...'),
+                          ),
+                        HomeLoading() => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        HomeLoaded(examList: final examList) => HomeTestWidget(
+                            examList: examList,
+                            onItemTap: (exam) {
+                              logger.d("Exam tapped: ${exam.title}");
+                            },
+                          ),
+                        HomeError(message: final message) => Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('오류: $message'),
+                                ElevatedButton(
+                                  onPressed: () => viewModel.getExamList(),
+                                  child: Text('다시 시도'),
+                                ),
+                              ],
+                            ),
+                          ),
+                      },
                       Center(
                         child: Text(
                           '내 업적 페이지입니다',
