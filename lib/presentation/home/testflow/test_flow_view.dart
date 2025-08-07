@@ -24,7 +24,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
   Widget build(BuildContext context) {
     final exam = ref.watch(testViewModelProvider);
     final testFlowViewModel = ref.watch(testFlowViewModelProvider.notifier);
-    final state = ref.read(testFlowViewModelProvider);
+    final state = ref.watch(testFlowViewModelProvider);
 
     void navigateToBack() {
       NavigationService().goBackUntil(NavigationRoute.testCover);

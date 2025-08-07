@@ -39,7 +39,7 @@ class _AnswerButtonState extends State<AnswerButton> {
           color: switch (widget.type) {
             AnswerButtonType.none => Color.fromRGBO(255, 255, 255, 0.15),
             AnswerButtonType.selected => Color.fromRGBO(191, 255, 0, 0.15),
-            AnswerButtonType.unselected => Color.fromRGBO(255, 255, 255, 0.15)
+            AnswerButtonType.unselected => Color.fromRGBO(255, 255, 255, 0.05)
           },
           borderRadius: BorderRadius.circular(10.w),
         ),
@@ -61,15 +61,24 @@ class _AnswerButtonState extends State<AnswerButton> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    widget.icon,
-                    width: 14.w,
-                    height: 14.w,
+                  Opacity(
+                    opacity: widget.type == AnswerButtonType.unselected
+                        ? 0.3
+                        : 1.0, // 0.0 (완전 투명) ~ 1.0 (완전 불투명)
+                    child: Image.asset(
+                      widget.icon,
+                      width: 14.w,
+                      height: 14.w,
+                    ),
                   ),
                   SizedBox(
                     height: 18.h,
                   ),
-                  Text(widget.text, style: GotchaiTextStyles.body4),
+                  Text(widget.text,
+                      style: widget.type == AnswerButtonType.unselected
+                          ? GotchaiTextStyles.body4.copyWith(
+                              color: Color.fromRGBO(255, 255, 255, 0.3))
+                          : GotchaiTextStyles.body4),
                 ],
               ),
             )),
