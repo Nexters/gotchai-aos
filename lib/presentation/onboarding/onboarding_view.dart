@@ -35,88 +35,110 @@ class OnboardingView extends ConsumerWidget {
       }
     }
 
+    void skipOnboarding() {
+      NavigationService().navigateWithSlide(
+        LoginView(),
+      );
+    }
+
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 32.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: pageController,
-                onPageChanged: (index) {
-                  viewModel.updatePage(index);
-                },
-                itemCount: viewModel.onboardingData.length,
-                itemBuilder: (context, index) {
-                  final data = viewModel.onboardingData[index];
-                  return Column(
-                    children: [
-                      SizedBox(height: 500.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Image.asset('assets/icon/gotchai_logo.png',
-                            width: double.infinity, height: 500.h),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 100.h,
+          ),
+          Padding(
+              padding: EdgeInsets.only(right: 12.w),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Button(
+                    onTap: skipOnboarding,
+                    child: Text(
+                      "건너뛰기",
+                      style: GotchaiTextStyles.body5
+                          .copyWith(color: GotchaiColorStyles.gray400),
+                    )),
+              )),
+          Expanded(
+            child: PageView.builder(
+              controller: pageController,
+              onPageChanged: (index) {
+                viewModel.updatePage(index);
+              },
+              itemCount: viewModel.onboardingData.length,
+              itemBuilder: (context, index) {
+                final data = viewModel.onboardingData[index];
+                return Column(
+                  children: [
+                    SizedBox(height: 100.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Image.asset(
+                        data['image']!,
+                        width: 140.w,
+                        height: 160.w,
+                        fit: BoxFit.fill,
                       ),
-                      SizedBox(height: 32.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 26.w),
-                        child: Text(
-                          data['text']!,
-                          textAlign: TextAlign.center,
-                          style: GotchaiTextStyles.body1,
-                        ),
+                    ),
+                    SizedBox(height: 100.h),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 26.w),
+                      child: Text(
+                        data['text']!,
+                        textAlign: TextAlign.center,
+                        style: GotchaiTextStyles.body1,
                       ),
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                );
+              },
             ),
-            SizedBox(height: 32.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                viewModel.onboardingData.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: EdgeInsets.symmetric(horizontal: 0.1.w),
-                  width: 6.w,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    color: state.currentPage == index
-                        ? GotchaiColorStyles.primary400
-                        : GotchaiColorStyles.gray700,
-                    shape: BoxShape.circle,
-                  ),
+          ),
+          SizedBox(height: 32.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              viewModel.onboardingData.length,
+              (index) => AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                margin: EdgeInsets.symmetric(horizontal: 0.1.w),
+                width: 6.w,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: state.currentPage == index
+                      ? GotchaiColorStyles.primary400
+                      : GotchaiColorStyles.gray700,
+                  shape: BoxShape.circle,
                 ),
               ),
             ),
-            SizedBox(height: 80.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Button(
-                onTap: onNextTab,
+          ),
+          SizedBox(height: 80.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: Button(
+              onTap: onNextTab,
+              width: double.infinity,
+              height: 120.h,
+              child: Container(
                 width: double.infinity,
                 height: 120.h,
-                child: Container(
-                  width: double.infinity,
-                  height: 120.h,
-                  decoration: BoxDecoration(
-                    color: GotchaiColorStyles.primary400,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Center(
-                    child: Text(
-                      state.buttonText,
-                      style:
-                          GotchaiTextStyles.body2.copyWith(color: Colors.black),
-                    ),
+                decoration: BoxDecoration(
+                  color: GotchaiColorStyles.primary400,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Text(
+                    state.buttonText,
+                    style:
+                        GotchaiTextStyles.body2.copyWith(color: Colors.black),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 50.h),
-          ],
-        ),
+          ),
+          SizedBox(height: 120.h),
+        ],
       ),
     );
   }

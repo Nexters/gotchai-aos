@@ -61,3 +61,6 @@ flutter:
     - assets/icon/icon_setting.png
     - assets/icon/icon_ab.png
     - assets/icon/icon_empty_graphic.png
+    - assets/image/image_onboarding1.png
+    - assets/image/image_onboarding2.png
+    - assets/image/image_onboarding3.png

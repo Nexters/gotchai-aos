@@ -34,15 +34,15 @@ class OnboardingViewModel extends _$OnboardingViewModel {
 
   final List<Map<String, String>> onboardingData = [
     {
-      'image': 'assets/icon/gotchai_logo.svg',
+      'image': 'assets/image/image_onboarding1.png',
       'text': 'AI와 사람의 경계가 희미해진 시대에서 안녕하신가요?',
     },
     {
-      'image': 'assets/icon/gotchai_logo.svg',
+      'image': 'assets/image/image_onboarding2.png',
       'text': '아무리 사람처럼 말한다고 해도 AI가 사람보다 마음을 더 잘 전달할 수는 없겠죠.',
     },
     {
-      'image': 'assets/icon/gotchai_logo.svg',
+      'image': 'assets/image/image_onboarding3.png',
       'text': '그럼, 사람 사이에 숨은 AI를 찾으러 가 볼까요?',
     },
   ];

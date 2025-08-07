@@ -44,7 +44,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             width: 60.w, height: 60.h, fit: BoxFit.fill),
                         Button(
                             child: Image.asset('assets/icon/icon_setting.png',
-                                width: 12.w, height: 12.w, fit: BoxFit.fill),
+                                width: 24.w, height: 24.w, fit: BoxFit.fill),
                             onTap: () {}),
                       ],
                     ),

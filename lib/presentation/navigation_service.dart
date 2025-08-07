@@ -10,14 +10,16 @@ class NavigationService {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
 
-  Future<dynamic>? navigateTo(String routeName, {Object? arguments}) {
-    return navigatorKey.currentState
-        ?.pushNamed(routeName, arguments: arguments);
+  Future<dynamic>? navigateClear(Widget page) {
+    return navigatorKey.currentState?.pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => page),
+      (route) => false,
+    );
   }
 
-  Future<dynamic>? navigateClearTo(String routeName) {
-    return navigatorKey.currentState?.pushNamedAndRemoveUntil(
-      routeName,
+  Future<dynamic>? navigateClearWithSlide(Widget page) {
+    return navigatorKey.currentState?.pushAndRemoveUntil(
+      _createSlideRoute(page),
       (route) => false,
     );
   }
