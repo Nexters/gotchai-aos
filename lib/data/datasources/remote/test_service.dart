@@ -86,8 +86,8 @@ class TestService {
   }
 
   Future<BaseResponse<GradeQuizResponse>> postGradeQuiz(
-      int examId, int quizId) async {
-    final url = Uri.https(baseDomain, '$basePath/quizzes/grade');
+      int quizId, int quizPickId) async {
+    final url = Uri.https(baseDomain, '$basePath/quizzes/$quizId/grade');
 
     try {
       final response = await client.post(
@@ -95,7 +95,7 @@ class TestService {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
-        body: json.encode({'examId': examId, 'quizId': quizId}),
+        body: json.encode({'quizPickId': quizPickId}),
       );
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);

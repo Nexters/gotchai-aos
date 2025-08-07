@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/presentation/home/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
@@ -22,6 +23,7 @@ class TestIntroView extends ConsumerWidget {
     }
 
     void navigateToTestFlow() {
+      ref.watch(testFlowViewModelProvider.notifier).startTest(exam.id);
       NavigationService().navigateWithFade(NavigationRoute.testFlow);
     }
 

@@ -6,7 +6,7 @@ part of 'test_flow_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$testFlowViewModelHash() => r'd839a41296e226df3284ab92df6ad0a72df8362e';
+String _$testFlowViewModelHash() => r'31958045247669e07c364fc37c84422e8a8ecdd1';
 
 /// See also [TestFlowViewModel].
 @ProviderFor(TestFlowViewModel)

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
+import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/presentation/home/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/home/testflow/widget/answer_button.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
@@ -20,10 +23,23 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
   @override
   Widget build(BuildContext context) {
     final exam = ref.watch(testViewModelProvider);
-    double _progress = 0.5;
+    final testFlowViewModel = ref.watch(testFlowViewModelProvider.notifier);
+    final state = ref.read(testFlowViewModelProvider);
 
     void navigateToBack() {
       NavigationService().goBackUntil(NavigationRoute.testCover);
+    }
+
+    AnswerButtonType getButtonType(int buttonId) {
+      final selectedId = state.curQuizData.selectQuizPick;
+
+      if (selectedId == -1) {
+        return AnswerButtonType.none;
+      } else if (selectedId == buttonId) {
+        return AnswerButtonType.selected;
+      } else {
+        return AnswerButtonType.unselected;
+      }
     }
 
     return Scaffold(
@@ -46,6 +62,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
           Padding(
             padding: EdgeInsets.only(top: 120.h, left: 10.w, right: 10.w),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
                   alignment: Alignment.topRight,
@@ -67,7 +84,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
                   ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
-                    widthFactor: _progress,
+                    widthFactor: state.timer / 10,
                     child: Container(
                       decoration: BoxDecoration(
                         color: GotchaiColorStyles.primary400,
@@ -76,6 +93,51 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 60.h,
+                ),
+                Container(
+                  width: 18.w,
+                  height: 12.w,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(191, 255, 0, 0.1),
+                    borderRadius: BorderRadius.circular(4.w),
+                  ),
+                  child: Text("${state.curIndex + 1}/7",
+                      style: GotchaiTextStyles.body5
+                          .copyWith(color: GotchaiColorStyles.primary400)),
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                Text(state.curQuizData.question,
+                    style: GotchaiTextStyles.subtitle2),
+                SizedBox(
+                  height: 100.h,
+                ),
+                AnswerButton(
+                    width: double.infinity,
+                    icon: "assets/icon/icon_A_button.png",
+                    text: state.curQuizData.contentAData.content,
+                    onTap: () {
+                      testFlowViewModel
+                          .selectAnswer(state.curQuizData.contentAData.id);
+                    },
+                    type: getButtonType(state.curQuizData.contentAData.id)),
+                SizedBox(
+                  height: 40.h,
+                ),
+                AnswerButton(
+                  width: double.infinity,
+                  icon: "assets/icon/icon_B_button.png",
+                  text: state.curQuizData.contentBData.content,
+                  onTap: () {
+                    testFlowViewModel
+                        .selectAnswer(state.curQuizData.contentBData.id);
+                  },
+                  type: getButtonType(state.curQuizData.contentBData.id),
+                )
               ],
             ),
           )
