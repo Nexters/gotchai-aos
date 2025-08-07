@@ -65,29 +65,21 @@ class HomeTestWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(20.w),
-                        child: exam.iconImage.isNotEmpty
-                            ? Image.network(
-                                exam.iconImage,
-                                width: 40.w,
-                                height: 40.w,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Image.asset(
-                                    'assets/icon/icon_empty_graphic.png',
-                                    width: 40.w,
-                                    height: 40.w,
-                                    fit: BoxFit.cover,
-                                  );
-                                },
-                              )
-                            : Image.asset(
+                          borderRadius: BorderRadius.circular(20.w),
+                          child: Image.network(
+                            exam.iconImage,
+                            width: 40.w,
+                            height: 40.w,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
                                 'assets/icon/icon_empty_graphic.png',
                                 width: 40.w,
                                 height: 40.w,
                                 fit: BoxFit.cover,
-                              ),
-                      ),
+                              );
+                            },
+                          )),
                       SizedBox(width: 6.w),
                       Expanded(
                         child: Column(

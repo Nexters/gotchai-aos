@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/data/models/exam_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
+import 'package:turing/presentation/home/testflow/test_cover_view.dart';
+import 'package:turing/presentation/home/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
+import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -19,7 +22,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
+    final testViewModel = ref.watch(testViewModelProvider.notifier);
     final homeState = ref.watch(homeViewModelProvider);
+
+    void onItemTap(Exam exam) {
+      testViewModel.setCurTestInfo(exam);
+      NavigationService().navigateWithSlide(TestCoverView());
+    }
 
     return Scaffold(
         body: Padding(
@@ -68,17 +77,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         child: TabBarView(children: [
                       switch (homeState) {
                         HomeInitial() => const Center(
-                            child: Text('초기화 중...'),
+                            child: CircularProgressIndicator(),
                           ),
                         HomeLoading() => const Center(
                             child: CircularProgressIndicator(),
                           ),
                         HomeLoaded(examList: final examList) => HomeTestWidget(
-                            examList: examList,
-                            onItemTap: (exam) {
-                              logger.d("Exam tapped: ${exam.title}");
-                            },
-                          ),
+                            examList: examList, onItemTap: onItemTap),
                         HomeError(message: final message) => Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +103,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    ]))
+                    ])),
+                    SizedBox(height: 50.h),
                   ],
                 ))));
   }

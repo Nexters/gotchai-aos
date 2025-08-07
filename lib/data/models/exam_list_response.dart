@@ -40,6 +40,17 @@ class Exam {
     required this.createdAt,
   });
 
+  Exam.empty()
+      : id = 0,
+        title = '',
+        subTitle = '',
+        description = '',
+        prompt = '',
+        backgroundImage = '',
+        iconImage = '',
+        theme = '',
+        createdAt = '';
+
   factory Exam.fromJson(Map<String, dynamic> json) => _$ExamFromJson(json);
 
   Map<String, dynamic> toJson() => _$ExamToJson(this);

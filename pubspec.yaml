@@ -56,7 +56,7 @@ flutter:
   assets:
     - assets/config/.env
     - assets/icon/gotchai_logo.png
-    - assets/icon/icon_back.svg
+    - assets/icon/icon_back.png
     - assets/icon/icon_kakao_login.png
     - assets/icon/icon_setting.png
     - assets/icon/icon_ab.png

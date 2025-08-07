@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/navigation_route.dart';
+import 'package:turing/presentation/login/login_view.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/onboarding/onboarding_view_model.dart';
+import 'package:turing/widgets/button.dart';
 
 class OnboardingView extends ConsumerWidget {
   const OnboardingView({super.key});
@@ -17,6 +18,22 @@ class OnboardingView extends ConsumerWidget {
 
     final PageController pageController =
         PageController(initialPage: state.currentPage);
+
+    void onNextTab() {
+      if (state.currentPage < viewModel.onboardingData.length - 1) {
+        pageController.animateToPage(
+          state.currentPage + 1,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+
+        viewModel.updatePage(state.currentPage + 1);
+      } else {
+        NavigationService().navigateWithSlide(
+          LoginView(),
+        );
+      }
+    }
 
     return Scaffold(
       body: Padding(
@@ -76,30 +93,24 @@ class OnboardingView extends ConsumerWidget {
             SizedBox(height: 80.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 120.h),
-                  shape: RoundedRectangleBorder(
+              child: Button(
+                onTap: onNextTab,
+                width: double.infinity,
+                height: 120.h,
+                child: Container(
+                  width: double.infinity,
+                  height: 120.h,
+                  decoration: BoxDecoration(
+                    color: GotchaiColorStyles.primary400,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  backgroundColor: GotchaiColorStyles.primary400,
-                ),
-                onPressed: () {
-                  if (state.currentPage < viewModel.onboardingData.length - 1) {
-                    pageController.animateToPage(
-                      state.currentPage + 1,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-
-                    viewModel.updatePage(state.currentPage + 1);
-                  } else {
-                    NavigationService().navigateClearTo(NavigationRoute.login);
-                  }
-                },
-                child: Text(
-                  style: GotchaiTextStyles.body2.copyWith(color: Colors.black),
-                  state.buttonText,
+                  child: Center(
+                    child: Text(
+                      state.buttonText,
+                      style:
+                          GotchaiTextStyles.body2.copyWith(color: Colors.black),
+                    ),
+                  ),
                 ),
               ),
             ),
