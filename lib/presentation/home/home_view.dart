@@ -5,9 +5,9 @@ import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/exam_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
-import 'package:turing/presentation/home/testflow/test_cover_view.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
+import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -27,7 +27,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
     void onItemTap(Exam exam) {
       testViewModel.setCurTestInfo(exam);
-      NavigationService().navigateWithSlide(TestCoverView());
+      NavigationService().navigateWithSlide(NavigationRoute.testCover);
     }
 
     return Scaffold(

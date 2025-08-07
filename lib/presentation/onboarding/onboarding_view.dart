@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/login/login_view.dart';
+import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/onboarding/onboarding_view_model.dart';
 import 'package:turing/widgets/button.dart';
@@ -30,14 +30,14 @@ class OnboardingView extends ConsumerWidget {
         viewModel.updatePage(state.currentPage + 1);
       } else {
         NavigationService().navigateWithSlide(
-          LoginView(),
+          NavigationRoute.login,
         );
       }
     }
 
     void skipOnboarding() {
       NavigationService().navigateWithSlide(
-        LoginView(),
+        NavigationRoute.login,
       );
     }
 
@@ -54,7 +54,7 @@ class OnboardingView extends ConsumerWidget {
                 child: Button(
                     onTap: skipOnboarding,
                     child: Text(
-                      "건너뛰기",
+                      state.isLastPage ? "" : "건너뛰기",
                       style: GotchaiTextStyles.body5
                           .copyWith(color: GotchaiColorStyles.gray400),
                     )),

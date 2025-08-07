@@ -4,6 +4,7 @@ import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -17,7 +18,11 @@ class TestIntroView extends ConsumerWidget {
     final exam = ref.watch(testViewModelProvider);
 
     void navigateToBack() {
-      NavigationService().goBack();
+      NavigationService().goBackUntil(NavigationRoute.home);
+    }
+
+    void navigateToTestFlow() {
+      NavigationService().navigateWithFade(NavigationRoute.testFlow);
     }
 
     return Scaffold(
@@ -37,10 +42,11 @@ class TestIntroView extends ConsumerWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              stops: [0.0, 0.48, 0.68, 0.79, 1.0],
+              stops: [0.0, 0.34, 0.52, 0.68, 0.79, 1.0],
               colors: [
                 Color.fromRGBO(21, 21, 25, 1.0),
                 Color.fromRGBO(21, 21, 25, 0.9),
+                Color.fromRGBO(21, 21, 25, 0.6),
                 Color.fromRGBO(21, 21, 25, 0),
                 Color.fromRGBO(21, 21, 25, 0),
                 Color.fromRGBO(21, 21, 25, 1.0),
@@ -49,7 +55,7 @@ class TestIntroView extends ConsumerWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 100.h, left: 10.w, right: 10.w),
+          padding: EdgeInsets.only(top: 120.h, left: 10.w, right: 10.w),
           child: Column(
             children: [
               Align(
@@ -57,7 +63,7 @@ class TestIntroView extends ConsumerWidget {
                 child: Button(
                   onTap: navigateToBack,
                   child: Image.asset("assets/icon/icon_close.png",
-                      width: 20.w, height: 20.w, fit: BoxFit.fill),
+                      width: 12.w, height: 12.w, fit: BoxFit.fill),
                 ),
               ),
               SizedBox(
@@ -66,7 +72,7 @@ class TestIntroView extends ConsumerWidget {
               Text(exam.description, style: GotchaiTextStyles.body1),
               Spacer(),
               Button(
-                onTap: () {},
+                onTap: navigateToTestFlow,
                 width: double.infinity,
                 height: 120.h,
                 child: Container(

@@ -5,19 +5,22 @@ part 'onboarding_view_model.g.dart';
 class OnboardingState {
   final int currentPage;
   final String buttonText;
+  final bool isLastPage;
 
-  OnboardingState({
-    required this.currentPage,
-    required this.buttonText,
-  });
+  OnboardingState(
+      {required this.currentPage,
+      required this.buttonText,
+      required this.isLastPage});
 
   OnboardingState copyWith({
     int? currentPage,
     String? buttonText,
+    bool? isLastPage,
   }) {
     return OnboardingState(
       currentPage: currentPage ?? this.currentPage,
       buttonText: buttonText ?? this.buttonText,
+      isLastPage: isLastPage ?? this.isLastPage,
     );
   }
 }
@@ -26,10 +29,7 @@ class OnboardingState {
 class OnboardingViewModel extends _$OnboardingViewModel {
   @override
   OnboardingState build() {
-    return OnboardingState(
-      currentPage: 0,
-      buttonText: '다음',
-    );
+    return OnboardingState(currentPage: 0, buttonText: '다음', isLastPage: false);
   }
 
   final List<Map<String, String>> onboardingData = [
@@ -50,8 +50,8 @@ class OnboardingViewModel extends _$OnboardingViewModel {
   void updatePage(int pageIndex) {
     final isLastPage = pageIndex == onboardingData.length - 1;
     state = state.copyWith(
-      currentPage: pageIndex,
-      buttonText: isLastPage ? '시작하기' : '다음',
-    );
+        currentPage: pageIndex,
+        buttonText: isLastPage ? '시작하기' : '다음',
+        isLastPage: isLastPage);
   }
 }

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/home/testflow/test_intro_view.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -22,12 +22,12 @@ class TestCoverView extends ConsumerWidget {
     }
 
     void navigateToTestIntro() {
-      NavigationService().navigateWithSlide(TestIntroView());
+      NavigationService().navigateWithFade(NavigationRoute.testIntro);
     }
 
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.only(top: 100.h, left: 10.w, right: 10.w),
+      padding: EdgeInsets.only(top: 120.h, left: 10.w, right: 10.w),
       child: Column(
         children: [
           Align(
@@ -35,7 +35,7 @@ class TestCoverView extends ConsumerWidget {
             child: Button(
               onTap: navigateToBack,
               child: Image.asset("assets/icon/icon_back.png",
-                  width: 20.w, height: 20.w, fit: BoxFit.fill),
+                  width: 12.w, height: 12.w, fit: BoxFit.fill),
             ),
           ),
           SizedBox(
