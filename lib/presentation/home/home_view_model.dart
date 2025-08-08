@@ -1,6 +1,6 @@
 import 'package:turing/data/datasources/remote/test_service.dart';
 import 'package:turing/data/models/base_response.dart';
-import 'package:turing/data/models/exam_list_response.dart';
+import 'package:turing/data/models/test_list_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_view_model.g.dart';
@@ -18,9 +18,9 @@ class HomeLoading extends HomeState {
 }
 
 class HomeLoaded extends HomeState {
-  final List<Exam> examList;
+  final List<Test> testList;
 
-  const HomeLoaded(this.examList);
+  const HomeLoaded(this.testList);
 }
 
 class HomeError extends HomeState {
@@ -39,9 +39,9 @@ class HomeViewModel extends _$HomeViewModel {
 
   Future<void> getExamList() async {
     await TestService().getExamList().then((result) {
-      if (result is Success<ExamListResponse>) {
+      if (result is Success<TestListResponse>) {
         state = HomeLoaded(result.data.list);
-      } else if (result is Error<ExamListResponse>) {
+      } else if (result is Error<TestListResponse>) {
         state = HomeError(result.message);
       }
     }).catchError((error) {

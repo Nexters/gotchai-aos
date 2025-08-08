@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/data/models/exam_list_response.dart';
+import 'package:turing/data/models/test_list_response.dart';
 
 class HomeTestWidget extends StatelessWidget {
-  final List<Exam> examList;
-  final ValueChanged<Exam> onItemTap;
+  final List<Test> testList;
+  final ValueChanged<Test> onItemTap;
   final Future<void> Function() onRefresh;
 
   const HomeTestWidget({
     super.key,
-    required this.examList,
+    required this.testList,
     required this.onItemTap,
     required this.onRefresh,
   });
@@ -47,16 +47,16 @@ class HomeTestWidget extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               Text(
-                "${examList.length}개의 새로운 테스트가 있어요",
+                "${testList.length}개의 새로운 테스트가 있어요",
                 style: GotchaiTextStyles.body4
                     .copyWith(color: GotchaiColorStyles.gray400),
               ),
               SizedBox(height: 30.h),
 
-              ...examList.map((exam) {
+              ...testList.map((test) {
                 return GestureDetector(
                   onTap: () {
-                    onItemTap(exam);
+                    onItemTap(test);
                   },
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 10),
@@ -74,7 +74,7 @@ class HomeTestWidget extends StatelessWidget {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(20.w),
                             child: Image.network(
-                              exam.iconImage,
+                              test.iconImage,
                               width: 40.w,
                               height: 40.w,
                               fit: BoxFit.cover,
@@ -94,14 +94,14 @@ class HomeTestWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                exam.title,
+                                test.title,
                                 style: GotchaiTextStyles.body2,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                               SizedBox(height: 4.h),
                               Text(
-                                exam.subTitle,
+                                test.subTitle,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: GotchaiTextStyles.body4.copyWith(

@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/data/datasources/remote/test_service.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/grade_quiz_response.dart';
 import 'package:turing/data/models/quiz_response.dart';
+import 'package:turing/data/models/test_end_response.dart';
 import 'package:turing/data/models/test_start_response.dart';
 import 'package:turing/presentation/popup/test_flow_popup.dart';
 
@@ -162,7 +161,6 @@ class TestFlowViewModel extends _$TestFlowViewModel {
             ),
             curQuizState: CurQuizLoaded());
 
-        // 타이머 스타트
         startCountdown();
       } else if (result is Error<QuizResponse>) {
         // Handle Error
@@ -223,12 +221,16 @@ class TestFlowViewModel extends _$TestFlowViewModel {
     if (state.curIndex < state.quizIds.length) {
       loadNextQuiz();
     } else {
-      logger.d("모든 퀴즈가 끝났습니다.");
       endTest();
     }
   }
 
-  Future<void> endTest() async {}
+  Future<void> endTest() async {
+    await TestService().postTestEnd(state.examId).then((result) {
+      if (result is Success<TestEndResponse>) {
+      } else if (result is Error<TestEndResponse>) {}
+    }).catchError((error) {});
+  }
 
   void _onTimerEnd() {
     gradeQuiz(true);

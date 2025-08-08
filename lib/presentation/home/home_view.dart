@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/data/models/exam_list_response.dart';
+import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
@@ -25,10 +25,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final testViewModel = ref.watch(testViewModelProvider.notifier);
     final homeState = ref.watch(homeViewModelProvider);
 
-    Future<void> _precacheExamImages(List<Exam> examList) async {
-      final validImages = examList
-          .where((exam) => exam.iconImage.isNotEmpty)
-          .map((exam) => exam.iconImage)
+    Future<void> _precacheTestImages(List<Test> testList) async {
+      final validImages = testList
+          .where((test) => test.iconImage.isNotEmpty)
+          .map((test) => test.iconImage)
           .toList();
 
       if (validImages.isEmpty) return;
@@ -50,13 +50,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
     ref.listen<HomeState>(homeViewModelProvider, (previous, next) {
       if (previous is HomeLoading &&
           next is HomeLoaded &&
-          next.examList.isNotEmpty) {
-        _precacheExamImages(next.examList);
+          next.testList.isNotEmpty) {
+        _precacheTestImages(next.testList);
       }
     });
 
-    void onItemTap(Exam exam) {
-      testViewModel.setCurTestInfo(exam);
+    void onItemTap(Test test) {
+      testViewModel.setCurTestInfo(test);
       NavigationService().navigateWithSlide(NavigationRoute.testCover);
     }
 
@@ -112,8 +112,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         HomeLoading() => const Center(
                             child: CircularProgressIndicator(),
                           ),
-                        HomeLoaded(examList: final examList) => HomeTestWidget(
-                            examList: examList,
+                        HomeLoaded(testList: final testList) => HomeTestWidget(
+                            testList: testList,
                             onItemTap: onItemTap,
                             onRefresh: () async {
                               await viewModel.getExamList();

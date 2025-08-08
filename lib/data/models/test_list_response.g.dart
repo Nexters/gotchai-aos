@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'exam_list_response.dart';
+part of 'test_list_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ExamListResponse _$ExamListResponseFromJson(Map<String, dynamic> json) =>
-    ExamListResponse(
+TestListResponse _$TestListResponseFromJson(Map<String, dynamic> json) =>
+    TestListResponse(
       list: (json['list'] as List<dynamic>)
-          .map((e) => Exam.fromJson(e as Map<String, dynamic>))
+          .map((e) => Test.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ExamListResponseToJson(ExamListResponse instance) =>
+Map<String, dynamic> _$TestListResponseToJson(TestListResponse instance) =>
     <String, dynamic>{
       'list': instance.list,
     };
 
-Exam _$ExamFromJson(Map<String, dynamic> json) => Exam(
+Test _$TestFromJson(Map<String, dynamic> json) => Test(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       subTitle: json['subTitle'] as String,
@@ -30,7 +30,7 @@ Exam _$ExamFromJson(Map<String, dynamic> json) => Exam(
       createdAt: json['createdAt'] as String,
     );
 
-Map<String, dynamic> _$ExamToJson(Exam instance) => <String, dynamic>{
+Map<String, dynamic> _$TestToJson(Test instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'subTitle': instance.subTitle,

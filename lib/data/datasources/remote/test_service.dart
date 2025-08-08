@@ -3,7 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:turing/data/datasources/http_interceptor.dart';
 import 'package:turing/data/models/base_response.dart';
-import 'package:turing/data/models/exam_list_response.dart';
+import 'package:turing/data/models/test_end_response.dart';
+import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/data/models/grade_quiz_response.dart';
 import 'package:turing/data/models/quiz_response.dart';
 import 'package:turing/data/models/test_start_response.dart';
@@ -13,7 +14,7 @@ class TestService {
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
-  Future<BaseResponse<ExamListResponse>> getExamList() async {
+  Future<BaseResponse<TestListResponse>> getExamList() async {
     final url = Uri.https(baseDomain, '$basePath/exams');
 
     try {
@@ -25,7 +26,7 @@ class TestService {
       );
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);
-        final result = ExamListResponse.fromJson(data['data']);
+        final result = TestListResponse.fromJson(data['data']);
         return Success(result);
       } else {
         final err = json.decode(response.body);
@@ -104,6 +105,30 @@ class TestService {
       } else {
         final err = json.decode(response.body);
         return Error('퀴즈 채점 실패 : ${err['data']['message']}',
+            code: response.statusCode);
+      }
+    } catch (e) {
+      return Error('예외 발생: ${e.toString()}');
+    }
+  }
+
+  Future<BaseResponse<TestEndResponse>> postTestEnd(int id) async {
+    final url = Uri.https(baseDomain, '$basePath/exams/$id/submit');
+
+    try {
+      final response = await client.post(
+        url,
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      );
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final data = json.decode(response.body);
+        final result = TestEndResponse.fromJson(data['data']);
+        return Success(result);
+      } else {
+        final err = json.decode(response.body);
+        return Error('테스트 제출 실패 : ${err['data']['message']}',
             code: response.statusCode);
       }
     } catch (e) {

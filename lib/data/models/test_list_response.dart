@@ -1,23 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'exam_list_response.g.dart';
+part 'test_list_response.g.dart';
 
 @JsonSerializable()
-class ExamListResponse {
-  final List<Exam> list;
+class TestListResponse {
+  final List<Test> list;
 
-  ExamListResponse({
+  TestListResponse({
     required this.list,
   });
 
-  factory ExamListResponse.fromJson(Map<String, dynamic> json) =>
-      _$ExamListResponseFromJson(json);
+  factory TestListResponse.fromJson(Map<String, dynamic> json) =>
+      _$TestListResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ExamListResponseToJson(this);
+  Map<String, dynamic> toJson() => _$TestListResponseToJson(this);
 }
 
 @JsonSerializable()
-class Exam {
+class Test {
   final int id;
   final String title;
   final String subTitle;
@@ -28,7 +28,7 @@ class Exam {
   final String theme;
   final String createdAt;
 
-  Exam({
+  Test({
     required this.id,
     required this.title,
     required this.subTitle,
@@ -40,7 +40,7 @@ class Exam {
     required this.createdAt,
   });
 
-  Exam.empty()
+  Test.empty()
       : id = 0,
         title = '',
         subTitle = '',
@@ -51,7 +51,7 @@ class Exam {
         theme = '',
         createdAt = '';
 
-  factory Exam.fromJson(Map<String, dynamic> json) => _$ExamFromJson(json);
+  factory Test.fromJson(Map<String, dynamic> json) => _$TestFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ExamToJson(this);
+  Map<String, dynamic> toJson() => _$TestToJson(this);
 }

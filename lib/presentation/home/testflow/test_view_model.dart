@@ -1,20 +1,20 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:turing/data/models/exam_list_response.dart';
+import 'package:turing/data/models/test_list_response.dart';
 
 part 'test_view_model.g.dart';
 
 @riverpod
 class TestViewModel extends _$TestViewModel {
   @override
-  Exam build() {
-    return Exam.empty();
+  Test build() {
+    return Test.empty();
   }
 
-  void setCurTestInfo(Exam exam) {
-    state = exam;
+  void setCurTestInfo(Test test) {
+    state = test;
   }
 
   void clearCurTestInfo() {
-    state = Exam.empty();
+    state = Test.empty();
   }
 }
