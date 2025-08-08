@@ -149,12 +149,13 @@ class TestFlowViewModel extends _$TestFlowViewModel {
     _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       final currentTime = state.timer - 1;
       logger.d("타이머: $currentTime");
+
       if (currentTime <= 0) {
         timer.cancel();
         state = state.copyWith(timer: 0);
         _onTimerEnd();
       } else {
-        state = state.copyWith(timer: 10 - currentTime);
+        state = state.copyWith(timer: currentTime);
       }
     });
   }
