@@ -10,6 +10,7 @@ import 'package:turing/presentation/home/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/testflow/widget/answer_button.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
+import 'package:turing/presentation/popup/test_flow_popup.dart';
 import 'package:turing/widgets/button.dart';
 
 class TestFlowView extends ConsumerStatefulWidget {
@@ -25,6 +26,19 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
     final exam = ref.watch(testViewModelProvider);
     final testFlowViewModel = ref.watch(testFlowViewModelProvider.notifier);
     final state = ref.watch(testFlowViewModelProvider);
+
+    ref.listen<TestFlowState>(testFlowViewModelProvider, (previous, next) {
+      if (previous?.curQuizState != next.curQuizState) {
+        if (next.curQuizState is CurQuizEnd) {
+          final state = next.curQuizState as CurQuizEnd;
+          TestFlowPopup.showAnswerDialog(
+              context, state.answer ?? "", state.result, () {
+            testFlowViewModel.loadNextQuiz();
+            Navigator.of(context).pop();
+          });
+        }
+      }
+    });
 
     void navigateToBack() {
       NavigationService().goBackUntil(NavigationRoute.testCover);
@@ -84,7 +98,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
                   ),
                   child: FractionallySizedBox(
                     alignment: Alignment.centerLeft,
-                    widthFactor: state.timer / 10,
+                    widthFactor: 1 - (state.timer / 10000.0),
                     child: Container(
                       decoration: BoxDecoration(
                         color: GotchaiColorStyles.primary400,
@@ -104,7 +118,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
                     color: Color.fromRGBO(191, 255, 0, 0.1),
                     borderRadius: BorderRadius.circular(4.w),
                   ),
-                  child: Text("${state.curIndex + 1}/7",
+                  child: Text("${state.curIndex}/7",
                       style: GotchaiTextStyles.body5
                           .copyWith(color: GotchaiColorStyles.primary400)),
                 ),

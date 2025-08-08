@@ -7,6 +7,7 @@ import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/grade_quiz_response.dart';
 import 'package:turing/data/models/quiz_response.dart';
 import 'package:turing/data/models/test_start_response.dart';
+import 'package:turing/presentation/popup/test_flow_popup.dart';
 
 part 'test_flow_view_model.g.dart';
 
@@ -47,19 +48,44 @@ class CurQuizData {
   }
 }
 
+sealed class CurQuizState {
+  const CurQuizState();
+}
+
+class CurQuizInitial extends CurQuizState {
+  const CurQuizInitial();
+}
+
+class CurQuizLoading extends CurQuizState {
+  const CurQuizLoading();
+}
+
+class CurQuizLoaded extends CurQuizState {
+  const CurQuizLoaded();
+}
+
+class CurQuizEnd extends CurQuizState {
+  final QuizResult result;
+  final String? answer;
+
+  const CurQuizEnd(this.result, {this.answer});
+}
+
 class TestFlowState {
   final int examId;
   final int timer;
   final List<int> quizIds;
   final int curIndex;
   final CurQuizData curQuizData;
+  final CurQuizState curQuizState;
 
   TestFlowState(
       {required this.examId,
       required this.timer,
       required this.quizIds,
       required this.curIndex,
-      required this.curQuizData});
+      required this.curQuizData,
+      required this.curQuizState});
 
   TestFlowState copyWith({
     int? examId,
@@ -67,6 +93,7 @@ class TestFlowState {
     List<int>? quizIds,
     int? curIndex,
     CurQuizData? curQuizData,
+    CurQuizState? curQuizState,
   }) {
     return TestFlowState(
       examId: examId ?? this.examId,
@@ -74,6 +101,7 @@ class TestFlowState {
       quizIds: quizIds ?? this.quizIds,
       curIndex: curIndex ?? this.curIndex,
       curQuizData: curQuizData ?? this.curQuizData,
+      curQuizState: curQuizState ?? this.curQuizState,
     );
   }
 }
@@ -85,17 +113,17 @@ class TestFlowViewModel extends _$TestFlowViewModel {
   @override
   TestFlowState build() {
     return TestFlowState(
-      examId: 0,
-      timer: 0,
-      quizIds: [],
-      curIndex: 0,
-      curQuizData: CurQuizData(
-        question: '',
-        contentAData: ContentData(id: 0, content: ''),
-        contentBData: ContentData(id: 0, content: ''),
-        selectQuizPick: -1,
-      ),
-    );
+        examId: 0,
+        timer: 0,
+        quizIds: [],
+        curIndex: 0,
+        curQuizData: CurQuizData(
+          question: '',
+          contentAData: ContentData(id: 0, content: ''),
+          contentBData: ContentData(id: 0, content: ''),
+          selectQuizPick: -1,
+        ),
+        curQuizState: CurQuizInitial());
   }
 
   Future<void> startTest(int examId) async {
@@ -109,7 +137,7 @@ class TestFlowViewModel extends _$TestFlowViewModel {
         );
         loadNextQuiz();
       } else if (result is Error<TestStartResponse>) {
-        // Handle error
+        // Handle End
       }
     }).catchError((error) {});
   }
@@ -119,8 +147,8 @@ class TestFlowViewModel extends _$TestFlowViewModel {
     await TestService().getQuiz(quizId).then((result) {
       if (result is Success<QuizResponse>) {
         state = state.copyWith(
-          curIndex: state.curIndex + 1,
-          curQuizData: CurQuizData(
+            curIndex: state.curIndex + 1,
+            curQuizData: CurQuizData(
               question: result.data.contents,
               contentAData: ContentData(
                 id: result.data.quizPicks[0].id,
@@ -130,13 +158,14 @@ class TestFlowViewModel extends _$TestFlowViewModel {
                 id: result.data.quizPicks[1].id,
                 content: result.data.quizPicks[1].contents,
               ),
-              selectQuizPick: -1),
-        );
+              selectQuizPick: -1,
+            ),
+            curQuizState: CurQuizLoaded());
 
         // 타이머 스타트
         startCountdown();
       } else if (result is Error<QuizResponse>) {
-        // Handle error
+        // Handle Error
       }
     }).catchError((error) {});
   }
@@ -144,11 +173,11 @@ class TestFlowViewModel extends _$TestFlowViewModel {
   void startCountdown({int seconds = 10}) {
     _countdownTimer?.cancel();
 
-    state = state.copyWith(timer: seconds);
+    final totalMs = seconds * 1000;
+    state = state.copyWith(timer: totalMs);
 
-    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
-      final currentTime = state.timer - 1;
-      logger.d("타이머: $currentTime");
+    _countdownTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      final currentTime = state.timer - 10;
 
       if (currentTime <= 0) {
         timer.cancel();
@@ -165,23 +194,27 @@ class TestFlowViewModel extends _$TestFlowViewModel {
         curQuizData: state.curQuizData.copyWith(
       selectQuizPick: quizPickId,
     ));
-    gradeQuiz();
+    gradeQuiz(false);
     stopCountdown();
   }
 
-  Future<void> gradeQuiz() async {
+  Future<void> gradeQuiz(bool isTimeout) async {
     final quizId = state.quizIds[state.curIndex - 1];
 
     await TestService()
-        .postGradeQuiz(quizId, state.curQuizData.selectQuizPick)
+        .postGradeQuiz(quizId, state.curQuizData.selectQuizPick, isTimeout)
         .then((result) {
       if (result is Success<GradeQuizResponse>) {
-        if (result.data.isAnswer) {
-          // 정답모달 띄우기
-          logger.d("정답입니다");
-        } else {
-          logger.d("오답입니다");
-        }
+        final quizResult =
+            switch ((result.data.isTimeout, result.data.isAnswer)) {
+          (true, _) => QuizResult.timeout,
+          (false, true) => QuizResult.correct,
+          (false, false) => QuizResult.wrong,
+        };
+
+        state = state.copyWith(
+          curQuizState: CurQuizEnd(quizResult, answer: result.data.contents),
+        );
       } else if (result is Error<GradeQuizResponse>) {}
     }).catchError((error) {});
   }
@@ -198,7 +231,7 @@ class TestFlowViewModel extends _$TestFlowViewModel {
   Future<void> endTest() async {}
 
   void _onTimerEnd() {
-    gradeQuiz();
+    gradeQuiz(true);
   }
 
   void stopCountdown() {

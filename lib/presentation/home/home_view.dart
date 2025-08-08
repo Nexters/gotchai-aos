@@ -25,6 +25,36 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final testViewModel = ref.watch(testViewModelProvider.notifier);
     final homeState = ref.watch(homeViewModelProvider);
 
+    Future<void> _precacheExamImages(List<Exam> examList) async {
+      final validImages = examList
+          .where((exam) => exam.iconImage.isNotEmpty)
+          .map((exam) => exam.iconImage)
+          .toList();
+
+      if (validImages.isEmpty) return;
+
+      final futures = validImages
+          .map((imageUrl) =>
+                  precacheImage(Image.network(imageUrl).image, context)
+                      .catchError((_) => null) // 에러 무시
+              )
+          .toList();
+
+      try {
+        await Future.wait(futures, eagerError: false);
+      } catch (e) {
+        print("⚠️ 프리캐시 중 오류: $e");
+      }
+    }
+
+    ref.listen<HomeState>(homeViewModelProvider, (previous, next) {
+      if (previous is HomeLoading &&
+          next is HomeLoaded &&
+          next.examList.isNotEmpty) {
+        _precacheExamImages(next.examList);
+      }
+    });
+
     void onItemTap(Exam exam) {
       testViewModel.setCurTestInfo(exam);
       NavigationService().navigateWithSlide(NavigationRoute.testCover);
@@ -83,7 +113,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             child: CircularProgressIndicator(),
                           ),
                         HomeLoaded(examList: final examList) => HomeTestWidget(
-                            examList: examList, onItemTap: onItemTap),
+                            examList: examList,
+                            onItemTap: onItemTap,
+                            onRefresh: () async {
+                              await viewModel.getExamList();
+                            }),
                         HomeError(message: final message) => Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +138,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ),
                       ),
                     ])),
-                    SizedBox(height: 50.h),
                   ],
                 ))));
   }

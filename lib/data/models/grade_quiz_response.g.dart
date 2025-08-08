@@ -10,10 +10,12 @@ GradeQuizResponse _$GradeQuizResponseFromJson(Map<String, dynamic> json) =>
     GradeQuizResponse(
       contents: json['contents'] as String,
       isAnswer: json['isAnswer'] as bool,
+      isTimeout: json['isTimeout'] as bool,
     );
 
 Map<String, dynamic> _$GradeQuizResponseToJson(GradeQuizResponse instance) =>
     <String, dynamic>{
       'contents': instance.contents,
       'isAnswer': instance.isAnswer,
+      'isTimeout': instance.isTimeout,
     };

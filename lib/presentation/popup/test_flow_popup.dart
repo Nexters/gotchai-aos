@@ -4,16 +4,15 @@ import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/widgets/button.dart';
 
-enum PopupType { correct, wrong, timeout }
+enum QuizResult { correct, wrong, timeout }
 
 class TestFlowPopup {
   static Future<void> showAnswerDialog(
-      {required BuildContext context,
-      required String title,
-      required String answer,
-      required String buttonText,
-      required VoidCallback onButtonPressed,
-      required PopupType type}) {
+    BuildContext context,
+    String answer,
+    QuizResult type,
+    VoidCallback onButtonPressed,
+  ) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -30,17 +29,17 @@ class TestFlowPopup {
             children: [
               // 아이콘
               switch (type) {
-                PopupType.correct => Image.asset(
+                QuizResult.correct => Image.asset(
                     "assets/icon/icon_correct.png",
                     width: 80.w,
                     height: 60.w,
                   ),
-                PopupType.wrong => Image.asset(
+                QuizResult.wrong => Image.asset(
                     "assets/icon/icon_wrong.png",
                     width: 80.w,
                     height: 60.w,
                   ),
-                PopupType.timeout => Image.asset(
+                QuizResult.timeout => Image.asset(
                     "assets/icon/icon_timeout.png",
                     width: 80.w,
                     height: 60.w,
@@ -49,7 +48,13 @@ class TestFlowPopup {
 
               SizedBox(height: 30.h),
 
-              Text(title, style: GotchaiTextStyles.subtitle1),
+              Text(
+                  switch (type) {
+                    QuizResult.correct => "AI를 찾아냈어요!",
+                    QuizResult.wrong => "사람이 작성한 대답이에요",
+                    QuizResult.timeout => "시간이 초과됐어요!",
+                  },
+                  style: GotchaiTextStyles.subtitle1),
 
               SizedBox(height: 30.h),
 
@@ -92,7 +97,7 @@ class TestFlowPopup {
                   ),
                   child: Center(
                     child: Text(
-                      buttonText,
+                      type == QuizResult.timeout ? "다음 문제로 넘어가기" : "다음",
                       style:
                           GotchaiTextStyles.body2.copyWith(color: Colors.black),
                     ),

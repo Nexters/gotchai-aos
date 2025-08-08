@@ -6,10 +6,12 @@ part 'grade_quiz_response.g.dart';
 class GradeQuizResponse {
   final String contents;
   final bool isAnswer;
+  final bool isTimeout;
 
   GradeQuizResponse({
     required this.contents,
     required this.isAnswer,
+    required this.isTimeout,
   });
 
   factory GradeQuizResponse.fromJson(Map<String, dynamic> json) =>
