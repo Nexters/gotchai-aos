@@ -70,3 +70,7 @@ flutter:
     - assets/icon/icon_correct.png
     - assets/icon/icon_wrong.png
     - assets/icon/icon_timeout.png
+    - assets/icon/icon_badge_logo_gold.png
+    - assets/icon/icon_badge_logo_silver.png
+    - assets/icon/icon_badge_logo_bronze.png
+    - assets/icon/icon_copy.png

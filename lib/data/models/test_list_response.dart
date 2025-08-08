@@ -25,6 +25,7 @@ class Test {
   final String prompt;
   final String backgroundImage;
   final String iconImage;
+  final String coverImage;
   final String theme;
   final String createdAt;
 
@@ -36,6 +37,7 @@ class Test {
     required this.prompt,
     required this.backgroundImage,
     required this.iconImage,
+    required this.coverImage,
     required this.theme,
     required this.createdAt,
   });
@@ -48,6 +50,7 @@ class Test {
         prompt = '',
         backgroundImage = '',
         iconImage = '',
+        coverImage = '',
         theme = '',
         createdAt = '';
 

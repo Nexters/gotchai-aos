@@ -33,7 +33,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
           final state = next.curQuizState as CurQuizEnd;
           TestFlowPopup.showAnswerDialog(
               context, state.answer ?? "", state.result, () {
-            testFlowViewModel.loadNextQuiz();
+            testFlowViewModel.goNext();
             Navigator.of(context).pop();
           });
         }

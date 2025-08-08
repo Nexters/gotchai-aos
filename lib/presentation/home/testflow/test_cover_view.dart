@@ -73,7 +73,7 @@ class TestCoverView extends ConsumerWidget {
           ClipRRect(
               borderRadius: BorderRadius.circular(100.w),
               child: Image.network(
-                exam.iconImage,
+                exam.coverImage,
                 width: 130.w,
                 height: 130.w,
                 fit: BoxFit.cover,

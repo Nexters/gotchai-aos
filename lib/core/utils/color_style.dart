@@ -26,4 +26,31 @@ class GotchaiColorStyles {
   static const Color primary800 = Color(0xFF405500);
   static const Color primary900 = Color(0xFF2A3900);
   static const Color primary950 = Color(0xFF151C00);
+
+  static const Color gold1 = Color(0xFF615920);
+  static const Color gold2 = Color(0xFF433F21);
+  static const Color gold3 = Color(0xFF373521);
+  static const Color gold4 = Color(0xFF2B2A22);
+  static const Color gold5 = Color(0xFF1D1E22);
+
+  static const Color silver1 = Color(0xFF37424E);
+  static const Color silver2 = Color(0xFF2F3741);
+  static const Color silver3 = Color(0xFF2B313A);
+  static const Color silver4 = Color(0xFF25282F);
+  static const Color silver5 = Color(0xFF1D1E22);
+
+  static const Color bronze1 = Color(0xFF664F32);
+  static const Color bronze2 = Color(0xFF4F402D);
+  static const Color bronze3 = Color(0xFF3F352A);
+  static const Color bronze4 = Color(0xFF272524);
+  static const Color bronze5 = Color(0xFF1D1E22);
+
+  static const Color goldText1 = Color(0xFFBDAB47);
+  static const Color goldText2 = Color(0xFFFFEC87);
+
+  static const Color silverText1 = Color(0xFF6D8DC4);
+  static const Color silverText2 = Color(0xFFBED6FF);
+
+  static const Color bronzeText1 = Color(0xFFB9804B);
+  static const Color bronzeText2 = Color(0xFFFFC289);
 }

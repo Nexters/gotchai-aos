@@ -71,22 +71,34 @@ class HomeTestWidget extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(20.w),
-                            child: Image.network(
-                              test.iconImage,
+                        Stack(
+                          children: [
+                            Container(
                               width: 40.w,
                               height: 40.w,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  'assets/icon/icon_empty_graphic.png',
-                                  width: 40.w,
-                                  height: 40.w,
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            )),
+                              decoration: BoxDecoration(
+                                color: GotchaiColorStyles.gray900,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Image.network(
+                                  test.iconImage,
+                                  width: 22.w,
+                                  height: 22.w,
+                                  fit: BoxFit.fill,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                      'assets/icon/icon_empty_graphic.png',
+                                      width: 24.w,
+                                      height: 24.w,
+                                      fit: BoxFit.cover,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         SizedBox(width: 6.w),
                         Expanded(
                           child: Column(
@@ -115,7 +127,8 @@ class HomeTestWidget extends StatelessWidget {
                     ),
                   ),
                 );
-              })
+              }),
+              SizedBox(height: 100.h)
             ],
           ),
         ),

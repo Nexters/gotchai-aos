@@ -6,6 +6,8 @@ import 'package:turing/data/models/grade_quiz_response.dart';
 import 'package:turing/data/models/quiz_response.dart';
 import 'package:turing/data/models/test_end_response.dart';
 import 'package:turing/data/models/test_start_response.dart';
+import 'package:turing/presentation/navigation_route.dart';
+import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/popup/test_flow_popup.dart';
 
 part 'test_flow_view_model.g.dart';
@@ -70,6 +72,48 @@ class CurQuizEnd extends CurQuizState {
   const CurQuizEnd(this.result, {this.answer});
 }
 
+enum Tier {
+  none,
+  bronze,
+  silver,
+  gold;
+
+  static Tier fromString(String tier) {
+    return switch (tier.toLowerCase()) {
+      'bronze' => Tier.bronze,
+      'silver' => Tier.silver,
+      'gold' => Tier.gold,
+      _ => Tier.none,
+    };
+  }
+}
+
+class TestResultData {
+  final String badgeImage;
+  final String badgeName;
+  final String description;
+  final Tier tier;
+  final int correctCount;
+
+  TestResultData({
+    required this.badgeImage,
+    required this.description,
+    required this.badgeName,
+    required this.tier,
+    required this.correctCount,
+  });
+
+  factory TestResultData.fromTestEndResponse(TestEndResponse response) {
+    return TestResultData(
+      badgeImage: response.badge.image,
+      description: response.badge.description,
+      badgeName: response.badge.name,
+      tier: Tier.fromString(response.badge.tier),
+      correctCount: response.answerCount,
+    );
+  }
+}
+
 class TestFlowState {
   final int examId;
   final int timer;
@@ -77,6 +121,7 @@ class TestFlowState {
   final int curIndex;
   final CurQuizData curQuizData;
   final CurQuizState curQuizState;
+  final TestResultData testResultData;
 
   TestFlowState(
       {required this.examId,
@@ -84,7 +129,8 @@ class TestFlowState {
       required this.quizIds,
       required this.curIndex,
       required this.curQuizData,
-      required this.curQuizState});
+      required this.curQuizState,
+      required this.testResultData});
 
   TestFlowState copyWith({
     int? examId,
@@ -93,6 +139,7 @@ class TestFlowState {
     int? curIndex,
     CurQuizData? curQuizData,
     CurQuizState? curQuizState,
+    TestResultData? testResultData,
   }) {
     return TestFlowState(
       examId: examId ?? this.examId,
@@ -101,6 +148,7 @@ class TestFlowState {
       curIndex: curIndex ?? this.curIndex,
       curQuizData: curQuizData ?? this.curQuizData,
       curQuizState: curQuizState ?? this.curQuizState,
+      testResultData: testResultData ?? this.testResultData,
     );
   }
 }
@@ -122,7 +170,14 @@ class TestFlowViewModel extends _$TestFlowViewModel {
           contentBData: ContentData(id: 0, content: ''),
           selectQuizPick: -1,
         ),
-        curQuizState: CurQuizInitial());
+        curQuizState: CurQuizInitial(),
+        testResultData: TestResultData(
+          badgeImage: '',
+          description: '',
+          badgeName: '',
+          tier: Tier.none,
+          correctCount: 0,
+        ));
   }
 
   Future<void> startTest(int examId) async {
@@ -176,7 +231,6 @@ class TestFlowViewModel extends _$TestFlowViewModel {
 
     _countdownTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
       final currentTime = state.timer - 10;
-
       if (currentTime <= 0) {
         timer.cancel();
         state = state.copyWith(timer: 0);
@@ -228,6 +282,10 @@ class TestFlowViewModel extends _$TestFlowViewModel {
   Future<void> endTest() async {
     await TestService().postTestEnd(state.examId).then((result) {
       if (result is Success<TestEndResponse>) {
+        state = state.copyWith(
+          testResultData: TestResultData.fromTestEndResponse(result.data),
+        );
+        NavigationService().navigateClear(NavigationRoute.testResult);
       } else if (result is Error<TestEndResponse>) {}
     }).catchError((error) {});
   }
