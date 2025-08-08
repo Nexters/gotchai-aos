@@ -4,6 +4,7 @@ import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/login/login_view_model.dart';
+import 'package:turing/widgets/button.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -45,6 +46,29 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 height: 200.h,
               ),
             )),
+        SizedBox(height: 20.h),
+        Button(
+          onTap: () {
+            viewModel.testLogin();
+          },
+          width: double.infinity,
+          height: 120.h,
+          child: Container(
+            width: double.infinity,
+            height: 120.h,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Center(
+              child: Text(
+                "테스트 로그인",
+                style: GotchaiTextStyles.body3
+                    .copyWith(color: GotchaiColorStyles.gray200),
+              ),
+            ),
+          ),
+        ),
       ],
     ));
   }

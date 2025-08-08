@@ -58,6 +58,13 @@ class LoginViewModel extends _$LoginViewModel {
     }
   }
 
+  void testLogin() {
+            await TokenService.saveTokens(
+          accessToken: result.accessToken,
+          refreshToken: result.refreshToken,
+        );
+  }
+
   Future<void> login(String accessToken) async {
     await LoginService().login(accessToken).then((result) {
       if (result is Success<LoginResponse>) {
