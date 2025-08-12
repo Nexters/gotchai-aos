@@ -1,5 +1,6 @@
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:turing/core/utils/log_util.dart';
+import 'package:turing/data/datasources/local/token_service.dart';
 import 'package:turing/data/datasources/remote/login_service.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/login_response.dart';
@@ -58,11 +59,15 @@ class LoginViewModel extends _$LoginViewModel {
     }
   }
 
-  void testLogin() {
-            await TokenService.saveTokens(
-          accessToken: result.accessToken,
-          refreshToken: result.refreshToken,
-        );
+  Future<void> testLogin() async {
+    await TokenService.saveTokens(
+      accessToken:
+          "eyJhbGciOiJSUzUxMiJ9.eyJpYXQiOjE3NTQ2NTc0NjYsImV4cCI6MTc1NDgzMDI2NiwiaXNzIjoiR290Y2hhaSIsInVzZXJJZCI6IjIiLCJyb2xlcyI6Ik1FTUJFUiJ9.dO_p0kQnweDNRgVkVsFm1JpyrZUSMjjyf7AFspIt_JPK3vPktb3gOm4qgiudsYJkzPvxHPBmGEfPTpFtvshbtDB0bESbnKQvSeiSapcd2huOVWCiRfuU9zAU0JpDkz95YIE6z5CboXrODIW-iT-j1voISEQHBHdmrVhDZYjuBGjuptIoknBR6aZekGFmnsOkYeBNm51chPGc6s8j1J_x4VHUSWuY8_GoVW8E_wcGr5qDCqRScTW-mQZsiYW2sufsCHcliRZGE3ZggSMVrZj3P9z60ZIy0r4qLQ7JqPZK3cHonjq6DbqcpQMPjItGft08v0L9ZWV0lnzWkJuElN0DmA",
+      refreshToken:
+          "eyJhbGciOiJSUzUxMiJ9.eyJpYXQiOjE3NTQ2NTc0NjYsImV4cCI6MTc1NzA3NjY2NiwiaXNzIjoiR290Y2hhaSIsInVzZXJJZCI6IjIiLCJyb2xlcyI6Ik1FTUJFUiJ9.A_mODV5hi9pyaxWLUdSSPEuZXRNZUXTYoo_zJB9jebT9zCcWqSAyQd4ppSj0AfNpvIkzkEQmJcKdBqWDHT-NtVQvYjqEuPDZUeVdW2mOmAFGtGNPXlaqmW_lyO5-1f91hGcG9KC878Da8pCsRbc9-VBaxQxnsDE1RXPh0ba9x7xSsYWANYMf9qXhFgl3sk6v9M7GZqE_pM4Ykjiv8PpAdJHVdJ7Yr_DMIBr49GDjKi1RHIWziI-yngYvAgk1Umu0OCMDEIT2PlmNQ9N3aHKzbtEUPhPRmMv2W-WJyj9NfR1P5tPYVv1tJEvqPiKE8b1FOHlCmfI71Z8CSN3u8hi9Qw",
+    );
+
+    NavigationService().navigateClear(NavigationRoute.home);
   }
 
   Future<void> login(String accessToken) async {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
+
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/presentation/home/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/home/testflow/test_view_model.dart';
@@ -57,7 +58,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
     }
 
     void navigateToBack() {
-      NavigationService().goBackUntil(NavigationRoute.home);
+      NavigationService().navigateClearWithSlide(NavigationRoute.home);
     }
 
     return Scaffold(
