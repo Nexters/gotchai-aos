@@ -8,12 +8,14 @@ class BadgeDescriptionCard extends StatelessWidget {
   final String theme;
   final String prompt;
   final String iconImage;
+  final VoidCallback onTap;
 
   const BadgeDescriptionCard({
     super.key,
     required this.theme,
     required this.prompt,
     required this.iconImage,
+    required this.onTap,
   });
 
   @override
@@ -62,6 +64,7 @@ class BadgeDescriptionCard extends StatelessWidget {
           Button(
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 20.h),
+              onTap: onTap,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -74,8 +77,7 @@ class BadgeDescriptionCard extends StatelessWidget {
                       style: GotchaiTextStyles.body3
                           .copyWith(color: GotchaiColorStyles.primary400))
                 ],
-              ),
-              onTap: () {})
+              ))
         ],
       ),
     );

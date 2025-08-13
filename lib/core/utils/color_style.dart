@@ -33,6 +33,9 @@ class GotchaiColorStyles {
   static const Color gold4 = Color(0xFF2B2A22);
   static const Color gold5 = Color(0xFF1D1E22);
 
+  static const Color goldTop1 = Color(0xFF625921);
+  static const Color goldTop2 = Color.fromRGBO(79, 74, 33, 0);
+
   static const Color goldLinear1 = Color(0xFFDEDFD0);
   static const Color goldLinear2 = Color(0xFF9EA481);
 
@@ -46,6 +49,9 @@ class GotchaiColorStyles {
   static const Color silver4 = Color(0xFF25282F);
   static const Color silver5 = Color(0xFF1D1E22);
 
+  static const Color silverTop1 = Color(0xFF36424E);
+  static const Color silverTop2 = Color.fromRGBO(47, 55, 64, 0);
+
   static const Color silverLinear1 = Color(0xFFCFD4EB);
   static const Color silverLinear2 = Color(0xFF5B648E);
 
@@ -58,6 +64,9 @@ class GotchaiColorStyles {
   static const Color bronze3 = Color(0xFF3F352A);
   static const Color bronze4 = Color(0xFF272524);
   static const Color bronze5 = Color(0xFF1D1E22);
+
+  static const Color bronzeTop1 = Color(0xFF665032);
+  static const Color bronzeTop2 = Color.fromRGBO(76, 62, 44, 0);
 
   static const Color bronzeLinear1 = Color(0xFFEEDDCD);
   static const Color bronzeLinear2 = Color(0xFF785635);
