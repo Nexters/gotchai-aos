@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'exam_list_response.dart';
+part of 'test_list_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ExamListResponse _$ExamListResponseFromJson(Map<String, dynamic> json) =>
-    ExamListResponse(
+TestListResponse _$TestListResponseFromJson(Map<String, dynamic> json) =>
+    TestListResponse(
       list: (json['list'] as List<dynamic>)
-          .map((e) => Exam.fromJson(e as Map<String, dynamic>))
+          .map((e) => Test.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ExamListResponseToJson(ExamListResponse instance) =>
+Map<String, dynamic> _$TestListResponseToJson(TestListResponse instance) =>
     <String, dynamic>{
       'list': instance.list,
     };
 
-Exam _$ExamFromJson(Map<String, dynamic> json) => Exam(
+Test _$TestFromJson(Map<String, dynamic> json) => Test(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       subTitle: json['subTitle'] as String,
@@ -26,11 +26,12 @@ Exam _$ExamFromJson(Map<String, dynamic> json) => Exam(
       prompt: json['prompt'] as String,
       backgroundImage: json['backgroundImage'] as String,
       iconImage: json['iconImage'] as String,
+      coverImage: json['coverImage'] as String,
       theme: json['theme'] as String,
       createdAt: json['createdAt'] as String,
     );
 
-Map<String, dynamic> _$ExamToJson(Exam instance) => <String, dynamic>{
+Map<String, dynamic> _$TestToJson(Test instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'subTitle': instance.subTitle,
@@ -38,6 +39,7 @@ Map<String, dynamic> _$ExamToJson(Exam instance) => <String, dynamic>{
       'prompt': instance.prompt,
       'backgroundImage': instance.backgroundImage,
       'iconImage': instance.iconImage,
+      'coverImage': instance.coverImage,
       'theme': instance.theme,
       'createdAt': instance.createdAt,
     };

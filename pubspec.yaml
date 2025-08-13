@@ -21,6 +21,9 @@ dependencies:
   flutter_dotenv: ^5.2.1
   flutter_svg: ^2.2.0
   shared_preferences: ^2.5.3
+  permission_handler: ^11.3.1
+  device_info_plus: ^9.1.0
+  gal: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -56,8 +59,23 @@ flutter:
   assets:
     - assets/config/.env
     - assets/icon/gotchai_logo.png
-    - assets/icon/icon_back.svg
+    - assets/icon/icon_back.png
     - assets/icon/icon_kakao_login.png
     - assets/icon/icon_setting.png
     - assets/icon/icon_ab.png
     - assets/icon/icon_empty_graphic.png
+    - assets/icon/icon_close.png
+    - assets/image/image_onboarding1.png
+    - assets/image/image_onboarding2.png
+    - assets/image/image_onboarding3.png
+    - assets/icon/icon_B_button.png
+    - assets/icon/icon_A_button.png
+    - assets/icon/icon_correct.png
+    - assets/icon/icon_wrong.png
+    - assets/icon/icon_timeout.png
+    - assets/icon/icon_badge_logo_gold.png
+    - assets/icon/icon_badge_logo_silver.png
+    - assets/icon/icon_badge_logo_bronze.png
+    - assets/icon/icon_copy.png
+    - assets/icon/icon_save.png
+    - assets/icon/icon_insta.png

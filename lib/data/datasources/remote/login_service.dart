@@ -24,13 +24,13 @@ class LoginService {
       );
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final data = json.decode(response.body);
-        final loginData = LoginResponse.fromJson(data['data']);
+        final result = LoginResponse.fromJson(data['data']);
 
         await TokenService.saveTokens(
-          accessToken: loginData.accessToken,
-          refreshToken: loginData.refreshToken,
+          accessToken: result.accessToken,
+          refreshToken: result.refreshToken,
         );
-        return Success(loginData);
+        return Success(result);
       } else {
         final err = json.decode(response.body);
         return Error('로그인 실패 : ${err['data']['message']}',

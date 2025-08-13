@@ -26,4 +26,61 @@ class GotchaiColorStyles {
   static const Color primary800 = Color(0xFF405500);
   static const Color primary900 = Color(0xFF2A3900);
   static const Color primary950 = Color(0xFF151C00);
+
+  static const Color gold1 = Color(0xFF615920);
+  static const Color gold2 = Color(0xFF433F21);
+  static const Color gold3 = Color(0xFF373521);
+  static const Color gold4 = Color(0xFF2B2A22);
+  static const Color gold5 = Color(0xFF1D1E22);
+
+  static const Color goldTop1 = Color(0xFF625921);
+  static const Color goldTop2 = Color.fromRGBO(79, 74, 33, 0);
+
+  static const Color goldLinear1 = Color(0xFFDEDFD0);
+  static const Color goldLinear2 = Color(0xFF9EA481);
+
+  static const Color goldRadial1 = Color.fromRGBO(250, 227, 79, 0.7);
+  static const Color goldRadial2 = Color.fromRGBO(250, 227, 79, 0.2);
+  static const Color goldRadial3 = Color.fromRGBO(250, 227, 79, 0);
+
+  static const Color silver1 = Color(0xFF37424E);
+  static const Color silver2 = Color(0xFF2F3741);
+  static const Color silver3 = Color(0xFF2B313A);
+  static const Color silver4 = Color(0xFF25282F);
+  static const Color silver5 = Color(0xFF1D1E22);
+
+  static const Color silverTop1 = Color(0xFF36424E);
+  static const Color silverTop2 = Color.fromRGBO(47, 55, 64, 0);
+
+  static const Color silverLinear1 = Color(0xFFCFD4EB);
+  static const Color silverLinear2 = Color(0xFF5B648E);
+
+  static const Color silverRadial1 = Color.fromRGBO(116, 137, 239, 0.7);
+  static const Color silverRadial2 = Color.fromRGBO(116, 137, 239, 0.2);
+  static const Color silverRadial3 = Color.fromRGBO(116, 137, 239, 0);
+
+  static const Color bronze1 = Color(0xFF664F32);
+  static const Color bronze2 = Color(0xFF4F402D);
+  static const Color bronze3 = Color(0xFF3F352A);
+  static const Color bronze4 = Color(0xFF272524);
+  static const Color bronze5 = Color(0xFF1D1E22);
+
+  static const Color bronzeTop1 = Color(0xFF665032);
+  static const Color bronzeTop2 = Color.fromRGBO(76, 62, 44, 0);
+
+  static const Color bronzeLinear1 = Color(0xFFEEDDCD);
+  static const Color bronzeLinear2 = Color(0xFF785635);
+
+  static const Color bronzeRadial1 = Color.fromRGBO(231, 150, 73, 0.7);
+  static const Color bronzeRadial2 = Color.fromRGBO(231, 150, 73, 0.2);
+  static const Color bronzeRadial3 = Color.fromRGBO(231, 150, 73, 0);
+
+  static const Color goldText1 = Color(0xFFBDAB47);
+  static const Color goldText2 = Color(0xFFFFEC87);
+
+  static const Color silverText1 = Color(0xFF6D8DC4);
+  static const Color silverText2 = Color(0xFFBED6FF);
+
+  static const Color bronzeText1 = Color(0xFFB9804B);
+  static const Color bronzeText2 = Color(0xFFFFC289);
 }

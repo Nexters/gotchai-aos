@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
+import 'package:turing/presentation/home/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
+import 'package:turing/presentation/navigation_route.dart';
+import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -19,7 +22,43 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
+    final testViewModel = ref.watch(testViewModelProvider.notifier);
     final homeState = ref.watch(homeViewModelProvider);
+
+    Future<void> _precacheTestImages(List<Test> testList) async {
+      final validImages = testList
+          .where((test) => test.iconImage.isNotEmpty)
+          .map((test) => test.iconImage)
+          .toList();
+
+      if (validImages.isEmpty) return;
+
+      final futures = validImages
+          .map((imageUrl) =>
+                  precacheImage(Image.network(imageUrl).image, context)
+                      .catchError((_) => null) // 에러 무시
+              )
+          .toList();
+
+      try {
+        await Future.wait(futures, eagerError: false);
+      } catch (e) {
+        print("⚠️ 프리캐시 중 오류: $e");
+      }
+    }
+
+    ref.listen<HomeState>(homeViewModelProvider, (previous, next) {
+      if (previous is HomeLoading &&
+          next is HomeLoaded &&
+          next.testList.isNotEmpty) {
+        _precacheTestImages(next.testList);
+      }
+    });
+
+    void onItemTap(Test test) {
+      testViewModel.setCurTestInfo(test);
+      NavigationService().navigateWithSlide(NavigationRoute.testCover);
+    }
 
     return Scaffold(
         body: Padding(
@@ -35,7 +74,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             width: 60.w, height: 60.h, fit: BoxFit.fill),
                         Button(
                             child: Image.asset('assets/icon/icon_setting.png',
-                                width: 12.w, height: 12.w, fit: BoxFit.fill),
+                                width: 24.w, height: 24.w, fit: BoxFit.fill),
                             onTap: () {}),
                       ],
                     ),
@@ -68,17 +107,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         child: TabBarView(children: [
                       switch (homeState) {
                         HomeInitial() => const Center(
-                            child: Text('초기화 중...'),
+                            child: CircularProgressIndicator(),
                           ),
                         HomeLoading() => const Center(
                             child: CircularProgressIndicator(),
                           ),
-                        HomeLoaded(examList: final examList) => HomeTestWidget(
-                            examList: examList,
-                            onItemTap: (exam) {
-                              logger.d("Exam tapped: ${exam.title}");
-                            },
-                          ),
+                        HomeLoaded(testList: final testList) => HomeTestWidget(
+                            testList: testList,
+                            onItemTap: onItemTap,
+                            onRefresh: () async {
+                              await viewModel.getExamList();
+                            }),
                         HomeError(message: final message) => Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +137,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                    ]))
+                    ])),
                   ],
                 ))));
   }

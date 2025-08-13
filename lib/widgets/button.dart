@@ -6,6 +6,7 @@ class Button extends StatelessWidget {
   final EdgeInsets? padding;
   final double? width;
   final double? height;
+  final BoxDecoration? decoration;
 
   const Button({
     super.key,
@@ -14,6 +15,7 @@ class Button extends StatelessWidget {
     this.padding,
     this.width,
     this.height,
+    this.decoration,
   });
 
   @override
@@ -24,6 +26,7 @@ class Button extends StatelessWidget {
         width: width,
         height: height,
         padding: padding,
+        decoration: decoration,
         child: child,
       ),
     );
