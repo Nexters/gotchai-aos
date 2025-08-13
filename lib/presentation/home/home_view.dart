@@ -5,7 +5,8 @@ import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
-import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/home/widget/home_profile_widget.dart';
+import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
@@ -131,12 +132,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             ),
                           ),
                       },
-                      Center(
-                        child: Text(
-                          '내 업적 페이지입니다',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                      Align(
+                          alignment: Alignment.topCenter,
+                          child: HomeProfileWidget(onRefresh: () async {}))
                     ])),
                   ],
                 ))));

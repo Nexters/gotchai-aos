@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
@@ -70,22 +70,21 @@ class TestCoverView extends ConsumerWidget {
           SizedBox(
             height: 60.h,
           ),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(100.w),
+          ClipOval(
               child: Image.network(
-                exam.coverImage,
+            exam.coverImage,
+            width: 130.w,
+            height: 130.w,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                'assets/icon/icon_empty_graphic.png',
                 width: 130.w,
                 height: 130.w,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/icon/icon_empty_graphic.png',
-                    width: 130.w,
-                    height: 130.w,
-                    fit: BoxFit.cover,
-                  );
-                },
-              )),
+              );
+            },
+          )),
           SizedBox(
             height: 80.h,
           ),

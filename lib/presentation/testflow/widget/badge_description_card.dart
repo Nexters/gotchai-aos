@@ -36,22 +36,21 @@ class BadgeDescriptionCard extends StatelessWidget {
           ),
           Text("이 프롬프트로 만들었어요", style: GotchaiTextStyles.subtitle1),
           SizedBox(height: 40.h),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(100.w),
+          ClipOval(
               child: Image.network(
-                iconImage,
+            iconImage,
+            width: 130.w,
+            height: 130.w,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                'assets/icon/icon_empty_graphic.png',
                 width: 130.w,
                 height: 130.w,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/icon/icon_empty_graphic.png',
-                    width: 130.w,
-                    height: 130.w,
-                    fit: BoxFit.cover,
-                  );
-                },
-              )),
+              );
+            },
+          )),
           SizedBox(height: 40.h),
           Text(prompt,
               style: GotchaiTextStyles.body4

@@ -79,3 +79,10 @@ flutter:
     - assets/icon/icon_copy.png
     - assets/icon/icon_save.png
     - assets/icon/icon_insta.png
+    - assets/image/image_ranking5.png
+    - assets/image/image_ranking10.png
+    - assets/image/image_ranking25.png
+    - assets/image/image_ranking50.png
+    - assets/icon/icon_badge.png
+    - assets/icon/icon_history.png
+    - assets/icon/icon_forward.png
