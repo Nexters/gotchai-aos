@@ -28,6 +28,7 @@ Test _$TestFromJson(Map<String, dynamic> json) => Test(
       iconImage: json['iconImage'] as String,
       coverImage: json['coverImage'] as String,
       theme: json['theme'] as String,
+      isSolved: json['isSolved'] as bool,
       createdAt: json['createdAt'] as String,
     );
 
@@ -41,5 +42,6 @@ Map<String, dynamic> _$TestToJson(Test instance) => <String, dynamic>{
       'iconImage': instance.iconImage,
       'coverImage': instance.coverImage,
       'theme': instance.theme,
+      'isSolved': instance.isSolved,
       'createdAt': instance.createdAt,
     };

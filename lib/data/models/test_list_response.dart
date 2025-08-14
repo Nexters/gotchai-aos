@@ -27,6 +27,7 @@ class Test {
   final String iconImage;
   final String coverImage;
   final String theme;
+  final bool isSolved;
   final String createdAt;
 
   Test({
@@ -39,6 +40,7 @@ class Test {
     required this.iconImage,
     required this.coverImage,
     required this.theme,
+    required this.isSolved,
     required this.createdAt,
   });
 
@@ -52,6 +54,7 @@ class Test {
         iconImage = '',
         coverImage = '',
         theme = '',
+        isSolved = false,
         createdAt = '';
 
   factory Test.fromJson(Map<String, dynamic> json) => _$TestFromJson(json);

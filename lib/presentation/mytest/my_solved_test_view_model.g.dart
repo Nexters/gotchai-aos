@@ -7,7 +7,7 @@ part of 'my_solved_test_view_model.dart';
 // **************************************************************************
 
 String _$mySolvedTestViewModelHash() =>
-    r'182f8f86e206109a2ab37e129d851db221880b8c';
+    r'0aee228466a55849378ad6f1c3cf4906b1bd9cee';
 
 /// See also [MySolvedTestViewModel].
 @ProviderFor(MySolvedTestViewModel)

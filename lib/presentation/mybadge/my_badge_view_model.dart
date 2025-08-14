@@ -1,4 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:turing/data/datasources/remote/profile_service.dart';
+import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/presentation/navigation_service.dart';
 
@@ -16,103 +18,24 @@ class MyBadgeViewModel extends _$MyBadgeViewModel {
   }
 
   Future<void> getMyBadgeList() async {
-    state = [
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: ""),
-      MyBadgeItem(
-          id: 0,
-          examId: 0,
-          name: "test",
-          description: "test",
-          image: "",
-          tier: "GOLD",
-          createdAt: "")
-    ];
+    await ProfileService().getMyBadgeList().then((result) {
+      if (result is Success<MyBadgeResponse>) {
+        final badges = result.data.list;
+        final totalBadgeCount = 15;
+        state = [
+          ...badges,
+          ...List.generate(
+              (totalBadgeCount - badges.length), // 0과 50 사이로 제한
+              (index) => MyBadgeItem(
+                  id: -1,
+                  examId: -1,
+                  name: "숨겨진 배지",
+                  description: "",
+                  image: "",
+                  tier: "NONE",
+                  createdAt: ""))
+        ];
+      } else if (result is Error<MyBadgeResponse>) {}
+    }).catchError((error) {});
   }
 }
