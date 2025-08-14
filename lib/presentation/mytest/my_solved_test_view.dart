@@ -69,50 +69,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
                         child: Column(
                           children: [
                             ...state.map((item) {
-                              return Container(
-                                padding: EdgeInsets.all(20.w),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: GotchaiColorStyles.gray900,
-                                  borderRadius: BorderRadius.circular(12.w),
-                                ),
-                                margin: EdgeInsets.only(bottom: 16.h),
-                                child: Row(
-                                  children: [
-                                    Image.asset(
-                                        "assets/icon/icon_empty_graphic.png",
-                                        width: 20.w,
-                                        height: 20.w),
-                                    SizedBox(width: 12.w),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            item,
-                                            style: GotchaiTextStyles.body3,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          SizedBox(height: 4.h),
-                                          Text(
-                                            "7개중 4개 맞췄어요",
-                                            style: GotchaiTextStyles.body4
-                                                .copyWith(
-                                                    color: GotchaiColorStyles
-                                                        .gray500),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Text(
-                                      "57%",
-                                      style: GotchaiTextStyles.body4.copyWith(
-                                          color: GotchaiColorStyles.blue),
-                                    )
-                                  ],
-                                ),
-                              );
+                              return _buildListItem(item);
                             }),
                             SizedBox(height: 100.h)
                           ],
@@ -122,6 +79,49 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildListItem(String item) {
+    return Container(
+      padding: EdgeInsets.all(20.w),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: GotchaiColorStyles.gray900,
+        borderRadius: BorderRadius.circular(12.w),
+      ),
+      margin: EdgeInsets.only(bottom: 16.h),
+      child: Row(
+        children: [
+          Image.asset("assets/icon/icon_empty_graphic.png",
+              width: 20.w, height: 20.w),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item,
+                  style: GotchaiTextStyles.body3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 4.h),
+                Text(
+                  "7개중 4개 맞췄어요",
+                  style: GotchaiTextStyles.body4
+                      .copyWith(color: GotchaiColorStyles.gray500),
+                ),
+              ],
+            ),
+          ),
+          Spacer(),
+          Text(
+            "57%",
+            style: GotchaiTextStyles.body4
+                .copyWith(color: GotchaiColorStyles.blue),
+          )
+        ],
       ),
     );
   }

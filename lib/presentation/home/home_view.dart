@@ -8,6 +8,7 @@ import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
+import 'package:turing/presentation/mybadge/my_badge_view_model.dart';
 import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
@@ -31,6 +32,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
   void warmUpProviders() {
     ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTest();
+    ref.read(myBadgeViewModelProvider.notifier).getMyBadgeList();
   }
 
   @override
