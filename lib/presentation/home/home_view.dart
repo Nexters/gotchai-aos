@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
@@ -63,13 +64,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.only(top: 100.h),
+            padding: EdgeInsets.only(top: Constants.topPadding),
             child: DefaultTabController(
                 length: 2,
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Constants.horizontalPadding),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -77,14 +79,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
                               width: 60.w, height: 60.h, fit: BoxFit.fill),
                           Button(
                               child: Image.asset('assets/icon/icon_setting.png',
-                                  width: 24.w, height: 24.w, fit: BoxFit.fill),
+                                  width: Constants.iconSize,
+                                  height: Constants.iconSize,
+                                  fit: BoxFit.fill),
                               onTap: () {}),
                         ],
                       ),
                     ),
                     SizedBox(height: 20.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Constants.horizontalPadding),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
@@ -27,7 +28,10 @@ class TestCoverView extends ConsumerWidget {
 
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.only(top: 120.h, left: 10.w, right: 10.w),
+      padding: EdgeInsets.only(
+          top: Constants.topPadding,
+          left: Constants.horizontalPadding,
+          right: Constants.horizontalPadding),
       child: Column(
         children: [
           Align(
@@ -35,7 +39,9 @@ class TestCoverView extends ConsumerWidget {
             child: Button(
               onTap: navigateToBack,
               child: Image.asset("assets/icon/icon_back.png",
-                  width: 12.w, height: 12.w, fit: BoxFit.fill),
+                  width: Constants.iconSize,
+                  height: Constants.iconSize,
+                  fit: BoxFit.fill),
             ),
           ),
           SizedBox(

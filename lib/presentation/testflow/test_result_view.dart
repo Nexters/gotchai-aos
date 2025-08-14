@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gal/gal.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/permission_util.dart';
@@ -171,7 +172,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
           ),
         ),
         Padding(
-            padding: EdgeInsets.only(right: 10.w, left: 10.w),
+            padding: EdgeInsets.only(
+                right: Constants.horizontalPadding,
+                left: Constants.horizontalPadding),
             child: SingleChildScrollView(
                 child: Column(
               children: [
@@ -215,7 +218,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
               child: Button(
                 onTap: navigateToBack,
                 child: Image.asset("assets/icon/icon_close.png",
-                    width: 12.w, height: 12.w, fit: BoxFit.fill),
+                    width: Constants.iconSize,
+                    height: Constants.iconSize,
+                    fit: BoxFit.fill),
               ),
             ),
           ),
@@ -244,7 +249,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                     ]),
               ),
               child: Padding(
-                  padding: EdgeInsets.only(bottom: 120.h),
+                  padding: EdgeInsets.only(bottom: Constants.topPadding),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -264,8 +269,8 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 children: [
                                   Image.asset(
                                     "assets/icon/icon_save.png",
-                                    width: 12.w,
-                                    height: 12.w,
+                                    width: Constants.iconSize,
+                                    height: Constants.iconSize,
                                   ),
                                   Text(
                                     " 이미지 저장",
@@ -290,8 +295,8 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 children: [
                                   Image.asset(
                                     "assets/icon/icon_insta.png",
-                                    width: 12.w,
-                                    height: 12.w,
+                                    width: Constants.iconSize,
+                                    height: Constants.iconSize,
                                   ),
                                   Text(
                                     " 배지 공유",

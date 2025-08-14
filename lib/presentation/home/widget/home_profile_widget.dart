@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
@@ -19,7 +20,7 @@ class HomeProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
+        margin: EdgeInsets.symmetric(horizontal: Constants.horizontalPadding),
         child: RefreshIndicator(
           onRefresh: onRefresh,
           color: GotchaiColorStyles.primary400,
@@ -106,8 +107,8 @@ class HomeProfileWidget extends StatelessWidget {
                           children: [
                             Image.asset(
                               'assets/icon/icon_badge.png',
-                              width: 12.w,
-                              height: 12.w,
+                              width: Constants.iconSize,
+                              height: Constants.iconSize,
                               fit: BoxFit.fill,
                             ),
                             SizedBox(
@@ -119,8 +120,8 @@ class HomeProfileWidget extends StatelessWidget {
                                 onTap: onBadgeForwardTap,
                                 child: Image.asset(
                                   "assets/icon/icon_forward.png",
-                                  width: 12.w,
-                                  height: 12.w,
+                                  width: Constants.iconSize,
+                                  height: Constants.iconSize,
                                   fit: BoxFit.fill,
                                 ))
                           ],
@@ -181,8 +182,8 @@ class HomeProfileWidget extends StatelessWidget {
                       children: [
                         Image.asset(
                           "assets/icon/icon_history.png",
-                          width: 12.w,
-                          height: 12.w,
+                          width: Constants.iconSize,
+                          height: Constants.iconSize,
                           fit: BoxFit.fill,
                         ),
                         SizedBox(
@@ -194,8 +195,8 @@ class HomeProfileWidget extends StatelessWidget {
                             onTap: onSolvedTestForwardTap,
                             child: Image.asset(
                               "assets/icon/icon_forward.png",
-                              width: 12.w,
-                              height: 12.w,
+                              width: Constants.iconSize,
+                              height: Constants.iconSize,
                               fit: BoxFit.fill,
                             ))
                       ],
