@@ -27,6 +27,9 @@ class GotchaiColorStyles {
   static const Color primary900 = Color(0xFF2A3900);
   static const Color primary950 = Color(0xFF151C00);
 
+  static const Color blue = Color(0xFF3388FF);
+  static const Color red = Color(0xFFF04D4D);
+
   static const Color gold1 = Color(0xFF615920);
   static const Color gold2 = Color(0xFF433F21);
   static const Color gold3 = Color(0xFF373521);

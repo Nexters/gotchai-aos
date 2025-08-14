@@ -16,7 +16,7 @@ class TestCoverView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
 
     void navigateToBack() {
       NavigationService().goBack();
@@ -47,19 +47,19 @@ class TestCoverView extends ConsumerWidget {
           SizedBox(
             height: 10.h,
           ),
-          Image.network(exam.iconImage,
+          Image.network(test.iconImage,
               width: 20.w, height: 20.w, fit: BoxFit.fill),
           SizedBox(
             height: 20.h,
           ),
           Text(
-            exam.title,
+            test.title,
             style: GotchaiTextStyles.title2.copyWith(
               color: GotchaiColorStyles.primary400,
             ),
           ),
           Text(
-            exam.subTitle,
+            test.subTitle,
             style: GotchaiTextStyles.title4.copyWith(
               color: GotchaiColorStyles.white,
             ),
@@ -78,7 +78,7 @@ class TestCoverView extends ConsumerWidget {
           ),
           ClipOval(
               child: Image.network(
-            exam.coverImage,
+            test.coverImage,
             width: 130.w,
             height: 130.w,
             fit: BoxFit.cover,

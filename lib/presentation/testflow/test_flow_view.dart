@@ -24,7 +24,7 @@ class TestFlowView extends ConsumerStatefulWidget {
 class _TestFlowViewState extends ConsumerState<TestFlowView> {
   @override
   Widget build(BuildContext context) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
     final testFlowViewModel = ref.watch(testFlowViewModelProvider.notifier);
     final state = ref.watch(testFlowViewModelProvider);
 
@@ -63,7 +63,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
           ImageFiltered(
             imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
             child: Image.network(
-              exam.backgroundImage,
+              test.backgroundImage,
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fill,

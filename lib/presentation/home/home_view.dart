@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
+import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
+import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
-import 'package:turing/presentation/navigation_route.dart';
-import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -21,6 +21,18 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      warmUpProviders();
+    });
+  }
+
+  void warmUpProviders() {
+    ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTest();
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
@@ -37,15 +49,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
       final futures = validImages
           .map((imageUrl) =>
-                  precacheImage(Image.network(imageUrl).image, context)
-                      .catchError((_) => null) // 에러 무시
-              )
+              precacheImage(Image.network(imageUrl).image, context)
+                  .catchError((_) => null))
           .toList();
 
       try {
         await Future.wait(futures, eagerError: false);
       } catch (e) {
-        print("⚠️ 프리캐시 중 오류: $e");
+        logger.e("프리캐시 중 오류: $e");
       }
     }
 
@@ -56,11 +67,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
         _precacheTestImages(next.testList);
       }
     });
-
-    void onItemTap(Test test) {
-      testViewModel.setCurTestInfo(test);
-      NavigationService().navigateWithSlide(NavigationRoute.testCover);
-    }
 
     return Scaffold(
         body: Padding(
@@ -126,7 +132,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           ),
                         HomeLoaded(testList: final testList) => HomeTestWidget(
                             testList: testList,
-                            onItemTap: onItemTap,
+                            onItemTap: (test) {
+                              testViewModel.setCurTestInfo(test);
+                              viewModel.navigateToTestFlow();
+                            },
                             onRefresh: () async {
                               await viewModel.getExamList();
                             }),
@@ -147,8 +156,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           alignment: Alignment.topCenter,
                           child: HomeProfileWidget(
                             onRefresh: () async {},
-                            onBadgeForwardTap: () {},
-                            onSolvedTestForwardTap: () {},
+                            onBadgeForwardTap: viewModel.navigateToMyBadge,
+                            onSolvedTestForwardTap:
+                                viewModel.navigateToMySolvedTest,
                           ))
                     ])),
                   ],

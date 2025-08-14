@@ -94,7 +94,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
 
   @override
   Widget build(BuildContext context) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
     final result = ref.watch(testFlowViewModelProvider);
 
     List<Color> getGradientColors(Tier tier) {
@@ -153,7 +153,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
     }
 
     void copyPromptToClipboard() async {
-      await Clipboard.setData(ClipboardData(text: exam.prompt));
+      await Clipboard.setData(ClipboardData(text: test.prompt));
     }
 
     return Scaffold(
@@ -191,9 +191,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                 ),
                 SizedBox(height: 60.h),
                 BadgeDescriptionCard(
-                  theme: exam.theme,
-                  prompt: exam.prompt,
-                  iconImage: exam.coverImage,
+                  theme: test.theme,
+                  prompt: test.prompt,
+                  iconImage: test.coverImage,
                   onTap: copyPromptToClipboard,
                 ),
                 SizedBox(

@@ -4,4 +4,6 @@ class Constants {
   static final double topPadding = 100.h;
   static final double horizontalPadding = 10.w;
   static final double iconSize = 12.w;
+
+  static final double bigRadius = 10.w;
 }

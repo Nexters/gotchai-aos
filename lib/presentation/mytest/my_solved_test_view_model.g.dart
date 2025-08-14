@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_view_model.dart';
+part of 'my_solved_test_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeViewModelHash() => r'f74b39bf42e3cd1b1f03232f335fc784b9f98c2b';
+String _$mySolvedTestViewModelHash() =>
+    r'182f8f86e206109a2ab37e129d851db221880b8c';
 
-/// See also [HomeViewModel].
-@ProviderFor(HomeViewModel)
-final homeViewModelProvider =
-    AutoDisposeNotifierProvider<HomeViewModel, HomeState>.internal(
-  HomeViewModel.new,
-  name: r'homeViewModelProvider',
+/// See also [MySolvedTestViewModel].
+@ProviderFor(MySolvedTestViewModel)
+final mySolvedTestViewModelProvider =
+    AutoDisposeNotifierProvider<MySolvedTestViewModel, List<String>>.internal(
+  MySolvedTestViewModel.new,
+  name: r'mySolvedTestViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$homeViewModelHash,
+      : _$mySolvedTestViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HomeViewModel = AutoDisposeNotifier<HomeState>;
+typedef _$MySolvedTestViewModel = AutoDisposeNotifier<List<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
