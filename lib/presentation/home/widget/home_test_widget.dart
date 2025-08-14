@@ -19,6 +19,7 @@ class HomeTestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: BoxDecoration(
         color: GotchaiColorStyles.gray900,
         borderRadius: BorderRadius.circular(16),

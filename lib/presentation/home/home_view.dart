@@ -63,41 +63,47 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.only(top: 100.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(top: 100.h),
             child: DefaultTabController(
                 length: 2,
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset('assets/icon/gotchai_logo.png',
-                            width: 60.w, height: 60.h, fit: BoxFit.fill),
-                        Button(
-                            child: Image.asset('assets/icon/icon_setting.png',
-                                width: 24.w, height: 24.w, fit: BoxFit.fill),
-                            onTap: () {}),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset('assets/icon/gotchai_logo.png',
+                              width: 60.w, height: 60.h, fit: BoxFit.fill),
+                          Button(
+                              child: Image.asset('assets/icon/icon_setting.png',
+                                  width: 24.w, height: 24.w, fit: BoxFit.fill),
+                              onTap: () {}),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 20.h),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: SizedBox(
-                        width: 80.w,
-                        child: TabBar(
-                          dividerHeight: 0,
-                          labelColor: GotchaiColorStyles.primary400,
-                          unselectedLabelColor: GotchaiColorStyles.gray600,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicatorColor: GotchaiColorStyles.primary400,
-                          labelStyle: GotchaiTextStyles.body2,
-                          unselectedLabelStyle: GotchaiTextStyles.body2,
-                          tabs: const [
-                            Tab(
-                              text: '테스트',
-                            ),
-                            Tab(text: '내 업적'),
-                          ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: SizedBox(
+                          width: 80.w,
+                          child: TabBar(
+                            dividerHeight: 0,
+                            labelColor: GotchaiColorStyles.primary400,
+                            unselectedLabelColor: GotchaiColorStyles.gray600,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicatorColor: GotchaiColorStyles.primary400,
+                            labelStyle: GotchaiTextStyles.body2,
+                            unselectedLabelStyle: GotchaiTextStyles.body2,
+                            tabs: const [
+                              Tab(
+                                text: '테스트',
+                              ),
+                              Tab(text: '내 업적'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -134,7 +140,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       },
                       Align(
                           alignment: Alignment.topCenter,
-                          child: HomeProfileWidget(onRefresh: () async {}))
+                          child: HomeProfileWidget(
+                            onRefresh: () async {},
+                            onBadgeForwardTap: () {},
+                            onSolvedTestForwardTap: () {},
+                          ))
                     ])),
                   ],
                 ))));
