@@ -129,25 +129,26 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(4.w),
-          width: 44.w,
-          height: 44.w,
-          decoration: BoxDecoration(
-            color: GotchaiColorStyles.gray800,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.w),
+            width: 44.w,
+            height: 44.w,
+            decoration: BoxDecoration(
+              color: GotchaiColorStyles.gray800,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: badge.examId == -1
-                ? Image.asset(
-                    'assets/icon/icon_questionmark.png',
-                    width: 20.w,
-                    height: 20.w,
+                ? Center(
+                    // Center로 감싸기
+                    child: Image.asset(
+                      'assets/icon/icon_questionmark.png',
+                      width: 24.w,
+                      height: 24.w,
+                    ),
                   )
-                : Image.network(
+                : Center(
+                    child: Image.network(
                     badge.image,
-                    width: 20.w,
-                    height: 20.w,
+                    width: 40.w,
+                    height: 40.w,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
@@ -156,10 +157,8 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                         height: 20.w,
                       );
                     },
-                  ),
-          ),
-        ),
-        SizedBox(height: 4.h),
+                  ))),
+        SizedBox(height: 10.h),
         Text(
           badge.name,
           style: GotchaiTextStyles.body6,

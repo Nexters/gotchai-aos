@@ -21,11 +21,11 @@ class MyBadgeViewModel extends _$MyBadgeViewModel {
     await ProfileService().getMyBadgeList().then((result) {
       if (result is Success<MyBadgeResponse>) {
         final badges = result.data.list;
-        final totalBadgeCount = 15;
+        final totalBadgeCount = 8;
         state = [
           ...badges,
           ...List.generate(
-              (totalBadgeCount - badges.length), // 0과 50 사이로 제한
+              (totalBadgeCount - badges.length),
               (index) => MyBadgeItem(
                   id: -1,
                   examId: -1,
