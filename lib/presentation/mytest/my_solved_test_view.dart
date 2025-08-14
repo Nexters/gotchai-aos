@@ -4,6 +4,7 @@ import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/data/models/my_solved_test_response.dart';
 import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -21,7 +22,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTest();
+      ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTestList();
     });
   }
 
@@ -51,7 +52,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
                 SizedBox(width: 12.w)
               ],
             ),
-            SizedBox(height: 80.h),
+            SizedBox(height: 40.h),
             Expanded(
               child: state.isEmpty
                   ? Center(
@@ -63,11 +64,12 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
                     )
                   : RefreshIndicator(
                       onRefresh: () async {
-                        viewModel.getMySolvedTest();
+                        viewModel.getMySolvedTestList();
                       },
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            SizedBox(height: 40.h),
                             ...state.map((item) {
                               return _buildListItem(item);
                             }),
@@ -83,37 +85,39 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
     );
   }
 
-  Widget _buildListItem(String item) {
+  Widget _buildListItem(MySolvedTest item) {
     return Container(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
       width: double.infinity,
       decoration: BoxDecoration(
         color: GotchaiColorStyles.gray900,
         borderRadius: BorderRadius.circular(12.w),
       ),
-      margin: EdgeInsets.only(bottom: 16.h),
+      margin: EdgeInsets.only(bottom: 30.h),
       child: Row(
         children: [
-          Image.asset("assets/icon/icon_empty_graphic.png",
-              width: 20.w, height: 20.w),
+          Image.network(
+            item.iconImage,
+            width: 22.w,
+            height: 22.w,
+            fit: BoxFit.fill,
+          ),
           SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item,
-                  style: GotchaiTextStyles.body3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 4.h),
-                Text(
-                  "7개중 4개 맞췄어요",
-                  style: GotchaiTextStyles.body4
-                      .copyWith(color: GotchaiColorStyles.gray500),
-                ),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.title,
+                style: GotchaiTextStyles.body3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(height: 4.h),
+              Text(
+                "7개중 4개 맞췄어요",
+                style: GotchaiTextStyles.body4
+                    .copyWith(color: GotchaiColorStyles.gray500),
+              ),
+            ],
           ),
           Spacer(),
           Text(

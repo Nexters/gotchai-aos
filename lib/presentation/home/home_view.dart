@@ -31,7 +31,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   void warmUpProviders() {
-    ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTest();
+    ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTestList();
     ref.read(myBadgeViewModelProvider.notifier).getMyBadgeList();
   }
 

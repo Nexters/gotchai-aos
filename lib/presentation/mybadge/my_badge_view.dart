@@ -54,19 +54,20 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
               SizedBox(width: 12.w)
             ],
           ),
-          SizedBox(height: 80.h),
+          SizedBox(height: 40.h),
           Expanded(
               child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
+                SizedBox(height: 40.h),
                 state.isEmpty
                     ? SizedBox.shrink()
                     : Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: GotchaiColorStyles.primary900,
-                          borderRadius: BorderRadius.circular(12.w),
+                          borderRadius: BorderRadius.circular(10.w),
                         ),
                         padding: EdgeInsets.all(8.w),
                         child: Row(
@@ -91,14 +92,11 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                         )),
                 SizedBox(height: 20.h),
                 state.isEmpty
-                    ? SizedBox(
-                        height: 200.h,
-                        child: Center(
-                          child: Text(
-                            "아직 획득한 배지가 없어요",
-                            style: GotchaiTextStyles.body3
-                                .copyWith(color: GotchaiColorStyles.gray500),
-                          ),
+                    ? Center(
+                        child: Text(
+                          "아직 획득한 배지가 없어요",
+                          style: GotchaiTextStyles.body3
+                              .copyWith(color: GotchaiColorStyles.gray500),
                         ),
                       )
                     : GridView.builder(
