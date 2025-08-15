@@ -54,7 +54,7 @@ class CustomSnackBar {
           ],
         ),
         backgroundColor: backgroundColor,
-        duration: duration ?? Duration(seconds: 2),
+        duration: duration ?? Duration(seconds: 1),
         behavior: SnackBarBehavior.floating,
         margin:
             margin ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.w),

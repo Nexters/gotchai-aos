@@ -25,10 +25,10 @@ class HomeLoaded extends HomeState {
   const HomeLoaded(this.testList);
 }
 
-class HomeError extends HomeState {
+class HomeFailure extends HomeState {
   final String message;
 
-  const HomeError(this.message);
+  const HomeFailure(this.message);
 }
 
 @riverpod
@@ -44,10 +44,10 @@ class HomeViewModel extends _$HomeViewModel {
       if (result is Success<TestListResponse>) {
         state = HomeLoaded(result.data.list);
       } else if (result is Error<TestListResponse>) {
-        state = HomeError(result.message);
+        state = HomeFailure(result.message);
       }
     }).catchError((error) {
-      state = HomeError('예상치 못한 오류가 발생했습니다: ${error.toString()}');
+      state = HomeFailure('예상치 못한 오류가 발생했습니다: ${error.toString()}');
     });
   }
 

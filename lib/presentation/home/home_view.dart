@@ -8,6 +8,7 @@ import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
 import 'package:turing/presentation/mybadge/my_badge_view_model.dart';
 import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
 import 'package:turing/widgets/button.dart';
@@ -40,9 +41,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final homeState = ref.watch(homeViewModelProvider);
 
     ref.listen<HomeState>(homeViewModelProvider, (previous, next) {
-      if (previous is HomeLoading &&
-          next is HomeLoaded &&
-          next.testList.isNotEmpty) {}
+      if (next is HomeFailure) {
+        CustomSnackBar.showError(context, next.message);
+      }
     });
 
     return Scaffold(
@@ -118,7 +119,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             onRefresh: () async {
                               await viewModel.getExamList();
                             }),
-                        HomeError(message: final message) => Center(
+                        HomeFailure(message: final message) => Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

@@ -6,6 +6,7 @@ import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/popup/auth_popup.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/presentation/setting/setting_view_model.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -31,6 +32,12 @@ class _SettingViewState extends ConsumerState<SettingView> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(settingViewModelProvider.notifier);
+
+    ref.listen<SettingState>(settingViewModelProvider, (previous, next) {
+      if (next is SettingFailure) {
+        CustomSnackBar.showError(context, next.message);
+      }
+    });
 
     return Scaffold(
       body: Padding(

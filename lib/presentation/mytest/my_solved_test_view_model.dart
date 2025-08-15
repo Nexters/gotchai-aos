@@ -6,11 +6,33 @@ import 'package:turing/presentation/navigation_service.dart';
 
 part 'my_solved_test_view_model.g.dart';
 
+sealed class MySolvedTestState {
+  const MySolvedTestState();
+}
+
+class MySolvedTestInitial extends MySolvedTestState {
+  const MySolvedTestInitial();
+}
+
+class MySolvedTestLoading extends MySolvedTestState {
+  const MySolvedTestLoading();
+}
+
+class MySolvedTestLoaded extends MySolvedTestState {
+  final List<MySolvedTest> list;
+  const MySolvedTestLoaded(this.list);
+}
+
+class MySolvedTestFailure extends MySolvedTestState {
+  final String message;
+  const MySolvedTestFailure(this.message);
+}
+
 @riverpod
 class MySolvedTestViewModel extends _$MySolvedTestViewModel {
   @override
-  List<MySolvedTest> build() {
-    return [];
+  MySolvedTestState build() {
+    return MySolvedTestInitial();
   }
 
   void navigateToback() {
@@ -20,8 +42,12 @@ class MySolvedTestViewModel extends _$MySolvedTestViewModel {
   Future<void> getMySolvedTestList() async {
     await ProfileService().getMySolvedTestList().then((result) {
       if (result is Success<MySolvedTestResponse>) {
-        state = result.data.list;
-      } else if (result is Error<MySolvedTestResponse>) {}
-    }).catchError((error) {});
+        state = MySolvedTestLoaded(result.data.list);
+      } else if (result is Error<MySolvedTestResponse>) {
+        state = MySolvedTestFailure(result.message);
+      }
+    }).catchError((error) {
+      state = MySolvedTestFailure(error.toString());
+    });
   }
 }

@@ -7,12 +7,12 @@ part of 'my_solved_test_view_model.dart';
 // **************************************************************************
 
 String _$mySolvedTestViewModelHash() =>
-    r'1e31ad1dc10621056661fa2d9f9c971187ba4815';
+    r'e6b571577a7152794cb5e1ae87a7e80b5386c675';
 
 /// See also [MySolvedTestViewModel].
 @ProviderFor(MySolvedTestViewModel)
 final mySolvedTestViewModelProvider = AutoDisposeNotifierProvider<
-    MySolvedTestViewModel, List<MySolvedTest>>.internal(
+    MySolvedTestViewModel, MySolvedTestState>.internal(
   MySolvedTestViewModel.new,
   name: r'mySolvedTestViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final mySolvedTestViewModelProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$MySolvedTestViewModel = AutoDisposeNotifier<List<MySolvedTest>>;
+typedef _$MySolvedTestViewModel = AutoDisposeNotifier<MySolvedTestState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

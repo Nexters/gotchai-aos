@@ -6,6 +6,7 @@ import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/my_solved_test_response.dart';
 import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/widgets/button.dart';
 
 class MySolvedTestView extends ConsumerStatefulWidget {
@@ -31,6 +32,13 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
     final state = ref.watch(mySolvedTestViewModelProvider);
     final viewModel = ref.read(mySolvedTestViewModelProvider.notifier);
 
+    ref.listen<MySolvedTestState>(mySolvedTestViewModelProvider,
+        (previous, next) {
+      if (next is MySolvedTestFailure) {
+        CustomSnackBar.showError(context, next.message);
+      }
+    });
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -53,32 +61,39 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
               ],
             ),
             SizedBox(height: 40.h),
-            Expanded(
-              child: state.isEmpty
-                  ? Center(
-                      child: Text(
-                        "풀었던 테스트가 없습니다",
-                        style: GotchaiTextStyles.body3
-                            .copyWith(color: GotchaiColorStyles.gray500),
-                      ),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () async {
-                        viewModel.getMySolvedTestList();
-                      },
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(height: 40.h),
-                            ...state.map((item) {
-                              return _buildListItem(item);
-                            }),
-                            SizedBox(height: 100.h)
-                          ],
+            switch (state) {
+              MySolvedTestInitial() =>
+                Center(child: CircularProgressIndicator()),
+              MySolvedTestLoading() =>
+                Center(child: CircularProgressIndicator()),
+              MySolvedTestLoaded() => Expanded(
+                  child: state.list.isEmpty
+                      ? Center(
+                          child: Text(
+                            "풀었던 테스트가 없습니다",
+                            style: GotchaiTextStyles.body3
+                                .copyWith(color: GotchaiColorStyles.gray500),
+                          ),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            viewModel.getMySolvedTestList();
+                          },
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(height: 40.h),
+                                ...state.list.map((item) {
+                                  return _buildListItem(item);
+                                }),
+                                SizedBox(height: 100.h)
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-            ),
+                ),
+              MySolvedTestFailure() => Center(child: Text("Error"))
+            }
           ],
         ),
       ),

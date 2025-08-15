@@ -1,4 +1,3 @@
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/data/datasources/remote/login_service.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/presentation/navigation_route.dart';
@@ -39,7 +38,7 @@ class SettingViewModel extends _$SettingViewModel {
         state = SettingFailure('로그아웃 실패 : ${result.message}');
       }
     }).catchError((error) {
-      logger.e('로그인 실패 : $error');
+      state = SettingFailure('예외 발생 : ${error.toString()}');
     });
   }
 }

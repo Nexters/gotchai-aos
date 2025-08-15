@@ -6,6 +6,7 @@ import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/presentation/mybadge/my_badge_view_model.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/widgets/button.dart';
 
 class MyBadgeView extends ConsumerStatefulWidget {
@@ -31,6 +32,12 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
     final state = ref.watch(myBadgeViewModelProvider);
     final viewModel = ref.read(myBadgeViewModelProvider.notifier);
 
+    ref.listen<MyBadgeState>(myBadgeViewModelProvider, (previous, next) {
+      if (next is MyBadgeFailure) {
+        CustomSnackBar.showError(context, next.message);
+      }
+    });
+
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.only(
@@ -55,69 +62,68 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
             ],
           ),
           SizedBox(height: 40.h),
-          Expanded(
-              child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                SizedBox(height: 40.h),
-                state.isEmpty
-                    ? SizedBox.shrink()
-                    : Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: GotchaiColorStyles.primary900,
-                          borderRadius: BorderRadius.circular(10.w),
-                        ),
-                        padding: EdgeInsets.all(8.w),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/icon/icon_party.png",
-                              width: 20.w,
-                              height: 20.w,
-                              fit: BoxFit.fill,
+          switch (state) {
+            MyBadgeInitial() => SizedBox.shrink(),
+            MyBadgeLoading() => Center(child: CircularProgressIndicator()),
+            MybadgeLoaded() => Expanded(
+                  child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    SizedBox(height: 40.h),
+                    state.badges.isEmpty
+                        ? SizedBox.shrink()
+                        : Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: GotchaiColorStyles.primary900,
+                              borderRadius: BorderRadius.circular(10.w),
                             ),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            padding: EdgeInsets.all(8.w),
+                            child: Row(
                               children: [
-                                Text("축하해요", style: GotchaiTextStyles.body6),
-                                Text("${state.length}개의 배지를 모았어요!",
-                                    style: GotchaiTextStyles.body2.copyWith(
-                                        color: GotchaiColorStyles.primary400))
+                                Image.asset(
+                                  "assets/icon/icon_party.png",
+                                  width: 20.w,
+                                  height: 20.w,
+                                  fit: BoxFit.fill,
+                                ),
+                                SizedBox(width: 10.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("축하해요",
+                                        style: GotchaiTextStyles.body6),
+                                    Text("${state.badges.length}개의 배지를 모았어요!",
+                                        style: GotchaiTextStyles.body2.copyWith(
+                                            color:
+                                                GotchaiColorStyles.primary400))
+                                  ],
+                                )
                               ],
-                            )
-                          ],
-                        )),
-                SizedBox(height: 20.h),
-                state.isEmpty
-                    ? Center(
-                        child: Text(
-                          "아직 획득한 배지가 없어요",
-                          style: GotchaiTextStyles.body3
-                              .copyWith(color: GotchaiColorStyles.gray500),
-                        ),
-                      )
-                    : GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 8.w,
-                          mainAxisSpacing: 12.h,
-                          childAspectRatio: 0.8,
-                        ),
-                        itemCount: state.length,
-                        itemBuilder: (context, index) {
-                          final badge = state[index];
-                          return _buildBadgeItem(badge);
-                        },
+                            )),
+                    SizedBox(height: 20.h),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8.w,
+                        mainAxisSpacing: 12.h,
+                        childAspectRatio: 0.8,
                       ),
-                SizedBox(height: 120.h),
-              ],
-            ),
-          )),
+                      itemCount: state.badges.length,
+                      itemBuilder: (context, index) {
+                        final badge = state.badges[index];
+                        return _buildBadgeItem(badge);
+                      },
+                    ),
+                    SizedBox(height: 120.h),
+                  ],
+                ),
+              )),
+            MyBadgeFailure() => Center(child: Text("Error"))
+          },
         ],
       ),
     ));

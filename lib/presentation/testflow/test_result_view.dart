@@ -7,11 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gal/gal.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/permission_util.dart';
 
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/testflow/widget/badge_card.dart';
@@ -53,41 +53,12 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
         );
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "배지 이미지가 갤러리에 저장되었습니다!",
-                style: GotchaiTextStyles.body3,
-              ),
-              backgroundColor: GotchaiColorStyles.gray700,
-              duration: Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.symmetric(horizontal: 20.w),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          );
+          CustomSnackBar.showInfo(context, "배지 이미지가 앨범에 저장되었습니다");
         }
       }
     } catch (e) {
-      logger.e("이미지 저장 실패: $e");
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              "이미지 저장에 실패했습니다: ${e.toString()}",
-              style: GotchaiTextStyles.body3,
-            ),
-            backgroundColor: GotchaiColorStyles.gray700,
-            duration: Duration(seconds: 2),
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        );
+        CustomSnackBar.showError(context, e.toString());
       }
     }
   }
