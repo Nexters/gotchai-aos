@@ -20,20 +20,14 @@ class MyBadgeViewModel extends _$MyBadgeViewModel {
   Future<void> getMyBadgeList() async {
     await ProfileService().getMyBadgeList().then((result) {
       if (result is Success<MyBadgeResponse>) {
-        final badges = result.data.list;
-        final totalBadgeCount = 8;
+        final badges = result.data.badges;
+        final totalBadgeCount = result.data.totalBadgeCount;
         state = [
           ...badges,
           ...List.generate(
               (totalBadgeCount - badges.length),
               (index) => MyBadgeItem(
-                  id: -1,
-                  examId: -1,
-                  name: "숨겨진 배지",
-                  description: "",
-                  image: "",
-                  tier: "NONE",
-                  createdAt: ""))
+                  id: -1, name: "숨겨진 배지", image: "", acquiredAt: ""))
         ];
       } else if (result is Error<MyBadgeResponse>) {}
     }).catchError((error) {});

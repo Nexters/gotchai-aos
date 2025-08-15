@@ -88,3 +88,6 @@ flutter:
     - assets/icon/icon_forward.png
     - assets/icon/icon_party.png
     - assets/icon/icon_questionmark.png
+    - assets/icon/icon_note.png
+    - assets/icon/icon_safe.png
+    - assets/icon/icon_ask.png

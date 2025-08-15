@@ -62,4 +62,8 @@ class HomeViewModel extends _$HomeViewModel {
   void navigateToMySolvedTest() {
     NavigationService().navigateWithSlide(NavigationRoute.mySolvedTest);
   }
+
+  void navigateToSetting() {
+    NavigationService().navigateWithSlide(NavigationRoute.setting);
+  }
 }

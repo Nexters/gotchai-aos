@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
 import 'package:turing/presentation/mybadge/my_badge_view_model.dart';
@@ -41,33 +39,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final testViewModel = ref.watch(testViewModelProvider.notifier);
     final homeState = ref.watch(homeViewModelProvider);
 
-    Future<void> _precacheTestImages(List<Test> testList) async {
-      final validImages = testList
-          .where((test) => test.iconImage.isNotEmpty)
-          .map((test) => test.iconImage)
-          .toList();
-
-      if (validImages.isEmpty) return;
-
-      final futures = validImages
-          .map((imageUrl) =>
-              precacheImage(Image.network(imageUrl).image, context)
-                  .catchError((_) => null))
-          .toList();
-
-      try {
-        await Future.wait(futures, eagerError: false);
-      } catch (e) {
-        logger.e("프리캐시 중 오류: $e");
-      }
-    }
-
     ref.listen<HomeState>(homeViewModelProvider, (previous, next) {
       if (previous is HomeLoading &&
           next is HomeLoaded &&
-          next.testList.isNotEmpty) {
-        _precacheTestImages(next.testList);
-      }
+          next.testList.isNotEmpty) {}
     });
 
     return Scaffold(
@@ -90,7 +65,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                   width: Constants.iconSize,
                                   height: Constants.iconSize,
                                   fit: BoxFit.fill),
-                              onTap: () {}),
+                              onTap: () {
+                                viewModel.navigateToSetting();
+                              }),
                         ],
                       ),
                     ),

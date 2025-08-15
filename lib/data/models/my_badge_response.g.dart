@@ -8,33 +8,29 @@ part of 'my_badge_response.dart';
 
 MyBadgeResponse _$MyBadgeResponseFromJson(Map<String, dynamic> json) =>
     MyBadgeResponse(
-      list: (json['list'] as List<dynamic>)
+      badges: (json['badges'] as List<dynamic>)
           .map((e) => MyBadgeItem.fromJson(e as Map<String, dynamic>))
           .toList(),
+      totalBadgeCount: (json['totalBadgeCount'] as num).toInt(),
     );
 
 Map<String, dynamic> _$MyBadgeResponseToJson(MyBadgeResponse instance) =>
     <String, dynamic>{
-      'list': instance.list,
+      'badges': instance.badges,
+      'totalBadgeCount': instance.totalBadgeCount,
     };
 
 MyBadgeItem _$MyBadgeItemFromJson(Map<String, dynamic> json) => MyBadgeItem(
       id: (json['id'] as num).toInt(),
-      examId: (json['examId'] as num).toInt(),
       name: json['name'] as String,
-      description: json['description'] as String,
       image: json['image'] as String,
-      tier: json['tier'] as String,
-      createdAt: json['createdAt'] as String,
+      acquiredAt: json['acquiredAt'] as String,
     );
 
 Map<String, dynamic> _$MyBadgeItemToJson(MyBadgeItem instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'examId': instance.examId,
       'name': instance.name,
-      'description': instance.description,
       'image': instance.image,
-      'tier': instance.tier,
-      'createdAt': instance.createdAt,
+      'acquiredAt': instance.acquiredAt,
     };

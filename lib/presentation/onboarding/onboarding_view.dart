@@ -24,7 +24,7 @@ class OnboardingView extends ConsumerWidget {
       if (state.currentPage < viewModel.onboardingData.length - 1) {
         pageController.animateToPage(
           state.currentPage + 1,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
         );
 

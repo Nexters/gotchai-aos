@@ -6,7 +6,7 @@ part of 'my_badge_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myBadgeViewModelHash() => r'a5778301cfa9fa5dabd31d0b5f0d50697e55a12f';
+String _$myBadgeViewModelHash() => r'61493ba9ce9a2c13c6e10630bbc4f6f991a6b778';
 
 /// See also [MyBadgeViewModel].
 @ProviderFor(MyBadgeViewModel)

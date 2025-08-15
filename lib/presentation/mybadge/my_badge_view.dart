@@ -133,7 +133,7 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
               color: GotchaiColorStyles.gray800,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: badge.examId == -1
+            child: badge.id == -1
                 ? Center(
                     // Center로 감싸기
                     child: Image.asset(

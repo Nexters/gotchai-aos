@@ -4,10 +4,12 @@ part 'my_badge_response.g.dart';
 
 @JsonSerializable()
 class MyBadgeResponse {
-  final List<MyBadgeItem> list;
+  final List<MyBadgeItem> badges;
+  final int totalBadgeCount;
 
   MyBadgeResponse({
-    required this.list,
+    required this.badges,
+    required this.totalBadgeCount,
   });
 
   factory MyBadgeResponse.fromJson(Map<String, dynamic> json) =>
@@ -19,21 +21,15 @@ class MyBadgeResponse {
 @JsonSerializable()
 class MyBadgeItem {
   final int id;
-  final int examId;
   final String name;
-  final String description;
   final String image;
-  final String tier;
-  final String createdAt;
+  final String acquiredAt;
 
   MyBadgeItem({
     required this.id,
-    required this.examId,
     required this.name,
-    required this.description,
     required this.image,
-    required this.tier,
-    required this.createdAt,
+    required this.acquiredAt,
   });
 
   factory MyBadgeItem.fromJson(Map<String, dynamic> json) =>

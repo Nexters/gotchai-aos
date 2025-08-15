@@ -149,7 +149,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
     }
 
     void navigateToBack() {
-      NavigationService().navigateClearWithSlide(NavigationRoute.home);
+      NavigationService().navigateClear(NavigationRoute.home);
     }
 
     void copyPromptToClipboard() async {
