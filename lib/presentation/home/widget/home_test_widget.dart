@@ -4,6 +4,7 @@ import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/test_list_response.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
 
 class HomeTestWidget extends StatelessWidget {
   final List<Test> testList;
@@ -58,7 +59,9 @@ class HomeTestWidget extends StatelessWidget {
               ...testList.map((test) {
                 return GestureDetector(
                   onTap: () {
-                    onItemTap(test);
+                    test.isSolved
+                        ? CustomSnackBar.showInfo(context, "이미 푼 문제입니다")
+                        : onItemTap(test);
                   },
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 10),
@@ -74,6 +77,7 @@ class HomeTestWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Stack(
+                          alignment: Alignment.center,
                           children: [
                             Container(
                               width: 40.w,
@@ -88,6 +92,11 @@ class HomeTestWidget extends StatelessWidget {
                                   width: 22.w,
                                   height: 22.w,
                                   fit: BoxFit.fill,
+                                  color: test.isSolved
+                                      ? Colors.grey.shade700
+                                      : null,
+                                  colorBlendMode:
+                                      test.isSolved ? BlendMode.modulate : null,
                                   errorBuilder: (context, error, stackTrace) {
                                     return Image.asset(
                                       'assets/icon/icon_empty_graphic.png',
@@ -99,6 +108,23 @@ class HomeTestWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            test.isSolved
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(42, 43, 47, 0.7),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 4.w, vertical: 2.w),
+                                    child: Center(
+                                      child: Text(
+                                        "풀기 완료",
+                                        style: GotchaiTextStyles.body6.copyWith(
+                                          color: GotchaiColorStyles.gray50,
+                                        ),
+                                      ),
+                                    ))
+                                : SizedBox.shrink(),
                           ],
                         ),
                         SizedBox(width: 6.w),
