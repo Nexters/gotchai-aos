@@ -9,7 +9,7 @@ import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/permission_util.dart';
 
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
@@ -149,7 +149,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                SizedBox(height: 200.h),
+                SizedBox(height: 112.h),
                 RepaintBoundary(
                   key: _badgeCardKey,
                   child: BadgeCardWidget(
@@ -160,7 +160,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                     description: result.testResultData.description,
                   ),
                 ),
-                SizedBox(height: 60.h),
+                SizedBox(height: 24.h),
                 BadgeDescriptionCard(
                   theme: test.theme,
                   prompt: test.prompt,
@@ -168,13 +168,13 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                   onTap: copyPromptToClipboard,
                 ),
                 SizedBox(
-                  height: 400.h,
+                  height: 150.h,
                 )
               ],
             ))),
         Container(
           width: double.infinity,
-          height: 200.h,
+          height: 112.h,
           decoration: BoxDecoration(
               gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -183,7 +183,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
             stops: [0.0, 1.0],
           )),
           child: Padding(
-            padding: EdgeInsets.only(right: 6.w, bottom: 6.w),
+            padding: EdgeInsets.only(right: 27.w, bottom: 35.h),
             child: Align(
               alignment: Alignment.bottomRight,
               child: Button(
@@ -201,7 +201,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
           left: 0,
           right: 0,
           child: Container(
-              height: 400.h,
+              height: 162.h,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: GotchaiColorStyles.gray950,
@@ -225,12 +225,12 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        width: 10.w,
+                        width: 24.w,
                       ),
                       Expanded(
                           child: Button(
                               onTap: saveBadgeCardAsImage,
-                              height: 120.h,
+                              height: 54.h,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.primary100,
                                 borderRadius: BorderRadius.circular(16),
@@ -251,12 +251,12 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 ],
                               ))),
                       SizedBox(
-                        width: 10.w,
+                        width: 12.w,
                       ),
                       Expanded(
                           child: Button(
                               onTap: () {},
-                              height: 120.h,
+                              height: 54.h,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.primary400,
                                 borderRadius: BorderRadius.circular(16),
@@ -277,7 +277,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 ],
                               ))),
                       SizedBox(
-                        width: 10.w,
+                        width: 24.w,
                       ),
                     ],
                   ))),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
@@ -17,21 +17,21 @@ class TestIntroView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
 
     void navigateToBack() {
       NavigationService().goBackUntil(NavigationRoute.home);
     }
 
     void navigateToTestFlow() {
-      ref.watch(testFlowViewModelProvider.notifier).startTest(exam.id);
+      ref.watch(testFlowViewModelProvider.notifier).startTest(test.id);
       NavigationService().navigateWithFade(NavigationRoute.testFlow);
     }
 
     return Scaffold(
         body: Stack(
       children: [
-        Image.network(exam.backgroundImage,
+        Image.network(test.backgroundImage,
             width: double.infinity, height: double.infinity, fit: BoxFit.fill),
         Container(
           width: double.infinity,
@@ -75,17 +75,17 @@ class TestIntroView extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: 80.h,
+                height: 40.h,
               ),
-              Text(exam.description, style: GotchaiTextStyles.body1),
+              Text(test.description, style: GotchaiTextStyles.body1),
               Spacer(),
               Button(
                 onTap: navigateToTestFlow,
-                width: double.infinity,
-                height: 120.h,
+                width: 345.w,
+                height: 57.h,
                 child: Container(
-                  width: double.infinity,
-                  height: 120.h,
+                  width: 345.w,
+                  height: 57.h,
                   decoration: BoxDecoration(
                     color: GotchaiColorStyles.primary400,
                     borderRadius: BorderRadius.circular(16),
@@ -100,7 +100,7 @@ class TestIntroView extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: 120.h,
+                height: 50.h,
               ),
             ],
           ),

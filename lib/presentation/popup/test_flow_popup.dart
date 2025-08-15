@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -20,34 +20,34 @@ class TestFlowPopup {
         return AlertDialog(
           backgroundColor: GotchaiColorStyles.gray900,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.w),
+            borderRadius: BorderRadius.circular(16.w),
           ),
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+              EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // 아이콘
+              SizedBox(
+                height: 16.h,
+              ),
               switch (type) {
                 QuizResult.correct => Image.asset(
                     "assets/icon/icon_correct.png",
-                    width: 80.w,
-                    height: 60.w,
+                    width: 190.w,
+                    height: 123.h,
                   ),
                 QuizResult.wrong => Image.asset(
                     "assets/icon/icon_wrong.png",
-                    width: 80.w,
-                    height: 60.w,
+                    width: 190.w,
+                    height: 123.h,
                   ),
                 QuizResult.timeout => Image.asset(
                     "assets/icon/icon_timeout.png",
-                    width: 80.w,
-                    height: 60.w,
+                    width: 190.w,
+                    height: 123.h,
                   ),
               },
-
-              SizedBox(height: 30.h),
-
+              SizedBox(height: 36.h),
               Text(
                   switch (type) {
                     QuizResult.correct => "AI를 찾아냈어요!",
@@ -55,15 +55,13 @@ class TestFlowPopup {
                     QuizResult.timeout => "시간이 초과됐어요!",
                   },
                   style: GotchaiTextStyles.subtitle1),
-
-              SizedBox(height: 30.h),
-
+              SizedBox(height: 20.h),
               Container(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 6.w, vertical: 30.h),
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   decoration: BoxDecoration(
                     color: GotchaiColorStyles.gray800,
-                    borderRadius: BorderRadius.circular(8.w),
+                    borderRadius: BorderRadius.circular(16.w),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -81,16 +79,14 @@ class TestFlowPopup {
                       ),
                     ],
                   )),
-
-              SizedBox(height: 60.h),
-
+              SizedBox(height: 32.h),
               Button(
                 onTap: onButtonPressed,
                 width: double.infinity,
-                height: 120.h,
+                height: 57.h,
                 child: Container(
                   width: double.infinity,
-                  height: 120.h,
+                  height: 57.h,
                   decoration: BoxDecoration(
                     color: GotchaiColorStyles.primary400,
                     borderRadius: BorderRadius.circular(16),

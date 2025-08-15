@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
@@ -49,7 +49,7 @@ class OnboardingView extends ConsumerWidget {
             height: Constants.topPadding,
           ),
           Padding(
-              padding: EdgeInsets.only(right: 12.w),
+              padding: EdgeInsets.only(right: 32.w),
               child: Align(
                 alignment: Alignment.topRight,
                 child: Button(
@@ -71,19 +71,19 @@ class OnboardingView extends ConsumerWidget {
                 final data = viewModel.onboardingData[index];
                 return Column(
                   children: [
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 68.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      padding: EdgeInsets.symmetric(horizontal: 43.w),
                       child: Image.asset(
                         data['image']!,
-                        width: 140.w,
-                        height: 160.w,
+                        width: 307.w,
+                        height: 348.h,
                         fit: BoxFit.fill,
                       ),
                     ),
-                    SizedBox(height: 100.h),
+                    SizedBox(height: 44.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 26.w),
+                      padding: EdgeInsets.symmetric(horizontal: 68.w),
                       child: Text(
                         data['text']!,
                         textAlign: TextAlign.center,
@@ -95,14 +95,14 @@ class OnboardingView extends ConsumerWidget {
               },
             ),
           ),
-          SizedBox(height: 32.h),
+          SizedBox(height: 78.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               viewModel.onboardingData.length,
               (index) => AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin: EdgeInsets.symmetric(horizontal: 0.1.w),
+                margin: EdgeInsets.symmetric(horizontal: 6.w),
                 width: 6.w,
                 height: 6,
                 decoration: BoxDecoration(
@@ -114,16 +114,16 @@ class OnboardingView extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 80.h),
+          SizedBox(height: 40.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Button(
               onTap: onNextTab,
               width: double.infinity,
-              height: 120.h,
+              height: 57.h,
               child: Container(
                 width: double.infinity,
-                height: 120.h,
+                height: 57.h,
                 decoration: BoxDecoration(
                   color: GotchaiColorStyles.primary400,
                   borderRadius: BorderRadius.circular(16),
@@ -138,7 +138,7 @@ class OnboardingView extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 120.h),
+          SizedBox(height: 50.h),
         ],
       ),
     );

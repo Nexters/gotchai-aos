@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/screen_util.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 
@@ -32,20 +32,20 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-      builder: (context, child) {
-        ScreenUtil.setContext(context);
-        return child!;
-      },
-      title: 'Gotchai',
-      theme: ThemeData(
-        fontFamily: 'Pretendard',
-        scaffoldBackgroundColor: GotchaiColorStyles.gray950,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      initialRoute: NavigationRoute.onboarding,
-      routes: NavigationRoute.routes,
-      navigatorKey: NavigationService.navigatorKey,
-    );
+    return ScreenUtilInit(
+        designSize: const Size(393, 852),
+        builder: (context, child) {
+          return MaterialApp(
+            title: 'Gotchai',
+            theme: ThemeData(
+              fontFamily: 'Pretendard',
+              scaffoldBackgroundColor: GotchaiColorStyles.gray950,
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            ),
+            initialRoute: NavigationRoute.onboarding,
+            routes: NavigationRoute.routes,
+            navigatorKey: NavigationService.navigatorKey,
+          );
+        });
   }
 }

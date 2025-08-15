@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
@@ -60,12 +60,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Image.asset('assets/icon/gotchai_logo.png',
-                              width: 60.w, height: 60.h, fit: BoxFit.fill),
+                              width: 110.w, height: 22.h, fit: BoxFit.fill),
                           Button(
                               child: Image.asset('assets/icon/icon_setting.png',
-                                  width: Constants.iconSize,
-                                  height: Constants.iconSize,
-                                  fit: BoxFit.fill),
+                                  width: 26.w, height: 26.w, fit: BoxFit.fill),
                               onTap: () {
                                 viewModel.navigateToSetting();
                               }),
@@ -79,7 +77,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: 80.w,
+                          width: 170.w,
                           child: TabBar(
                             dividerHeight: 0,
                             labelColor: GotchaiColorStyles.primary400,
@@ -99,7 +97,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                      height: 20.h,
                     ),
                     Expanded(
                         child: TabBarView(children: [

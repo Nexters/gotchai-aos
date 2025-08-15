@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/popup/custom_snackbar.dart';
@@ -26,7 +26,7 @@ class HomeTestWidget extends StatelessWidget {
         color: GotchaiColorStyles.gray900,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: RefreshIndicator(
         onRefresh: onRefresh,
         color: GotchaiColorStyles.primary400,
@@ -36,13 +36,13 @@ class HomeTestWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40.h),
+              SizedBox(height: 20.h),
               Image.asset(
                 'assets/icon/icon_ab.png',
-                width: 20.w,
-                height: 10.w,
+                width: 40.w,
+                height: 20.h,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 16.h),
               // 텍스트
               Text(
                 "테스트",
@@ -54,7 +54,7 @@ class HomeTestWidget extends StatelessWidget {
                 style: GotchaiTextStyles.body4
                     .copyWith(color: GotchaiColorStyles.gray400),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 16.h),
 
               ...testList.map((test) {
                 return GestureDetector(
@@ -64,10 +64,10 @@ class HomeTestWidget extends StatelessWidget {
                         : onItemTap(test);
                   },
                   child: Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 16,
+                    margin: EdgeInsets.only(bottom: 12.h),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 10.h,
+                      horizontal: 10.w,
                     ),
                     decoration: BoxDecoration(
                       color: GotchaiColorStyles.gray800,
@@ -80,8 +80,8 @@ class HomeTestWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           children: [
                             Container(
-                              width: 40.w,
-                              height: 40.w,
+                              width: 80.w,
+                              height: 80.w,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.gray900,
                                 shape: BoxShape.circle,
@@ -89,8 +89,8 @@ class HomeTestWidget extends StatelessWidget {
                               child: Center(
                                 child: Image.network(
                                   test.iconImage,
-                                  width: 22.w,
-                                  height: 22.w,
+                                  width: 56.w,
+                                  height: 56.w,
                                   fit: BoxFit.fill,
                                   color: test.isSolved
                                       ? Colors.grey.shade700
@@ -100,9 +100,9 @@ class HomeTestWidget extends StatelessWidget {
                                   errorBuilder: (context, error, stackTrace) {
                                     return Image.asset(
                                       'assets/icon/icon_empty_graphic.png',
-                                      width: 24.w,
-                                      height: 24.w,
-                                      fit: BoxFit.cover,
+                                      width: 56.w,
+                                      height: 56.w,
+                                      fit: BoxFit.fill,
                                     );
                                   },
                                 ),
@@ -115,7 +115,7 @@ class HomeTestWidget extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 4.w, vertical: 2.w),
+                                        horizontal: 8.w, vertical: 3.h),
                                     child: Center(
                                       child: Text(
                                         "풀기 완료",
@@ -139,7 +139,7 @@ class HomeTestWidget extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(height: 4.h),
+                              SizedBox(height: 2.h),
                               Text(
                                 test.subTitle,
                                 maxLines: 1,

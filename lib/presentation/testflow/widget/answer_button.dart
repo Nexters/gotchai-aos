@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 
 enum AnswerButtonType { none, selected, unselected }
@@ -41,47 +41,43 @@ class _AnswerButtonState extends State<AnswerButton> {
             AnswerButtonType.selected => Color.fromRGBO(191, 255, 0, 0.15),
             AnswerButtonType.unselected => Color.fromRGBO(255, 255, 255, 0.05)
           },
-          borderRadius: BorderRadius.circular(10.w),
+          borderRadius: BorderRadius.circular(16.w),
         ),
         child: Container(
-            margin: EdgeInsets.all(1.w),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: switch (widget.type) {
-                  AnswerButtonType.none => Colors.transparent,
-                  AnswerButtonType.selected => GotchaiColorStyles.primary400,
-                  AnswerButtonType.unselected => Colors.transparent
-                },
-                width: 1.w,
-              ),
-              borderRadius: BorderRadius.circular(9.w),
+          margin: EdgeInsets.all(1),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: switch (widget.type) {
+                AnswerButtonType.none => Colors.transparent,
+                AnswerButtonType.selected => GotchaiColorStyles.primary400,
+                AnswerButtonType.unselected => Colors.transparent
+              },
+              width: 1,
             ),
-            child: Padding(
-              padding: EdgeInsets.all(6.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Opacity(
-                    opacity: widget.type == AnswerButtonType.unselected
-                        ? 0.3
-                        : 1.0, // 0.0 (완전 투명) ~ 1.0 (완전 불투명)
-                    child: Image.asset(
-                      widget.icon,
-                      width: 14.w,
-                      height: 14.w,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 18.h,
-                  ),
-                  Text(widget.text,
-                      style: widget.type == AnswerButtonType.unselected
-                          ? GotchaiTextStyles.body4.copyWith(
-                              color: Color.fromRGBO(255, 255, 255, 0.3))
-                          : GotchaiTextStyles.body4),
-                ],
+            borderRadius: BorderRadius.circular(16.w),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Opacity(
+                opacity: widget.type == AnswerButtonType.unselected ? 0.3 : 1.0,
+                child: Image.asset(
+                  widget.icon,
+                  width: 32.w,
+                  height: 32.w,
+                ),
               ),
-            )),
+              SizedBox(
+                height: 16.h,
+              ),
+              Text(widget.text,
+                  style: widget.type == AnswerButtonType.unselected
+                      ? GotchaiTextStyles.body4
+                          .copyWith(color: Color.fromRGBO(255, 255, 255, 0.3))
+                      : GotchaiTextStyles.body4),
+            ],
+          ),
+        ),
       ),
     );
   }
