@@ -58,37 +58,53 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                     viewModel.navigateToback();
                   }),
               Text("내 배지", style: GotchaiTextStyles.body1),
-              SizedBox(width: 12.w)
+              SizedBox(width: 26.w)
             ],
           ),
-          SizedBox(height: 40.h),
+          SizedBox(height: 10.h),
           switch (state) {
-            MyBadgeInitial() => SizedBox.shrink(),
-            MyBadgeLoading() => Center(child: CircularProgressIndicator()),
-            MybadgeLoaded() => Expanded(
+            MyBadgeInitial() => Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    height: 200.h,
+                  ),
+                  Center(child: CircularProgressIndicator())
+                ],
+              ),
+            MyBadgeLoading() => Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    height: 200.h,
+                  ),
+                  Center(child: CircularProgressIndicator())
+                ],
+              ),
+            MyBadgeLoaded() => Expanded(
                   child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 10.h),
                     state.badges.isEmpty
                         ? SizedBox.shrink()
                         : Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: GotchaiColorStyles.primary900,
-                              borderRadius: BorderRadius.circular(10.w),
+                              borderRadius: BorderRadius.circular(16.w),
                             ),
-                            padding: EdgeInsets.all(8.w),
+                            padding: EdgeInsets.all(20.w),
                             child: Row(
                               children: [
                                 Image.asset(
                                   "assets/icon/icon_party.png",
-                                  width: 20.w,
-                                  height: 20.w,
+                                  width: 42.w,
+                                  height: 42.w,
                                   fit: BoxFit.fill,
                                 ),
-                                SizedBox(width: 10.w),
+                                SizedBox(width: 12.w),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -102,7 +118,6 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                                 )
                               ],
                             )),
-                    SizedBox(height: 20.h),
                     GridView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -133,32 +148,31 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
     return Column(
       children: [
         Container(
-            width: 44.w,
-            height: 44.w,
+            width: 104.w,
+            height: 104.w,
             decoration: BoxDecoration(
-              color: GotchaiColorStyles.gray800,
-              borderRadius: BorderRadius.circular(10),
+              color: GotchaiColorStyles.gray900,
+              borderRadius: BorderRadius.circular(16.w),
             ),
             child: badge.id == -1
                 ? Center(
-                    // Center로 감싸기
                     child: Image.asset(
                       'assets/icon/icon_questionmark.png',
-                      width: 24.w,
-                      height: 24.w,
+                      width: 60.w,
+                      height: 60.w,
                     ),
                   )
                 : Center(
                     child: Image.network(
                     badge.image,
-                    width: 40.w,
-                    height: 40.w,
-                    fit: BoxFit.cover,
+                    width: 68.w,
+                    height: 68.w,
+                    fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         'assets/icon/icon_empty_graphic.png',
-                        width: 20.w,
-                        height: 20.w,
+                        width: 68.w,
+                        height: 68.w,
                       );
                     },
                   ))),

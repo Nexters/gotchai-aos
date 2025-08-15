@@ -20,70 +20,79 @@ class AuthPopup {
         return AlertDialog(
           backgroundColor: GotchaiColorStyles.gray900,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.w),
+            borderRadius: BorderRadius.circular(16.w),
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 10.w),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 20.w,
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: 30.h,
+                height: 48.h,
               ),
               Text(title,
                   textAlign: TextAlign.center,
                   style: GotchaiTextStyles.body1
                       .copyWith(color: GotchaiColorStyles.gray100)),
-              SizedBox(height: 20.h),
               description.isEmpty
                   ? SizedBox.shrink()
-                  : Text(
-                      description,
-                      textAlign: TextAlign.center,
-                      style: GotchaiTextStyles.body5
-                          .copyWith(color: GotchaiColorStyles.gray300),
+                  : Column(
+                      children: [
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        Text(
+                          description,
+                          textAlign: TextAlign.center,
+                          style: GotchaiTextStyles.body5
+                              .copyWith(color: GotchaiColorStyles.gray300),
+                        ),
+                      ],
                     ),
-              description.isEmpty
-                  ? SizedBox(
-                      height: 40.h,
-                    )
-                  : SizedBox(height: 60.h),
+              SizedBox(
+                height: 40.h,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                       child: Button(
                     onTap: onCancelPressed,
-                    padding: EdgeInsets.symmetric(vertical: 24.h),
+                    height: 48.h,
                     decoration: BoxDecoration(
                       color: GotchaiColorStyles.gray700,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16.w),
                     ),
+                    alignment: Alignment.center,
                     child: Text(
                       "취소",
                       style: GotchaiTextStyles.body3
                           .copyWith(color: GotchaiColorStyles.gray200),
-                      textAlign: TextAlign.center,
                     ),
                   )),
                   SizedBox(
-                    width: 4.w,
+                    width: 8.w,
                   ),
                   Expanded(
                       child: Button(
                     onTap: onConfirmPressed,
-                    padding: EdgeInsets.symmetric(vertical: 24.h),
+                    height: 48.h,
+                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: GotchaiColorStyles.primary400,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16.w),
                     ),
                     child: Text(
                       confirmButtonText,
-                      textAlign: TextAlign.center,
                       style:
                           GotchaiTextStyles.body3.copyWith(color: Colors.black),
                     ),
                   )),
                 ],
+              ),
+              SizedBox(
+                height: 20.h,
               )
             ],
           ),

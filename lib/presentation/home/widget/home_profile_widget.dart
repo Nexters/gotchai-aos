@@ -30,26 +30,26 @@ class HomeProfileWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 40.h),
+                SizedBox(height: 8.h),
                 ClipOval(
                   child: Image.network(
                     "",
-                    width: 50.w,
-                    height: 50.w,
+                    width: 108.w,
+                    height: 108.w,
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         'assets/icon/icon_empty_graphic.png',
-                        width: 50.w,
-                        height: 50.w,
+                        width: 108.w,
+                        height: 108.w,
                       );
                     },
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 12.h),
                 Container(
-                  width: 40.w,
-                  height: 80.h,
+                  width: 85.w,
+                  height: 36.h,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Color(0xFF1E2803),
@@ -65,7 +65,7 @@ class HomeProfileWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30.h,
+                  height: 24.h,
                 ),
                 Stack(
                   children: [
@@ -74,12 +74,12 @@ class HomeProfileWidget extends StatelessWidget {
                         child: Image.asset(
                           "assets/image/image_ranking5.png",
                           width: double.infinity,
-                          height: 350.h,
+                          height: 160.h,
                           fit: BoxFit.fill,
                         )),
                     Positioned(
-                        left: 10.w,
-                        top: 10.w,
+                        left: 20.w,
+                        top: 20.w,
                         child: Column(
                           children: [
                             Text("갓챠135님은",
@@ -93,9 +93,9 @@ class HomeProfileWidget extends StatelessWidget {
                         )),
                   ],
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 12.h),
                 Container(
-                    padding: EdgeInsets.all(10.w),
+                    padding: EdgeInsets.all(20.w),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: GotchaiColorStyles.gray900,
@@ -112,7 +112,7 @@ class HomeProfileWidget extends StatelessWidget {
                               fit: BoxFit.fill,
                             ),
                             SizedBox(
-                              width: 4.w,
+                              width: 8.w,
                             ),
                             Text("내 배지", style: GotchaiTextStyles.body2),
                             Spacer(),
@@ -127,7 +127,7 @@ class HomeProfileWidget extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 10.h,
+                          height: 8.h,
                         ),
                         Divider(
                           color: Color.fromRGBO(118, 120, 128, 0.4),
@@ -143,7 +143,7 @@ class HomeProfileWidget extends StatelessWidget {
                               children: [
                                 Text("기계사냥꾼", style: GotchaiTextStyles.body2),
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 4.h,
                                 ),
                                 Text("7월 18일에 획득",
                                     style: GotchaiTextStyles.body4.copyWith(
@@ -153,16 +153,16 @@ class HomeProfileWidget extends StatelessWidget {
                             Spacer(),
                             Container(
                               padding: EdgeInsets.all(4.w),
-                              width: 44.w,
-                              height: 44.w,
+                              width: 94.w,
+                              height: 94.w,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.gray800,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Image.asset(
                                 "assets/icon/icon_badge.png",
-                                width: 20.w,
-                                height: 20.w,
+                                width: 94.w,
+                                height: 94.w,
                                 fit: BoxFit.fill,
                               ),
                             )
@@ -170,9 +170,9 @@ class HomeProfileWidget extends StatelessWidget {
                         )
                       ],
                     )),
-                SizedBox(height: 30.h),
+                SizedBox(height: 12.h),
                 Container(
-                    padding: EdgeInsets.all(10.w),
+                    padding: EdgeInsets.all(20.w),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: GotchaiColorStyles.gray900,
@@ -187,7 +187,7 @@ class HomeProfileWidget extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                         SizedBox(
-                          width: 4.w,
+                          width: 8.w,
                         ),
                         Text("내가 풀었던 테스트", style: GotchaiTextStyles.body2),
                         Spacer(),

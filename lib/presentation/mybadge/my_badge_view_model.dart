@@ -18,9 +18,9 @@ class MyBadgeLoading extends MyBadgeState {
   const MyBadgeLoading();
 }
 
-class MybadgeLoaded extends MyBadgeState {
+class MyBadgeLoaded extends MyBadgeState {
   final List<MyBadgeItem> badges;
-  const MybadgeLoaded(this.badges);
+  const MyBadgeLoaded(this.badges);
 }
 
 class MyBadgeFailure extends MyBadgeState {
@@ -44,7 +44,7 @@ class MyBadgeViewModel extends _$MyBadgeViewModel {
       if (result is Success<MyBadgeResponse>) {
         final badges = result.data.badges;
         final totalBadgeCount = result.data.totalBadgeCount;
-        state = MybadgeLoaded([
+        state = MyBadgeLoaded([
           ...badges,
           ...List.generate(
               (totalBadgeCount - badges.length),

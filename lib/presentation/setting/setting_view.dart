@@ -47,36 +47,39 @@ class _SettingViewState extends ConsumerState<SettingView> {
             right: Constants.horizontalPadding),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Button(
-                onTap: navigateToBack,
-                child: Image.asset("assets/icon/icon_back.png",
-                    width: Constants.iconSize,
-                    height: Constants.iconSize,
-                    fit: BoxFit.fill),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Button(
+                    onTap: navigateToBack,
+                    child: Image.asset("assets/icon/icon_back.png",
+                        width: Constants.iconSize,
+                        height: Constants.iconSize,
+                        fit: BoxFit.fill)),
+                Text("설정", style: GotchaiTextStyles.body1),
+                SizedBox(width: 26.w)
+              ],
             ),
             SizedBox(
-              height: 40.h,
+              height: 20.h,
             ),
             Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 decoration: BoxDecoration(
                   color: GotchaiColorStyles.gray900,
-                  borderRadius: BorderRadius.circular(10.w),
+                  borderRadius: BorderRadius.circular(16.w),
                 ),
                 child: Row(
                   children: [
                     Image.asset(
                       "assets/icon/icon_ask.png",
-                      width: 12.w,
-                      height: 12.w,
+                      width: 20.w,
+                      height: 20.w,
                       fit: BoxFit.fill,
                     ),
                     SizedBox(
-                      width: 4.w,
+                      width: 12.w,
                     ),
                     Text("문의하기", style: GotchaiTextStyles.body4),
                     Spacer(),
@@ -90,11 +93,11 @@ class _SettingViewState extends ConsumerState<SettingView> {
                   ],
                 )),
             SizedBox(
-              height: 20.h,
+              height: 8.h,
             ),
             Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 decoration: BoxDecoration(
                   color: GotchaiColorStyles.gray900,
                   borderRadius: BorderRadius.circular(10.w),
@@ -103,12 +106,12 @@ class _SettingViewState extends ConsumerState<SettingView> {
                   children: [
                     Image.asset(
                       "assets/icon/icon_note.png",
-                      width: 12.w,
-                      height: 12.w,
+                      width: 20.w,
+                      height: 20.w,
                       fit: BoxFit.fill,
                     ),
                     SizedBox(
-                      width: 4.w,
+                      width: 12.w,
                     ),
                     Text("이용약관", style: GotchaiTextStyles.body4),
                     Spacer(),
@@ -122,11 +125,11 @@ class _SettingViewState extends ConsumerState<SettingView> {
                   ],
                 )),
             SizedBox(
-              height: 20.h,
+              height: 8.h,
             ),
             Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 decoration: BoxDecoration(
                   color: GotchaiColorStyles.gray900,
                   borderRadius: BorderRadius.circular(10.w),
@@ -135,12 +138,12 @@ class _SettingViewState extends ConsumerState<SettingView> {
                   children: [
                     Image.asset(
                       "assets/icon/icon_safe.png",
-                      width: 12.w,
-                      height: 12.w,
+                      width: 20.w,
+                      height: 20.w,
                       fit: BoxFit.fill,
                     ),
                     SizedBox(
-                      width: 4.w,
+                      width: 12.w,
                     ),
                     Text("개인정보 처리방침", style: GotchaiTextStyles.body4),
                     Spacer(),
@@ -154,9 +157,6 @@ class _SettingViewState extends ConsumerState<SettingView> {
                   ],
                 )),
             Spacer(),
-            SizedBox(
-              height: 80.h,
-            ),
             Button(
               onTap: () {
                 AuthPopup.showAuthDialog(context, "로그아웃 하시겠어요?", "", "로그아웃",
@@ -167,13 +167,13 @@ class _SettingViewState extends ConsumerState<SettingView> {
                 });
               },
               width: double.infinity,
-              height: 120.h,
+              height: 54.h,
               child: Container(
                 width: double.infinity,
-                height: 120.h,
+                height: 54.h,
                 decoration: BoxDecoration(
                   color: GotchaiColorStyles.gray900,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(16.w),
                 ),
                 child: Center(
                   child: Text(
@@ -183,7 +183,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
                 ),
               ),
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 8.h),
             Button(
               onTap: () {
                 AuthPopup.showAuthDialog(context, "정말로 계정을\n탈퇴하시겠어요?",
@@ -194,10 +194,10 @@ class _SettingViewState extends ConsumerState<SettingView> {
                 });
               },
               width: double.infinity,
-              height: 120.h,
+              height: 54.h,
               child: Container(
                 width: double.infinity,
-                height: 120.h,
+                height: 54.h,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(16),
@@ -212,7 +212,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
               ),
             ),
             SizedBox(
-              height: 120.h,
+              height: 50.h,
             )
           ],
         ),

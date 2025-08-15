@@ -57,15 +57,29 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
                         height: Constants.iconSize,
                         fit: BoxFit.fill)),
                 Text("내가 풀었던 테스트", style: GotchaiTextStyles.body1),
-                SizedBox(width: 12.w)
+                SizedBox(width: 26.w)
               ],
             ),
-            SizedBox(height: 40.h),
+            SizedBox(height: 10.h),
             switch (state) {
-              MySolvedTestInitial() =>
-                Center(child: CircularProgressIndicator()),
-              MySolvedTestLoading() =>
-                Center(child: CircularProgressIndicator()),
+              MySolvedTestInitial() => Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                      height: 200.h,
+                    ),
+                    Center(child: CircularProgressIndicator())
+                  ],
+                ),
+              MySolvedTestLoading() => Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                      height: 200.h,
+                    ),
+                    Center(child: CircularProgressIndicator())
+                  ],
+                ),
               MySolvedTestLoaded() => Expanded(
                   child: state.list.isEmpty
                       ? Center(
@@ -82,7 +96,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                SizedBox(height: 40.h),
+                                SizedBox(height: 10.h),
                                 ...state.list.map((item) {
                                   return _buildListItem(item);
                                 }),
@@ -102,22 +116,22 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
 
   Widget _buildListItem(MySolvedTest item) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
       width: double.infinity,
       decoration: BoxDecoration(
         color: GotchaiColorStyles.gray900,
-        borderRadius: BorderRadius.circular(12.w),
+        borderRadius: BorderRadius.circular(16.w),
       ),
-      margin: EdgeInsets.only(bottom: 30.h),
+      margin: EdgeInsets.only(bottom: 16.h),
       child: Row(
         children: [
           Image.network(
             item.iconImage,
-            width: 22.w,
-            height: 22.w,
+            width: 44.w,
+            height: 44.w,
             fit: BoxFit.fill,
           ),
-          SizedBox(width: 12.w),
+          SizedBox(width: 20.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -126,7 +140,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
                 style: GotchaiTextStyles.body3,
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(height: 4.h),
+              SizedBox(height: 2.h),
               Text(
                 "7개중 4개 맞췄어요",
                 style: GotchaiTextStyles.body4
