@@ -5,16 +5,17 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gal/gal.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/permission_util.dart';
 
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/home/testflow/test_flow_view_model.dart';
-import 'package:turing/presentation/home/testflow/test_view_model.dart';
-import 'package:turing/presentation/home/testflow/widget/badge_card.dart';
-import 'package:turing/presentation/home/testflow/widget/badge_description_card.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/testflow/test_flow_view_model.dart';
+import 'package:turing/presentation/testflow/test_view_model.dart';
+import 'package:turing/presentation/testflow/widget/badge_card.dart';
+import 'package:turing/presentation/testflow/widget/badge_description_card.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
@@ -52,48 +53,19 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
         );
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "배지 이미지가 갤러리에 저장되었습니다!",
-                style: GotchaiTextStyles.body3,
-              ),
-              backgroundColor: GotchaiColorStyles.gray700,
-              duration: Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-              margin: EdgeInsets.symmetric(horizontal: 20.w),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          );
+          CustomSnackBar.showInfo(context, "배지 이미지가 앨범에 저장되었습니다");
         }
       }
     } catch (e) {
-      logger.e("이미지 저장 실패: $e");
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              "이미지 저장에 실패했습니다: ${e.toString()}",
-              style: GotchaiTextStyles.body3,
-            ),
-            backgroundColor: GotchaiColorStyles.gray700,
-            duration: Duration(seconds: 2),
-            behavior: SnackBarBehavior.floating,
-            margin: EdgeInsets.symmetric(horizontal: 20.w),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-        );
+        CustomSnackBar.showError(context, e.toString());
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
     final result = ref.watch(testFlowViewModelProvider);
 
     List<Color> getGradientColors(Tier tier) {
@@ -148,11 +120,11 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
     }
 
     void navigateToBack() {
-      NavigationService().navigateClearWithSlide(NavigationRoute.home);
+      NavigationService().navigateClear(NavigationRoute.home);
     }
 
     void copyPromptToClipboard() async {
-      await Clipboard.setData(ClipboardData(text: exam.prompt));
+      await Clipboard.setData(ClipboardData(text: test.prompt));
     }
 
     return Scaffold(
@@ -171,7 +143,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
           ),
         ),
         Padding(
-            padding: EdgeInsets.only(right: 10.w, left: 10.w),
+            padding: EdgeInsets.only(
+                right: Constants.horizontalPadding,
+                left: Constants.horizontalPadding),
             child: SingleChildScrollView(
                 child: Column(
               children: [
@@ -188,9 +162,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                 ),
                 SizedBox(height: 60.h),
                 BadgeDescriptionCard(
-                  theme: exam.theme,
-                  prompt: exam.prompt,
-                  iconImage: exam.coverImage,
+                  theme: test.theme,
+                  prompt: test.prompt,
+                  iconImage: test.coverImage,
                   onTap: copyPromptToClipboard,
                 ),
                 SizedBox(
@@ -215,7 +189,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
               child: Button(
                 onTap: navigateToBack,
                 child: Image.asset("assets/icon/icon_close.png",
-                    width: 12.w, height: 12.w, fit: BoxFit.fill),
+                    width: Constants.iconSize,
+                    height: Constants.iconSize,
+                    fit: BoxFit.fill),
               ),
             ),
           ),
@@ -244,7 +220,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                     ]),
               ),
               child: Padding(
-                  padding: EdgeInsets.only(bottom: 120.h),
+                  padding: EdgeInsets.only(bottom: Constants.topPadding),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -264,8 +240,8 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 children: [
                                   Image.asset(
                                     "assets/icon/icon_save.png",
-                                    width: 12.w,
-                                    height: 12.w,
+                                    width: Constants.iconSize,
+                                    height: Constants.iconSize,
                                   ),
                                   Text(
                                     " 이미지 저장",
@@ -290,8 +266,8 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 children: [
                                   Image.asset(
                                     "assets/icon/icon_insta.png",
-                                    width: 12.w,
-                                    height: 12.w,
+                                    width: Constants.iconSize,
+                                    height: Constants.iconSize,
                                   ),
                                   Text(
                                     " 배지 공유",

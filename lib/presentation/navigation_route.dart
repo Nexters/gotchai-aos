@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:turing/presentation/home/home_view.dart';
-import 'package:turing/presentation/home/testflow/test_cover_view.dart';
-import 'package:turing/presentation/home/testflow/test_flow_view.dart';
-import 'package:turing/presentation/home/testflow/test_intro_view.dart';
-import 'package:turing/presentation/home/testflow/test_result_view.dart';
+import 'package:turing/presentation/mybadge/my_badge_view.dart';
+import 'package:turing/presentation/mytest/my_solved_test_view.dart';
+import 'package:turing/presentation/setting/setting_view.dart';
+import 'package:turing/presentation/testflow/test_cover_view.dart';
+import 'package:turing/presentation/testflow/test_flow_view.dart';
+import 'package:turing/presentation/testflow/test_intro_view.dart';
+import 'package:turing/presentation/testflow/test_result_view.dart';
 import 'package:turing/presentation/login/login_view.dart';
 import 'package:turing/presentation/onboarding/onboarding_view.dart';
 
@@ -15,6 +18,9 @@ class NavigationRoute {
   static const String testIntro = '/testIntro';
   static const String testFlow = '/testFlow';
   static const String testResult = '/testResult';
+  static const String myBadge = '/myBadge';
+  static const String mySolvedTest = '/mySolvedTest';
+  static const String setting = '/setting';
 
   static Map<String, WidgetBuilder> routes = {
     login: (context) => const LoginView(),
@@ -24,5 +30,8 @@ class NavigationRoute {
     testIntro: (context) => const TestIntroView(),
     testFlow: (context) => const TestFlowView(),
     testResult: (context) => const TestResultView(),
+    myBadge: (context) => const MyBadgeView(),
+    mySolvedTest: (context) => const MySolvedTestView(),
+    setting: (context) => const SettingView()
   };
 }

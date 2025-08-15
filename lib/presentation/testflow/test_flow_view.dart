@@ -2,12 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/home/testflow/test_flow_view_model.dart';
-import 'package:turing/presentation/home/testflow/test_view_model.dart';
-import 'package:turing/presentation/home/testflow/widget/answer_button.dart';
+import 'package:turing/presentation/testflow/test_flow_view_model.dart';
+import 'package:turing/presentation/testflow/test_view_model.dart';
+import 'package:turing/presentation/testflow/widget/answer_button.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/popup/test_flow_popup.dart';
@@ -23,7 +24,7 @@ class TestFlowView extends ConsumerStatefulWidget {
 class _TestFlowViewState extends ConsumerState<TestFlowView> {
   @override
   Widget build(BuildContext context) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
     final testFlowViewModel = ref.watch(testFlowViewModelProvider.notifier);
     final state = ref.watch(testFlowViewModelProvider);
 
@@ -62,7 +63,7 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
           ImageFiltered(
             imageFilter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
             child: Image.network(
-              exam.backgroundImage,
+              test.backgroundImage,
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fill,
@@ -74,7 +75,10 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
             color: Color.fromRGBO(0, 0, 0, 0.7),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 120.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(
+                top: Constants.topPadding,
+                left: Constants.horizontalPadding,
+                right: Constants.horizontalPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -83,7 +87,9 @@ class _TestFlowViewState extends ConsumerState<TestFlowView> {
                   child: Button(
                     onTap: navigateToBack,
                     child: Image.asset("assets/icon/icon_close.png",
-                        width: 12.w, height: 12.w, fit: BoxFit.fill),
+                        width: Constants.iconSize,
+                        height: Constants.iconSize,
+                        fit: BoxFit.fill),
                   ),
                 ),
                 SizedBox(

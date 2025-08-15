@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
-import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/home/widget/home_profile_widget.dart';
+import 'package:turing/presentation/mybadge/my_badge_view_model.dart';
+import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
+import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
-import 'package:turing/presentation/navigation_route.dart';
-import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -20,83 +22,79 @@ class HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      warmUpProviders();
+    });
+  }
+
+  void warmUpProviders() {
+    ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTestList();
+    ref.read(myBadgeViewModelProvider.notifier).getMyBadgeList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
     final testViewModel = ref.watch(testViewModelProvider.notifier);
     final homeState = ref.watch(homeViewModelProvider);
 
-    Future<void> _precacheTestImages(List<Test> testList) async {
-      final validImages = testList
-          .where((test) => test.iconImage.isNotEmpty)
-          .map((test) => test.iconImage)
-          .toList();
-
-      if (validImages.isEmpty) return;
-
-      final futures = validImages
-          .map((imageUrl) =>
-                  precacheImage(Image.network(imageUrl).image, context)
-                      .catchError((_) => null) // 에러 무시
-              )
-          .toList();
-
-      try {
-        await Future.wait(futures, eagerError: false);
-      } catch (e) {
-        print("⚠️ 프리캐시 중 오류: $e");
-      }
-    }
-
     ref.listen<HomeState>(homeViewModelProvider, (previous, next) {
-      if (previous is HomeLoading &&
-          next is HomeLoaded &&
-          next.testList.isNotEmpty) {
-        _precacheTestImages(next.testList);
+      if (next is HomeFailure) {
+        CustomSnackBar.showError(context, next.message);
       }
     });
 
-    void onItemTap(Test test) {
-      testViewModel.setCurTestInfo(test);
-      NavigationService().navigateWithSlide(NavigationRoute.testCover);
-    }
-
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.only(top: 100.h, left: 10.w, right: 10.w),
+            padding: EdgeInsets.only(top: Constants.topPadding),
             child: DefaultTabController(
                 length: 2,
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset('assets/icon/gotchai_logo.png',
-                            width: 60.w, height: 60.h, fit: BoxFit.fill),
-                        Button(
-                            child: Image.asset('assets/icon/icon_setting.png',
-                                width: 24.w, height: 24.w, fit: BoxFit.fill),
-                            onTap: () {}),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Constants.horizontalPadding),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset('assets/icon/gotchai_logo.png',
+                              width: 60.w, height: 60.h, fit: BoxFit.fill),
+                          Button(
+                              child: Image.asset('assets/icon/icon_setting.png',
+                                  width: Constants.iconSize,
+                                  height: Constants.iconSize,
+                                  fit: BoxFit.fill),
+                              onTap: () {
+                                viewModel.navigateToSetting();
+                              }),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 20.h),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: SizedBox(
-                        width: 80.w,
-                        child: TabBar(
-                          dividerHeight: 0,
-                          labelColor: GotchaiColorStyles.primary400,
-                          unselectedLabelColor: GotchaiColorStyles.gray600,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicatorColor: GotchaiColorStyles.primary400,
-                          labelStyle: GotchaiTextStyles.body2,
-                          unselectedLabelStyle: GotchaiTextStyles.body2,
-                          tabs: const [
-                            Tab(
-                              text: '테스트',
-                            ),
-                            Tab(text: '내 업적'),
-                          ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Constants.horizontalPadding),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: SizedBox(
+                          width: 80.w,
+                          child: TabBar(
+                            dividerHeight: 0,
+                            labelColor: GotchaiColorStyles.primary400,
+                            unselectedLabelColor: GotchaiColorStyles.gray600,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicatorColor: GotchaiColorStyles.primary400,
+                            labelStyle: GotchaiTextStyles.body2,
+                            unselectedLabelStyle: GotchaiTextStyles.body2,
+                            tabs: const [
+                              Tab(
+                                text: '테스트',
+                              ),
+                              Tab(text: '내 업적'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -114,11 +112,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           ),
                         HomeLoaded(testList: final testList) => HomeTestWidget(
                             testList: testList,
-                            onItemTap: onItemTap,
+                            onItemTap: (test) {
+                              testViewModel.setCurTestInfo(test);
+                              viewModel.navigateToTestFlow();
+                            },
                             onRefresh: () async {
                               await viewModel.getExamList();
                             }),
-                        HomeError(message: final message) => Center(
+                        HomeFailure(message: final message) => Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -131,12 +132,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             ),
                           ),
                       },
-                      Center(
-                        child: Text(
-                          '내 업적 페이지입니다',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                      Align(
+                          alignment: Alignment.topCenter,
+                          child: HomeProfileWidget(
+                            onRefresh: () async {},
+                            onBadgeForwardTap: viewModel.navigateToMyBadge,
+                            onSolvedTestForwardTap:
+                                viewModel.navigateToMySolvedTest,
+                          ))
                     ])),
                   ],
                 ))));

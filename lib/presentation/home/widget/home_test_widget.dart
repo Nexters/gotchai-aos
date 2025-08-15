@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
@@ -19,6 +20,7 @@ class HomeTestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: Constants.horizontalPadding),
       decoration: BoxDecoration(
         color: GotchaiColorStyles.gray900,
         borderRadius: BorderRadius.circular(16),

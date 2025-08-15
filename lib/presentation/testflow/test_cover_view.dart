@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/size_extension.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/home/testflow/test_view_model.dart';
+import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
@@ -15,7 +16,7 @@ class TestCoverView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exam = ref.watch(testViewModelProvider);
+    final test = ref.watch(testViewModelProvider);
 
     void navigateToBack() {
       NavigationService().goBack();
@@ -27,7 +28,10 @@ class TestCoverView extends ConsumerWidget {
 
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.only(top: 120.h, left: 10.w, right: 10.w),
+      padding: EdgeInsets.only(
+          top: Constants.topPadding,
+          left: Constants.horizontalPadding,
+          right: Constants.horizontalPadding),
       child: Column(
         children: [
           Align(
@@ -35,25 +39,27 @@ class TestCoverView extends ConsumerWidget {
             child: Button(
               onTap: navigateToBack,
               child: Image.asset("assets/icon/icon_back.png",
-                  width: 12.w, height: 12.w, fit: BoxFit.fill),
+                  width: Constants.iconSize,
+                  height: Constants.iconSize,
+                  fit: BoxFit.fill),
             ),
           ),
           SizedBox(
             height: 10.h,
           ),
-          Image.network(exam.iconImage,
+          Image.network(test.iconImage,
               width: 20.w, height: 20.w, fit: BoxFit.fill),
           SizedBox(
             height: 20.h,
           ),
           Text(
-            exam.title,
+            test.title,
             style: GotchaiTextStyles.title2.copyWith(
               color: GotchaiColorStyles.primary400,
             ),
           ),
           Text(
-            exam.subTitle,
+            test.subTitle,
             style: GotchaiTextStyles.title4.copyWith(
               color: GotchaiColorStyles.white,
             ),
@@ -70,22 +76,21 @@ class TestCoverView extends ConsumerWidget {
           SizedBox(
             height: 60.h,
           ),
-          ClipRRect(
-              borderRadius: BorderRadius.circular(100.w),
+          ClipOval(
               child: Image.network(
-                exam.coverImage,
+            test.coverImage,
+            width: 130.w,
+            height: 130.w,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                'assets/icon/icon_empty_graphic.png',
                 width: 130.w,
                 height: 130.w,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/icon/icon_empty_graphic.png',
-                    width: 130.w,
-                    height: 130.w,
-                    fit: BoxFit.cover,
-                  );
-                },
-              )),
+              );
+            },
+          )),
           SizedBox(
             height: 80.h,
           ),

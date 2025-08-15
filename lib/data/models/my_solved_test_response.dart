@@ -1,23 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'test_list_response.g.dart';
+part 'my_solved_test_response.g.dart';
 
 @JsonSerializable()
-class TestListResponse {
-  final List<Test> list;
+class MySolvedTestResponse {
+  final List<MySolvedTest> list;
 
-  TestListResponse({
+  MySolvedTestResponse({
     required this.list,
   });
 
-  factory TestListResponse.fromJson(Map<String, dynamic> json) =>
-      _$TestListResponseFromJson(json);
+  factory MySolvedTestResponse.fromJson(Map<String, dynamic> json) =>
+      _$MySolvedTestResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TestListResponseToJson(this);
+  Map<String, dynamic> toJson() => _$MySolvedTestResponseToJson(this);
 }
 
 @JsonSerializable()
-class Test {
+class MySolvedTest {
   final int id;
   final String title;
   final String subTitle;
@@ -30,7 +30,7 @@ class Test {
   final bool isSolved;
   final String createdAt;
 
-  Test({
+  MySolvedTest({
     required this.id,
     required this.title,
     required this.subTitle,
@@ -44,7 +44,7 @@ class Test {
     required this.createdAt,
   });
 
-  Test.empty()
+  MySolvedTest.empty()
       : id = 0,
         title = '',
         subTitle = '',
@@ -57,7 +57,8 @@ class Test {
         isSolved = false,
         createdAt = '';
 
-  factory Test.fromJson(Map<String, dynamic> json) => _$TestFromJson(json);
+  factory MySolvedTest.fromJson(Map<String, dynamic> json) =>
+      _$MySolvedTestFromJson(json);
 
-  Map<String, dynamic> toJson() => _$TestToJson(this);
+  Map<String, dynamic> toJson() => _$MySolvedTestToJson(this);
 }

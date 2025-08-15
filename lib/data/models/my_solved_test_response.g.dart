@@ -1,24 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'test_list_response.dart';
+part of 'my_solved_test_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TestListResponse _$TestListResponseFromJson(Map<String, dynamic> json) =>
-    TestListResponse(
+MySolvedTestResponse _$MySolvedTestResponseFromJson(
+        Map<String, dynamic> json) =>
+    MySolvedTestResponse(
       list: (json['list'] as List<dynamic>)
-          .map((e) => Test.fromJson(e as Map<String, dynamic>))
+          .map((e) => MySolvedTest.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$TestListResponseToJson(TestListResponse instance) =>
+Map<String, dynamic> _$MySolvedTestResponseToJson(
+        MySolvedTestResponse instance) =>
     <String, dynamic>{
       'list': instance.list,
     };
 
-Test _$TestFromJson(Map<String, dynamic> json) => Test(
+MySolvedTest _$MySolvedTestFromJson(Map<String, dynamic> json) => MySolvedTest(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       subTitle: json['subTitle'] as String,
@@ -32,7 +34,8 @@ Test _$TestFromJson(Map<String, dynamic> json) => Test(
       createdAt: json['createdAt'] as String,
     );
 
-Map<String, dynamic> _$TestToJson(Test instance) => <String, dynamic>{
+Map<String, dynamic> _$MySolvedTestToJson(MySolvedTest instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'subTitle': instance.subTitle,
