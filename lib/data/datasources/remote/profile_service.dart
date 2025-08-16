@@ -37,7 +37,7 @@ class ProfileService {
   }
 
   Future<BaseResponse<MyRankingResponse>> getMyRanking() async {
-    final url = Uri.https(baseDomain, '$basePath/users/me/ranking');
+    final url = Uri.https(baseDomain, '$basePath/users/ranking');
 
     try {
       final response = await client.get(
