@@ -42,7 +42,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
-            top: Constants.topPadding,
+            top: 56.h,
             left: Constants.horizontalPadding,
             right: Constants.horizontalPadding),
         child: Column(
@@ -62,23 +62,27 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
             ),
             SizedBox(height: 10.h),
             switch (state) {
-              MySolvedTestInitial() => Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: 200.h,
-                    ),
-                    Center(child: CircularProgressIndicator())
-                  ],
+              MySolvedTestInitial() => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 100.h,
+                      ),
+                      CircularProgressIndicator(),
+                    ],
+                  ),
                 ),
-              MySolvedTestLoading() => Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: 200.h,
-                    ),
-                    Center(child: CircularProgressIndicator())
-                  ],
+              MySolvedTestLoading() => Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 100.h,
+                      ),
+                      CircularProgressIndicator(),
+                    ],
+                  ),
                 ),
               MySolvedTestLoaded() => Expanded(
                   child: state.list.isEmpty
@@ -142,7 +146,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
               ),
               SizedBox(height: 2.h),
               Text(
-                "7개중 4개 맞췄어요",
+                "${item.totalQuizCount}개중 ${item.correctAnswerCount}개 맞췄어요",
                 style: GotchaiTextStyles.body4
                     .copyWith(color: GotchaiColorStyles.gray500),
               ),
@@ -150,9 +154,11 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
           ),
           Spacer(),
           Text(
-            "57%",
-            style: GotchaiTextStyles.body4
-                .copyWith(color: GotchaiColorStyles.blue),
+            "${item.correctAnswerRate}%",
+            style: GotchaiTextStyles.body4.copyWith(
+                color: item.correctAnswerRate >= 50
+                    ? GotchaiColorStyles.blue
+                    : GotchaiColorStyles.red),
           )
         ],
       ),

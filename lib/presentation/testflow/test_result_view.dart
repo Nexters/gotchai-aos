@@ -220,7 +220,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                     ]),
               ),
               child: Padding(
-                  padding: EdgeInsets.only(bottom: Constants.topPadding),
+                  padding: EdgeInsets.only(bottom: 56.h),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [

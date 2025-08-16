@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/navigation_route.dart';
@@ -46,7 +45,7 @@ class OnboardingView extends ConsumerWidget {
       body: Column(
         children: [
           SizedBox(
-            height: Constants.topPadding,
+            height: 56.h,
           ),
           Padding(
               padding: EdgeInsets.only(right: 32.w),

@@ -69,6 +69,7 @@ flutter:
     - assets/image/image_onboarding1.png
     - assets/image/image_onboarding2.png
     - assets/image/image_onboarding3.png
+    - assets/image/image_onboarding4.png
     - assets/icon/icon_B_button.png
     - assets/icon/icon_A_button.png
     - assets/icon/icon_correct.png
@@ -92,3 +93,4 @@ flutter:
     - assets/icon/icon_note.png
     - assets/icon/icon_safe.png
     - assets/icon/icon_ask.png
+    - assets/icon/icon_empty_profile.png

@@ -42,7 +42,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
-            top: Constants.topPadding,
+            top: 56.h,
             left: Constants.horizontalPadding,
             right: Constants.horizontalPadding),
         child: Column(
@@ -178,7 +178,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
                 child: Center(
                   child: Text(
                     "로그아웃",
-                    style: GotchaiTextStyles.body2,
+                    style: GotchaiTextStyles.body4,
                   ),
                 ),
               ),
@@ -205,7 +205,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
                 child: Center(
                   child: Text(
                     "회원탈퇴",
-                    style: GotchaiTextStyles.body3
+                    style: GotchaiTextStyles.body4
                         .copyWith(color: GotchaiColorStyles.gray200),
                   ),
                 ),

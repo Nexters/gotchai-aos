@@ -41,7 +41,7 @@ class CustomSnackBar {
               Icon(
                 icon,
                 color: iconColor ?? Colors.white,
-                size: 10.w,
+                size: 20.w,
               ),
               SizedBox(width: 8.w),
             ],

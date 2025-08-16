@@ -41,7 +41,7 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.only(
-          top: Constants.topPadding,
+          top: 56.h,
           left: Constants.horizontalPadding,
           right: Constants.horizontalPadding),
       child: Column(
@@ -72,14 +72,13 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                   Center(child: CircularProgressIndicator())
                 ],
               ),
-            MyBadgeLoading() => Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    height: 200.h,
-                  ),
-                  Center(child: CircularProgressIndicator())
-                ],
+            MyBadgeLoading() => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                ),
               ),
             MyBadgeLoaded() => Expanded(
                   child: SingleChildScrollView(
@@ -165,14 +164,14 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                 : Center(
                     child: Image.network(
                     badge.image,
-                    width: 68.w,
-                    height: 68.w,
+                    width: 100.w,
+                    height: 100.w,
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         'assets/icon/icon_empty_graphic.png',
-                        width: 68.w,
-                        height: 68.w,
+                        width: 80.w,
+                        height: 80.w,
                       );
                     },
                   ))),

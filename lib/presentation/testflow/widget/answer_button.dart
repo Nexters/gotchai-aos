@@ -9,7 +9,7 @@ class AnswerButton extends StatefulWidget {
   final String icon;
   final String text;
   final VoidCallback onTap;
-  final EdgeInsets? padding;
+  final EdgeInsets padding;
   final double? width;
   final AnswerButtonType type;
 
@@ -18,7 +18,7 @@ class AnswerButton extends StatefulWidget {
     required this.icon,
     required this.text,
     required this.onTap,
-    this.padding,
+    required this.padding,
     this.width,
     this.type = AnswerButtonType.none,
   });
@@ -34,7 +34,6 @@ class _AnswerButtonState extends State<AnswerButton> {
       onTap: widget.onTap,
       child: Container(
         width: widget.width,
-        padding: widget.padding,
         decoration: BoxDecoration(
           color: switch (widget.type) {
             AnswerButtonType.none => Color.fromRGBO(255, 255, 255, 0.15),
@@ -44,40 +43,43 @@ class _AnswerButtonState extends State<AnswerButton> {
           borderRadius: BorderRadius.circular(16.w),
         ),
         child: Container(
-          margin: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: switch (widget.type) {
-                AnswerButtonType.none => Colors.transparent,
-                AnswerButtonType.selected => GotchaiColorStyles.primary400,
-                AnswerButtonType.unselected => Colors.transparent
-              },
-              width: 1,
+            margin: EdgeInsets.all(1),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: switch (widget.type) {
+                  AnswerButtonType.none => Colors.transparent,
+                  AnswerButtonType.selected => GotchaiColorStyles.primary400,
+                  AnswerButtonType.unselected => Colors.transparent
+                },
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(16.w),
             ),
-            borderRadius: BorderRadius.circular(16.w),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Opacity(
-                opacity: widget.type == AnswerButtonType.unselected ? 0.3 : 1.0,
-                child: Image.asset(
-                  widget.icon,
-                  width: 32.w,
-                  height: 32.w,
-                ),
+            child: Padding(
+              padding: widget.padding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Opacity(
+                    opacity:
+                        widget.type == AnswerButtonType.unselected ? 0.3 : 1.0,
+                    child: Image.asset(
+                      widget.icon,
+                      width: 32.w,
+                      height: 32.w,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  Text(widget.text,
+                      style: widget.type == AnswerButtonType.unselected
+                          ? GotchaiTextStyles.body4.copyWith(
+                              color: Color.fromRGBO(255, 255, 255, 0.3))
+                          : GotchaiTextStyles.body4),
+                ],
               ),
-              SizedBox(
-                height: 16.h,
-              ),
-              Text(widget.text,
-                  style: widget.type == AnswerButtonType.unselected
-                      ? GotchaiTextStyles.body4
-                          .copyWith(color: Color.fromRGBO(255, 255, 255, 0.3))
-                      : GotchaiTextStyles.body4),
-            ],
-          ),
-        ),
+            )),
       ),
     );
   }

@@ -41,6 +41,36 @@ class LoginService {
     }
   }
 
+  Future<BaseResponse<LoginResponse>> refresh(String refreshToken) async {
+    final url = Uri.https(baseDomain, '$basePath/auth/refresh');
+
+    try {
+      final response = await client.post(
+        url,
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: json.encode({'refreshToken': refreshToken}),
+      );
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final data = json.decode(response.body);
+        final result = LoginResponse.fromJson(data['data']);
+
+        await TokenService.saveTokens(
+          accessToken: result.accessToken,
+          refreshToken: result.refreshToken,
+        );
+        return Success(result);
+      } else {
+        final err = json.decode(response.body);
+        return Error('로그인 실패 : ${err['data']['message']}',
+            code: response.statusCode);
+      }
+    } catch (e) {
+      return Error('예외 발생: ${e.toString()}');
+    }
+  }
+
   Future<BaseResponse<void>> logout() async {
     final url = Uri.https(baseDomain, '$basePath/auth/logout');
 

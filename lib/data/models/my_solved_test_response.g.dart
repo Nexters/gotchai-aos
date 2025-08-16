@@ -23,28 +23,20 @@ Map<String, dynamic> _$MySolvedTestResponseToJson(
 MySolvedTest _$MySolvedTestFromJson(Map<String, dynamic> json) => MySolvedTest(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
-      subTitle: json['subTitle'] as String,
-      description: json['description'] as String,
-      prompt: json['prompt'] as String,
-      backgroundImage: json['backgroundImage'] as String,
       iconImage: json['iconImage'] as String,
-      coverImage: json['coverImage'] as String,
-      theme: json['theme'] as String,
-      isSolved: json['isSolved'] as bool,
-      createdAt: json['createdAt'] as String,
+      correctAnswerRate: (json['correctAnswerRate'] as num).toInt(),
+      totalQuizCount: (json['totalQuizCount'] as num).toInt(),
+      correctAnswerCount: (json['correctAnswerCount'] as num).toInt(),
+      solvedAt: json['solvedAt'] as String,
     );
 
 Map<String, dynamic> _$MySolvedTestToJson(MySolvedTest instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
-      'subTitle': instance.subTitle,
-      'description': instance.description,
-      'prompt': instance.prompt,
-      'backgroundImage': instance.backgroundImage,
       'iconImage': instance.iconImage,
-      'coverImage': instance.coverImage,
-      'theme': instance.theme,
-      'isSolved': instance.isSolved,
-      'createdAt': instance.createdAt,
+      'correctAnswerRate': instance.correctAnswerRate,
+      'totalQuizCount': instance.totalQuizCount,
+      'correctAnswerCount': instance.correctAnswerCount,
+      'solvedAt': instance.solvedAt,
     };

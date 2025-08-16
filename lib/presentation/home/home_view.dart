@@ -48,7 +48,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.only(top: Constants.topPadding),
+            padding: EdgeInsets.only(top: 56.h),
             child: DefaultTabController(
                 length: 2,
                 child: Column(
@@ -60,7 +60,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Image.asset('assets/icon/gotchai_logo.png',
-                              width: 110.w, height: 22.h, fit: BoxFit.fill),
+                              width: 120.w, height: 30.h, fit: BoxFit.fill),
                           Button(
                               child: Image.asset('assets/icon/icon_setting.png',
                                   width: 26.w, height: 26.w, fit: BoxFit.fill),
