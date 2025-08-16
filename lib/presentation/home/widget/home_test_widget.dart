@@ -127,7 +127,7 @@ class HomeTestWidget extends StatelessWidget {
                                 : SizedBox.shrink(),
                           ],
                         ),
-                        SizedBox(width: 6.w),
+                        SizedBox(width: 10.w),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -135,7 +135,7 @@ class HomeTestWidget extends StatelessWidget {
                             children: [
                               Text(
                                 test.title,
-                                style: GotchaiTextStyles.body2,
+                                style: GotchaiTextStyles.body3,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -144,7 +144,7 @@ class HomeTestWidget extends StatelessWidget {
                                 test.subTitle,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: GotchaiTextStyles.body4.copyWith(
+                                style: GotchaiTextStyles.body5.copyWith(
                                   color: GotchaiColorStyles.gray400,
                                 ),
                               ),

@@ -98,6 +98,7 @@ class HomeProfileWidget extends StatelessWidget {
                         left: 20.w,
                         top: 20.w,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("$name님은",
                                 style: GotchaiTextStyles.body6.copyWith(
@@ -105,8 +106,10 @@ class HomeProfileWidget extends StatelessWidget {
                             SizedBox(
                               height: 5.h,
                             ),
-                            Text("상위 $rating%",
-                                style: GotchaiTextStyles.subtitle2),
+                            Text(
+                              "상위 $rating%",
+                              style: GotchaiTextStyles.subtitle2,
+                            ),
                           ],
                         )),
                   ],
@@ -144,15 +147,13 @@ class HomeProfileWidget extends StatelessWidget {
                                 ))
                           ],
                         ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
                         recentBadge.id == -1
-                            ? SizedBox(
-                                height: 8.h,
-                              )
+                            ? SizedBox.shrink()
                             : Column(
                                 children: [
+                                  SizedBox(
+                                    height: 8.h,
+                                  ),
                                   Divider(
                                     color: Color.fromRGBO(118, 120, 128, 0.4),
                                   ),

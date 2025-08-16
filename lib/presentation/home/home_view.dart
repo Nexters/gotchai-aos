@@ -73,7 +73,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: 180.w,
+                          width: 200.w,
                           child: TabBar(
                             dividerHeight: 0,
                             labelColor: GotchaiColorStyles.primary400,

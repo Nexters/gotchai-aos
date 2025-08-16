@@ -77,7 +77,11 @@ class TestIntroView extends ConsumerWidget {
               SizedBox(
                 height: 40.h,
               ),
-              Text(test.description, style: GotchaiTextStyles.body1),
+              Text(
+                test.description,
+                style: GotchaiTextStyles.body3,
+                textAlign: TextAlign.center,
+              ),
               Spacer(),
               Button(
                 onTap: navigateToTestFlow,
@@ -100,7 +104,7 @@ class TestIntroView extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: 50.h,
+                height: 60.h,
               ),
             ],
           ),

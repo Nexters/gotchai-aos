@@ -137,7 +137,7 @@ class OnboardingView extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 50.h),
+          SizedBox(height: 60.h),
         ],
       ),
     );

@@ -5,7 +5,6 @@ import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/login/login_view_model.dart';
 import 'package:turing/presentation/popup/custom_snackbar.dart';
-import 'package:turing/widgets/button.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -41,7 +40,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   style: GotchaiTextStyles.body2
                       .copyWith(color: GotchaiColorStyles.gray200),
                 ),
-                SizedBox(height: 302.h),
+                SizedBox(height: 332.h),
                 GestureDetector(
                   onTap: () {
                     viewModel.kakaoLogin();
@@ -50,29 +49,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     "assets/icon/icon_kakao_login.png",
                     width: 327.w,
                     height: 57.h,
-                  ),
-                ),
-                SizedBox(height: 16.h),
-                Button(
-                  onTap: () {
-                    viewModel.testLogin();
-                  },
-                  width: 327.w,
-                  height: 57.h,
-                  child: Container(
-                    width: 327.w,
-                    height: 57.h,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "테스트 로그인",
-                        style: GotchaiTextStyles.body3
-                            .copyWith(color: GotchaiColorStyles.gray200),
-                      ),
-                    ),
                   ),
                 ),
               ],
