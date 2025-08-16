@@ -63,14 +63,13 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
           ),
           SizedBox(height: 10.h),
           switch (state) {
-            MyBadgeInitial() => Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    height: 200.h,
-                  ),
-                  Center(child: CircularProgressIndicator())
-                ],
+            MyBadgeInitial() => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                ),
               ),
             MyBadgeLoading() => Center(
                 child: Column(

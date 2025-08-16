@@ -25,6 +25,13 @@ class HomeProfileWidget extends StatelessWidget {
     required this.recentBadge,
   });
 
+  String _getRankingImagePath(int rating) {
+    if (rating >= 50) return "assets/image/image_ranking50.png";
+    if (rating >= 25) return "assets/image/image_ranking25.png";
+    if (rating >= 10) return "assets/image/image_ranking10.png";
+    return "assets/image/image_ranking5.png";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,7 +89,7 @@ class HomeProfileWidget extends StatelessWidget {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
-                          "assets/image/image_ranking5.png",
+                          _getRankingImagePath(rating),
                           width: double.infinity,
                           height: 160.h,
                           fit: BoxFit.fill,
