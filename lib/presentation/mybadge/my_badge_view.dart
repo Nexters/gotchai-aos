@@ -67,6 +67,9 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: 100.h,
+                    ),
                     CircularProgressIndicator(),
                   ],
                 ),
@@ -75,6 +78,9 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(
+                      height: 100.h,
+                    ),
                     CircularProgressIndicator(),
                   ],
                 ),
@@ -82,58 +88,75 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
             MyBadgeLoaded() => Expanded(
                   child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: 10.h),
-                    state.badges.isEmpty
-                        ? SizedBox.shrink()
-                        : Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: GotchaiColorStyles.primary900,
-                              borderRadius: BorderRadius.circular(16.w),
+                child: state.badges.isEmpty
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: 370.h,
+                          ),
+                          Text(
+                            "취득 가능한 뱃지가 없습니다",
+                            style: GotchaiTextStyles.body3
+                                .copyWith(color: GotchaiColorStyles.gray500),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          SizedBox(height: 10.h),
+                          state.badges.isEmpty
+                              ? SizedBox.shrink()
+                              : Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: GotchaiColorStyles.primary900,
+                                    borderRadius: BorderRadius.circular(16.w),
+                                  ),
+                                  padding: EdgeInsets.all(20.w),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        "assets/icon/icon_party.png",
+                                        width: 42.w,
+                                        height: 42.w,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      SizedBox(width: 12.w),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("축하해요",
+                                              style: GotchaiTextStyles.body6),
+                                          Text(
+                                              "${state.badges.length}개의 배지를 모았어요!",
+                                              style: GotchaiTextStyles.body2
+                                                  .copyWith(
+                                                      color: GotchaiColorStyles
+                                                          .primary400))
+                                        ],
+                                      )
+                                    ],
+                                  )),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 8.w,
+                              mainAxisSpacing: 12.h,
+                              childAspectRatio: 0.8,
                             ),
-                            padding: EdgeInsets.all(20.w),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  "assets/icon/icon_party.png",
-                                  width: 42.w,
-                                  height: 42.w,
-                                  fit: BoxFit.fill,
-                                ),
-                                SizedBox(width: 12.w),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("축하해요",
-                                        style: GotchaiTextStyles.body6),
-                                    Text("${state.badges.length}개의 배지를 모았어요!",
-                                        style: GotchaiTextStyles.body2.copyWith(
-                                            color:
-                                                GotchaiColorStyles.primary400))
-                                  ],
-                                )
-                              ],
-                            )),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 8.w,
-                        mainAxisSpacing: 12.h,
-                        childAspectRatio: 0.8,
+                            itemCount: state.badges.length,
+                            itemBuilder: (context, index) {
+                              final badge = state.badges[index];
+                              return _buildBadgeItem(badge);
+                            },
+                          ),
+                          SizedBox(height: 120.h),
+                        ],
                       ),
-                      itemCount: state.badges.length,
-                      itemBuilder: (context, index) {
-                        final badge = state.badges[index];
-                        return _buildBadgeItem(badge);
-                      },
-                    ),
-                    SizedBox(height: 120.h),
-                  ],
-                ),
               )),
             MyBadgeFailure() => Center(child: Text("Error"))
           },
