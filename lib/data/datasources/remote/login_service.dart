@@ -7,7 +7,7 @@ import 'package:turing/data/models/base_response.dart';
 import 'package:turing/data/models/login_response.dart';
 
 class LoginService {
-  final String baseDomain = dotenv.env['BASE_DEV_URL'] ?? '';
+  final String baseDomain = dotenv.env['BASE_PROD_URL'] ?? '';
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 

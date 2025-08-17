@@ -1,3 +1,4 @@
+import 'package:turing/core/utils/url_util.dart';
 import 'package:turing/data/datasources/remote/login_service.dart';
 import 'package:turing/data/models/base_response.dart';
 import 'package:turing/presentation/navigation_route.dart';
@@ -23,12 +24,18 @@ class SettingFailure extends SettingState {
   const SettingFailure(this.message);
 }
 
+enum UrlType { security, policy, ask }
+
 @riverpod
 class SettingViewModel extends _$SettingViewModel {
   @override
   SettingState build() {
     return const SettingInitial();
   }
+
+  String policy = "https://pretty-icicle-cfc.notion.site/gotchai2?pvs=74";
+  String security = "";
+  String ask = "";
 
   Future<void> logout() async {
     await LoginService().logout().then((result) {
@@ -40,5 +47,25 @@ class SettingViewModel extends _$SettingViewModel {
     }).catchError((error) {
       state = SettingFailure('예외 발생 : ${error.toString()}');
     });
+  }
+
+  void navigateToBack() {
+    NavigationService().goBack();
+  }
+
+  void openUrl(UrlType type) {
+    String url;
+    switch (type) {
+      case UrlType.policy:
+        url = policy;
+        break;
+      case UrlType.security:
+        url = security;
+        break;
+      case UrlType.ask:
+        url = ask;
+        break;
+    }
+    UrlUtil.launchURL(url);
   }
 }

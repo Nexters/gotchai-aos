@@ -8,7 +8,7 @@ import 'package:turing/data/models/my_solved_test_response.dart';
 import 'package:turing/data/models/my_ranking_response.dart';
 
 class ProfileService {
-  final String baseDomain = dotenv.env['BASE_DEV_URL'] ?? '';
+  final String baseDomain = dotenv.env['BASE_PROD_URL'] ?? '';
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
@@ -37,7 +37,7 @@ class ProfileService {
   }
 
   Future<BaseResponse<MyRankingResponse>> getMyRanking() async {
-    final url = Uri.https(baseDomain, '$basePath/users/ranking');
+    final url = Uri.https(baseDomain, '$basePath/users/me/ranking');
 
     try {
       final response = await client.get(

@@ -25,6 +25,7 @@ dependencies:
   device_info_plus: ^9.1.0
   gal: ^2.3.2
   flutter_screenutil: ^5.9.3
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:

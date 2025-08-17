@@ -4,7 +4,6 @@ import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/presentation/popup/auth_popup.dart';
 import 'package:turing/presentation/popup/custom_snackbar.dart';
 import 'package:turing/presentation/setting/setting_view_model.dart';
@@ -23,10 +22,6 @@ class _SettingViewState extends ConsumerState<SettingView> {
   @override
   void initState() {
     super.initState();
-  }
-
-  void navigateToBack() {
-    NavigationService().goBack();
   }
 
   @override
@@ -51,7 +46,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Button(
-                    onTap: navigateToBack,
+                    onTap: viewModel.navigateToBack,
                     child: Image.asset("assets/icon/icon_back.png",
                         width: Constants.iconSize,
                         height: Constants.iconSize,
@@ -89,7 +84,9 @@ class _SettingViewState extends ConsumerState<SettingView> {
                           width: Constants.iconSize,
                           height: Constants.iconSize,
                         ),
-                        onTap: () {})
+                        onTap: () {
+                          viewModel.openUrl(UrlType.ask);
+                        })
                   ],
                 )),
             SizedBox(
@@ -121,7 +118,9 @@ class _SettingViewState extends ConsumerState<SettingView> {
                           width: Constants.iconSize,
                           height: Constants.iconSize,
                         ),
-                        onTap: () {})
+                        onTap: () {
+                          viewModel.openUrl(UrlType.policy);
+                        })
                   ],
                 )),
             SizedBox(
@@ -153,7 +152,9 @@ class _SettingViewState extends ConsumerState<SettingView> {
                           width: Constants.iconSize,
                           height: Constants.iconSize,
                         ),
-                        onTap: () {})
+                        onTap: () {
+                          viewModel.openUrl(UrlType.security);
+                        })
                   ],
                 )),
             Spacer(),

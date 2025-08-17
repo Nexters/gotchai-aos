@@ -10,7 +10,7 @@ import 'package:turing/data/models/quiz_response.dart';
 import 'package:turing/data/models/test_start_response.dart';
 
 class TestService {
-  final String baseDomain = dotenv.env['BASE_DEV_URL'] ?? '';
+  final String baseDomain = dotenv.env['BASE_PROD_URL'] ?? '';
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
