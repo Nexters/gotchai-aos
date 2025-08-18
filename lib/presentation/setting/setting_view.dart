@@ -58,105 +58,109 @@ class _SettingViewState extends ConsumerState<SettingView> {
             SizedBox(
               height: 20.h,
             ),
-            Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                decoration: BoxDecoration(
-                  color: GotchaiColorStyles.gray900,
-                  borderRadius: BorderRadius.circular(16.w),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      "assets/icon/icon_ask.png",
-                      width: 20.w,
-                      height: 20.w,
-                      fit: BoxFit.fill,
-                    ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Text("문의하기", style: GotchaiTextStyles.body4),
-                    Spacer(),
-                    Button(
-                        child: Image.asset(
-                          "assets/icon/icon_forward.png",
-                          width: Constants.iconSize,
-                          height: Constants.iconSize,
-                        ),
-                        onTap: () {
-                          viewModel.openUrl(UrlType.ask);
-                        })
-                  ],
-                )),
+            GestureDetector(
+              child: Container(
+                  width: double.infinity,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  decoration: BoxDecoration(
+                    color: GotchaiColorStyles.gray900,
+                    borderRadius: BorderRadius.circular(20.w),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "assets/icon/icon_ask.png",
+                        width: 20.w,
+                        height: 20.w,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(
+                        width: 12.w,
+                      ),
+                      Text("문의하기", style: GotchaiTextStyles.body4),
+                      Spacer(),
+                      Image.asset(
+                        "assets/icon/icon_forward.png",
+                        width: Constants.iconSize,
+                        height: Constants.iconSize,
+                      ),
+                    ],
+                  )),
+              onTap: () {
+                viewModel.openUrl(UrlType.ask);
+              },
+            ),
             SizedBox(
               height: 8.h,
             ),
-            Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                decoration: BoxDecoration(
-                  color: GotchaiColorStyles.gray900,
-                  borderRadius: BorderRadius.circular(10.w),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      "assets/icon/icon_note.png",
-                      width: 20.w,
-                      height: 20.w,
-                      fit: BoxFit.fill,
+            GestureDetector(
+                child: Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    decoration: BoxDecoration(
+                      color: GotchaiColorStyles.gray900,
+                      borderRadius: BorderRadius.circular(20.w),
                     ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Text("이용약관", style: GotchaiTextStyles.body4),
-                    Spacer(),
-                    Button(
-                        child: Image.asset(
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "assets/icon/icon_note.png",
+                          width: 20.w,
+                          height: 20.w,
+                          fit: BoxFit.fill,
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        Text("이용약관", style: GotchaiTextStyles.body4),
+                        Spacer(),
+                        Image.asset(
                           "assets/icon/icon_forward.png",
                           width: Constants.iconSize,
                           height: Constants.iconSize,
                         ),
-                        onTap: () {
-                          viewModel.openUrl(UrlType.policy);
-                        })
-                  ],
-                )),
+                      ],
+                    )),
+                onTap: () {
+                  viewModel.openUrl(UrlType.policy);
+                }),
             SizedBox(
               height: 8.h,
             ),
-            Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                decoration: BoxDecoration(
-                  color: GotchaiColorStyles.gray900,
-                  borderRadius: BorderRadius.circular(10.w),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      "assets/icon/icon_safe.png",
-                      width: 20.w,
-                      height: 20.w,
-                      fit: BoxFit.fill,
+            GestureDetector(
+                child: Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    decoration: BoxDecoration(
+                      color: GotchaiColorStyles.gray900,
+                      borderRadius: BorderRadius.circular(20.w),
                     ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Text("개인정보 처리방침", style: GotchaiTextStyles.body4),
-                    Spacer(),
-                    Button(
-                        child: Image.asset(
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          "assets/icon/icon_safe.png",
+                          width: 20.w,
+                          height: 20.w,
+                          fit: BoxFit.fill,
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        Text("개인정보 처리방침", style: GotchaiTextStyles.body4),
+                        Spacer(),
+                        Image.asset(
                           "assets/icon/icon_forward.png",
                           width: Constants.iconSize,
                           height: Constants.iconSize,
                         ),
-                        onTap: () {
-                          viewModel.openUrl(UrlType.security);
-                        })
-                  ],
-                )),
+                      ],
+                    )),
+                onTap: () {
+                  viewModel.openUrl(UrlType.security);
+                }),
             Spacer(),
             Button(
               onTap: () {
@@ -191,7 +195,7 @@ class _SettingViewState extends ConsumerState<SettingView> {
                     "모든 기록이 사라지며 복구될 수 없어요", "탈퇴하기", () {
                   Navigator.of(context).pop();
                 }, () {
-                  // 탈퇴처리
+                  viewModel.withdrawal();
                 });
               },
               width: double.infinity,

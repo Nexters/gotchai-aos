@@ -90,4 +90,24 @@ class LoginService {
       return Error('예외 발생: ${e.toString()}');
     }
   }
+
+  Future<RootResponse<void>> withdrawal() async {
+    final url = Uri.https(baseDomain, '$basePath/auth/withdrawal');
+
+    try {
+      final response = await client.delete(url, headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      });
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        await TokenService.clearTokens();
+        return Success(null);
+      } else {
+        final err = json.decode(response.body);
+        return Error('탈퇴 실패 : ${err['data']['message']}',
+            code: response.statusCode);
+      }
+    } catch (e) {
+      return Error('예외 발생: ${e.toString()}');
+    }
+  }
 }

@@ -26,6 +26,7 @@ dependencies:
   gal: ^2.3.2
   flutter_screenutil: ^5.9.3
   url_launcher: ^6.2.1
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -35,7 +36,6 @@ dev_dependencies:
   riverpod_lint: ^2.3.10
   build_runner: ^2.4.11
   json_serializable: ^6.6.1
-  flutter_native_splash: ^2.4.4
   flutter_launcher_icons: ^0.14.4
 
 flutter_launcher_icons:
@@ -48,8 +48,6 @@ flutter_native_splash:
   image: assets/icon/gotchai_logo.png
   android_12:
     color: "#151519"
-    image: assets/icon/gotchai_logo.png
-    icon_background_color: "#151519"
 
 flutter:
   uses-material-design: true

@@ -91,9 +91,7 @@ class TestCoverView extends ConsumerWidget {
               );
             },
           )),
-          SizedBox(
-            height: 44.h,
-          ),
+          Spacer(),
           Button(
             onTap: navigateToTestIntro,
             width: 345.w,
@@ -113,26 +111,8 @@ class TestCoverView extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 12.h),
-          Button(
-            onTap: () {},
-            width: 345.w,
-            height: 57.h,
-            child: Container(
-              width: 345.w,
-              height: 57.h,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(
-                  "테스트 공유하기",
-                  style: GotchaiTextStyles.body3
-                      .copyWith(color: GotchaiColorStyles.gray200),
-                ),
-              ),
-            ),
+          SizedBox(
+            height: 60.h,
           ),
         ],
       ),

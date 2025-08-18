@@ -49,6 +49,18 @@ class SettingViewModel extends _$SettingViewModel {
     });
   }
 
+  Future<void> withdrawal() async {
+    await LoginService().withdrawal().then((result) {
+      if (result is Success<void>) {
+        NavigationService().navigateClear(NavigationRoute.login);
+      } else if (result is Error<void>) {
+        state = SettingFailure('탈퇴 실패 : ${result.message}');
+      }
+    }).catchError((error) {
+      state = SettingFailure('예외 발생 : ${error.toString()}');
+    });
+  }
+
   void navigateToBack() {
     NavigationService().goBack();
   }
