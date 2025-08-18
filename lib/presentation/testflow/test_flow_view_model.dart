@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:turing/data/datasources/remote/test_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/grade_quiz_response.dart';
 import 'package:turing/data/models/quiz_response.dart';
 import 'package:turing/data/models/test_end_response.dart';

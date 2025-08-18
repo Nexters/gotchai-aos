@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:turing/data/datasources/http_interceptor.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/test_end_response.dart';
 import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/data/models/grade_quiz_response.dart';
@@ -14,7 +14,7 @@ class TestService {
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
-  Future<BaseResponse<TestListResponse>> getExamList() async {
+  Future<RootResponse<TestListResponse>> getExamList() async {
     final url = Uri.https(baseDomain, '$basePath/exams');
 
     try {
@@ -38,7 +38,7 @@ class TestService {
     }
   }
 
-  Future<BaseResponse<TestStartResponse>> postTestStart(int id) async {
+  Future<RootResponse<TestStartResponse>> postTestStart(int id) async {
     final url = Uri.https(baseDomain, '$basePath/exams/$id/start');
 
     try {
@@ -62,7 +62,7 @@ class TestService {
     }
   }
 
-  Future<BaseResponse<QuizResponse>> getQuiz(int id) async {
+  Future<RootResponse<QuizResponse>> getQuiz(int id) async {
     final url = Uri.https(baseDomain, '$basePath/quizzes/$id');
 
     try {
@@ -86,7 +86,7 @@ class TestService {
     }
   }
 
-  Future<BaseResponse<GradeQuizResponse>> postGradeQuiz(
+  Future<RootResponse<GradeQuizResponse>> postGradeQuiz(
       int quizId, int quizPickId, bool isTimeout) async {
     final url = Uri.https(baseDomain, '$basePath/quizzes/$quizId/grade');
 
@@ -112,7 +112,7 @@ class TestService {
     }
   }
 
-  Future<BaseResponse<TestEndResponse>> postTestEnd(int id) async {
+  Future<RootResponse<TestEndResponse>> postTestEnd(int id) async {
     final url = Uri.https(baseDomain, '$basePath/exams/$id/submit');
 
     try {

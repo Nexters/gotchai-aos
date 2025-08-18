@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:turing/data/datasources/http_interceptor.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/data/models/my_solved_test_response.dart';
 import 'package:turing/data/models/my_ranking_response.dart';
@@ -12,7 +12,7 @@ class ProfileService {
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
-  Future<BaseResponse<MyBadgeResponse>> getMyBadgeList() async {
+  Future<RootResponse<MyBadgeResponse>> getMyBadgeList() async {
     final url = Uri.https(baseDomain, '$basePath/users/me/badges');
 
     try {
@@ -36,7 +36,7 @@ class ProfileService {
     }
   }
 
-  Future<BaseResponse<MyRankingResponse>> getMyRanking() async {
+  Future<RootResponse<MyRankingResponse>> getMyRanking() async {
     final url = Uri.https(baseDomain, '$basePath/users/me/ranking');
 
     try {
@@ -60,7 +60,7 @@ class ProfileService {
     }
   }
 
-  Future<BaseResponse<MySolvedTestResponse>> getMySolvedTestList() async {
+  Future<RootResponse<MySolvedTestResponse>> getMySolvedTestList() async {
     final url = Uri.https(baseDomain, '$basePath/users/me/exams/solved');
 
     try {

@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:turing/data/datasources/http_interceptor.dart';
 import 'package:turing/data/datasources/local/token_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/login_response.dart';
 
 class LoginService {
@@ -11,7 +11,7 @@ class LoginService {
   final String basePath = dotenv.env['BASE_PATH'] ?? '';
   final client = InterceptedClient.build(interceptors: [HttpInterceptor()]);
 
-  Future<BaseResponse<LoginResponse>> login(String token) async {
+  Future<RootResponse<LoginResponse>> login(String token) async {
     final url = Uri.https(baseDomain, '$basePath/auth/login/kakao');
 
     try {
@@ -41,7 +41,7 @@ class LoginService {
     }
   }
 
-  Future<BaseResponse<LoginResponse>> refresh(String refreshToken) async {
+  Future<RootResponse<LoginResponse>> refresh(String refreshToken) async {
     final url = Uri.https(baseDomain, '$basePath/auth/refresh');
 
     try {
@@ -71,7 +71,7 @@ class LoginService {
     }
   }
 
-  Future<BaseResponse<void>> logout() async {
+  Future<RootResponse<void>> logout() async {
     final url = Uri.https(baseDomain, '$basePath/auth/logout');
 
     try {

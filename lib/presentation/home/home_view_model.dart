@@ -1,6 +1,6 @@
 import 'package:turing/data/datasources/remote/profile_service.dart';
 import 'package:turing/data/datasources/remote/test_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/data/models/my_ranking_response.dart';
 import 'package:turing/data/models/test_list_response.dart';

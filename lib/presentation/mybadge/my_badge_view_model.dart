@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:turing/data/datasources/remote/profile_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/presentation/navigation_service.dart';
 

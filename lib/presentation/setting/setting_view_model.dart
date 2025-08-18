@@ -1,6 +1,6 @@
 import 'package:turing/core/utils/url_util.dart';
 import 'package:turing/data/datasources/remote/login_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -34,8 +34,8 @@ class SettingViewModel extends _$SettingViewModel {
   }
 
   String policy = "https://pretty-icicle-cfc.notion.site/gotchai2?pvs=74";
-  String security = "";
-  String ask = "";
+  String security = "https://pretty-icicle-cfc.notion.site/gotchai";
+  String ask = "https://forms.gle/bWFFvVC1iyTSRuGP6";
 
   Future<void> logout() async {
     await LoginService().logout().then((result) {
