@@ -33,8 +33,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
               children: [
                 SizedBox(height: 166.h),
                 Image.asset('assets/icon/gotchai_logo.png',
-                    width: 235.w, height: 54.h, fit: BoxFit.fill),
-                SizedBox(height: 12.h),
+                    width: 251.w, height: 70.h, fit: BoxFit.fill),
+                SizedBox(height: 4.h),
                 Text(
                   '인간 사이 숨은 AI 찾기',
                   style: GotchaiTextStyles.body2

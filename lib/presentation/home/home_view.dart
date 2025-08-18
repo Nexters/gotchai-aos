@@ -24,11 +24,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
     super.initState();
   }
 
-  // void warmUpProviders() {
-  //   ref.read(mySolvedTestViewModelProvider.notifier).getMySolvedTestList();
-  //   ref.read(myBadgeViewModelProvider.notifier).getMyBadgeList();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
@@ -55,7 +50,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Image.asset('assets/icon/gotchai_logo.png',
-                              width: 120.w, height: 30.h, fit: BoxFit.fill),
+                              width: 124.w, height: 38.h, fit: BoxFit.fill),
                           Button(
                               child: Image.asset('assets/icon/icon_setting.png',
                                   width: 26.w, height: 26.w, fit: BoxFit.fill),
@@ -65,7 +60,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 12.h),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: Constants.horizontalPadding),

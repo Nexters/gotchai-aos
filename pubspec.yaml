@@ -45,9 +45,10 @@ flutter_launcher_icons:
 flutter_native_splash:
   android: true
   color: "#151519"
-  image: assets/icon/gotchai_logo.png
+  image: assets/icon/app_splash_logo.png
   android_12:
     color: "#151519"
+    image: assets/icon/app_splash_logo.png
 
 flutter:
   uses-material-design: true
@@ -103,3 +104,4 @@ flutter:
     - assets/icon/icon_ask.png
     - assets/icon/icon_empty_profile.png
     - assets/icon/app_icon.png
+    - assets/icon/app_splash_logo.png

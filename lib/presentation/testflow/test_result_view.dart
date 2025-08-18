@@ -8,7 +8,6 @@ import 'package:gal/gal.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/permission_util.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/popup/custom_snackbar.dart';

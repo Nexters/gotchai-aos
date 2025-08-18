@@ -62,11 +62,13 @@ class LoginService {
         );
         return Success(result);
       } else {
+        await TokenService.clearTokens();
         final err = json.decode(response.body);
         return Error('로그인 실패 : ${err['data']['message']}',
             code: response.statusCode);
       }
     } catch (e) {
+      await TokenService.clearTokens();
       return Error('예외 발생: ${e.toString()}');
     }
   }
@@ -83,7 +85,7 @@ class LoginService {
         return Success(null);
       } else {
         final err = json.decode(response.body);
-        return Error('로그인 실패 : ${err['data']['message']}',
+        return Error('로그아웃 실패 : ${err['data']['message']}',
             code: response.statusCode);
       }
     } catch (e) {
