@@ -58,7 +58,29 @@ class HttpInterceptor extends InterceptorContract {
           final errorCode = responseData['data']?['errorCode'];
 
           if (errorCode == "UNAUTHENTICATED_USER") {
-            await refreshToken();
+            final refreshed = await refreshToken();
+
+            if (refreshed) {
+              final originalRequest = response.request;
+
+              if (originalRequest != null) {
+                final newAccessToken = await TokenService.getAccessToken();
+                originalRequest.headers['Authorization'] =
+                    'Bearer $newAccessToken';
+
+                if (originalRequest is Request) {
+                  final newRequest = Request(
+                    originalRequest.method,
+                    originalRequest.url,
+                  )
+                    ..headers.addAll(originalRequest.headers)
+                    ..bodyBytes = await originalRequest.finalize().toBytes();
+
+                  final streamedResponse = await newRequest.send();
+                  return await Response.fromStream(streamedResponse);
+                }
+              }
+            }
           }
         } catch (e) {
           await TokenService.clearTokens();
@@ -73,20 +95,21 @@ class HttpInterceptor extends InterceptorContract {
     final refresh = await TokenService.getRefreshToken();
 
     if (refresh == null) {
-      logger.d("refreshToken이 없습니다");
       return false;
     }
 
     await LoginService().refresh(refresh).then((result) {
       if (result is Success<LoginResponse>) {
+        return true;
       } else if (result is Error<LoginResponse>) {
-        logger.e('토큰 갱신 실패: ${result.message}');
+        TokenService.clearTokens();
+        return false;
       }
     }).catchError((error) {
-      logger.e('토큰 갱신 실패: ${error.toString()}');
       TokenService.clearTokens();
+      return false;
     });
 
-    return true;
+    return false;
   }
 }
