@@ -7,7 +7,7 @@ import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
-import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/popup/custom_toast.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -32,7 +32,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
     ref.listen<HomesState>(homeViewModelProvider, (previous, next) {
       if (next.errorMessage.isNotEmpty) {
-        CustomSnackBar.showError(context, next.errorMessage);
+        CustomToast.showError(context, next.errorMessage);
       }
     });
 
@@ -98,12 +98,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             viewModel.navigateToTestFlow();
                           },
                           onRefresh: () async {
-                            await viewModel.getExamList();
+                            viewModel.getExamList();
                           }),
                       Align(
                           alignment: Alignment.topCenter,
                           child: HomeProfileWidget(
-                            onRefresh: () async {},
+                            onRefresh: () async {
+                              viewModel.getMyRanking();
+                              viewModel.getMyBadgeList();
+                            },
                             onBadgeForwardTap: viewModel.navigateToMyBadge,
                             onSolvedTestForwardTap:
                                 viewModel.navigateToMySolvedTest,

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/my_solved_test_response.dart';
 import 'package:turing/presentation/mytest/my_solved_test_view_model.dart';
-import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/popup/custom_toast.dart';
 import 'package:turing/widgets/button.dart';
 
 class MySolvedTestView extends ConsumerStatefulWidget {
@@ -35,7 +35,7 @@ class _MySolvedTestViewState extends ConsumerState<MySolvedTestView> {
     ref.listen<MySolvedTestState>(mySolvedTestViewModelProvider,
         (previous, next) {
       if (next is MySolvedTestFailure) {
-        CustomSnackBar.showError(context, next.message);
+        CustomToast.showError(context, next.message);
       }
     });
 

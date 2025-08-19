@@ -4,7 +4,7 @@ import 'package:turing/core/utils/color_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/test_list_response.dart';
-import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/popup/custom_toast.dart';
 
 class HomeTestWidget extends StatelessWidget {
   final List<Test> testList;
@@ -60,7 +60,7 @@ class HomeTestWidget extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     test.isSolved
-                        ? CustomSnackBar.showInfo(context, "이미 푼 문제입니다")
+                        ? CustomToast.showInfo(context, "이미 푼 문제입니다")
                         : onItemTap(test);
                   },
                   child: Container(

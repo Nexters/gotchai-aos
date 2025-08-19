@@ -68,7 +68,7 @@ class BadgeDescriptionCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/icon/icon_copy.png',
-                      width: 10.w, height: 10.w),
+                      width: 20.w, height: 20.w),
                   SizedBox(
                     width: 4.w,
                   ),

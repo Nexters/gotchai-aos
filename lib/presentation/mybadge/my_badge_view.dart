@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/presentation/mybadge/my_badge_view_model.dart';
-import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/popup/custom_toast.dart';
 import 'package:turing/widgets/button.dart';
 
 class MyBadgeView extends ConsumerStatefulWidget {
@@ -34,7 +34,7 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
 
     ref.listen<MyBadgeState>(myBadgeViewModelProvider, (previous, next) {
       if (next is MyBadgeFailure) {
-        CustomSnackBar.showError(context, next.message);
+        CustomToast.showError(context, next.message);
       }
     });
 
@@ -104,7 +104,7 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                     : Column(
                         children: [
                           SizedBox(height: 10.h),
-                          state.badges.isEmpty
+                          state.curBadgeCount == 0
                               ? SizedBox.shrink()
                               : Container(
                                   width: double.infinity,
@@ -129,7 +129,7 @@ class _MyBadgeViewState extends ConsumerState<MyBadgeView> {
                                           Text("축하해요",
                                               style: GotchaiTextStyles.body6),
                                           Text(
-                                              "${state.badges.length}개의 배지를 모았어요!",
+                                              "${state.curBadgeCount}개의 배지를 모았어요!",
                                               style: GotchaiTextStyles.body2
                                                   .copyWith(
                                                       color: GotchaiColorStyles

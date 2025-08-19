@@ -24,6 +24,11 @@ class SettingFailure extends SettingState {
   const SettingFailure(this.message);
 }
 
+class SettingSuccess extends SettingState {
+  final String message;
+  const SettingSuccess(this.message);
+}
+
 enum UrlType { security, policy, ask }
 
 @riverpod
@@ -40,6 +45,7 @@ class SettingViewModel extends _$SettingViewModel {
   Future<void> logout() async {
     await LoginService().logout().then((result) {
       if (result is Success<void>) {
+        state = SettingSuccess("로그아웃 성공");
         NavigationService().navigateClear(NavigationRoute.login);
       } else if (result is Error<void>) {
         state = SettingFailure('로그아웃 실패 : ${result.message}');
@@ -52,6 +58,7 @@ class SettingViewModel extends _$SettingViewModel {
   Future<void> withdrawal() async {
     await LoginService().withdrawal().then((result) {
       if (result is Success<void>) {
+        state = SettingSuccess("회원탈퇴 성공");
         NavigationService().navigateClear(NavigationRoute.login);
       } else if (result is Error<void>) {
         state = SettingFailure('탈퇴 실패 : ${result.message}');

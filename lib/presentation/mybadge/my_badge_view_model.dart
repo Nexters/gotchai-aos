@@ -20,7 +20,8 @@ class MyBadgeLoading extends MyBadgeState {
 
 class MyBadgeLoaded extends MyBadgeState {
   final List<MyBadgeItem> badges;
-  const MyBadgeLoaded(this.badges);
+  final int curBadgeCount;
+  const MyBadgeLoaded(this.badges, this.curBadgeCount);
 }
 
 class MyBadgeFailure extends MyBadgeState {
@@ -50,7 +51,7 @@ class MyBadgeViewModel extends _$MyBadgeViewModel {
               (totalBadgeCount - badges.length),
               (index) => MyBadgeItem(
                   id: -1, name: "숨겨진 배지", image: "", acquiredAt: ""))
-        ]);
+        ], badges.length);
       } else if (result is Error<MyBadgeResponse>) {}
     }).catchError((error) {});
   }

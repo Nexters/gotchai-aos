@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/date_util.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/data/models/my_badge_response.dart';
-import 'package:turing/widgets/button.dart';
 
 class HomeProfileWidget extends StatelessWidget {
   final Future<void> Function() onRefresh;
@@ -115,133 +114,138 @@ class HomeProfileWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 12.h),
-                Container(
-                    padding: EdgeInsets.all(20.w),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: GotchaiColorStyles.gray900,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
+                GestureDetector(
+                    onTap: onBadgeForwardTap,
+                    child: Container(
+                        padding: EdgeInsets.all(20.w),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: GotchaiColorStyles.gray900,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
                           children: [
-                            Image.asset(
-                              'assets/icon/icon_badge.png',
-                              width: Constants.iconSize,
-                              height: Constants.iconSize,
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Text("내 배지", style: GotchaiTextStyles.body2),
-                            Spacer(),
-                            Button(
-                                onTap: onBadgeForwardTap,
-                                child: Image.asset(
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/icon/icon_badge.png',
+                                  width: Constants.iconSize,
+                                  height: Constants.iconSize,
+                                  fit: BoxFit.fill,
+                                ),
+                                SizedBox(
+                                  width: 8.w,
+                                ),
+                                Text("내 배지", style: GotchaiTextStyles.body2),
+                                Spacer(),
+                                Image.asset(
                                   "assets/icon/icon_forward.png",
                                   width: Constants.iconSize,
                                   height: Constants.iconSize,
                                   fit: BoxFit.fill,
-                                ))
-                          ],
-                        ),
-                        recentBadge.id == -1
-                            ? SizedBox.shrink()
-                            : Column(
-                                children: [
-                                  SizedBox(
-                                    height: 8.h,
-                                  ),
-                                  Divider(
-                                    color: Color.fromRGBO(118, 120, 128, 0.4),
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Row(
+                                )
+                              ],
+                            ),
+                            recentBadge.id == -1
+                                ? SizedBox.shrink()
+                                : Column(
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(recentBadge.name,
-                                              style: GotchaiTextStyles.body2),
-                                          SizedBox(
-                                            height: 4.h,
-                                          ),
-                                          Text(
-                                              "${DateUtil.formatToMonthDay(recentBadge.acquiredAt)}에 획득",
-                                              style: GotchaiTextStyles.body4
-                                                  .copyWith(
-                                                      color: GotchaiColorStyles
-                                                          .gray500))
-                                        ],
+                                      SizedBox(
+                                        height: 8.h,
                                       ),
-                                      Spacer(),
-                                      Container(
-                                          padding: EdgeInsets.all(4.w),
-                                          width: 100.w,
-                                          height: 100.w,
-                                          decoration: BoxDecoration(
-                                            color: GotchaiColorStyles.gray800,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                      Divider(
+                                        color:
+                                            Color.fromRGBO(118, 120, 128, 0.4),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(recentBadge.name,
+                                                  style:
+                                                      GotchaiTextStyles.body2),
+                                              SizedBox(
+                                                height: 4.h,
+                                              ),
+                                              Text(
+                                                  "${DateUtil.formatToMonthDay(recentBadge.acquiredAt)}에 획득",
+                                                  style: GotchaiTextStyles.body4
+                                                      .copyWith(
+                                                          color:
+                                                              GotchaiColorStyles
+                                                                  .gray500))
+                                            ],
                                           ),
-                                          child: Image.network(
-                                            recentBadge.image,
-                                            width: 100.w,
-                                            height: 100.w,
-                                            fit: BoxFit.fill,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Image.asset(
-                                                'assets/icon/icon_empty_graphic.png',
-                                                width: 80.w,
-                                                height: 80.w,
-                                              );
-                                            },
-                                          ))
+                                          Spacer(),
+                                          Container(
+                                              padding: EdgeInsets.all(4.w),
+                                              width: 100.w,
+                                              height: 100.w,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    GotchaiColorStyles.gray800,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Image.network(
+                                                recentBadge.image,
+                                                width: 100.w,
+                                                height: 100.w,
+                                                fit: BoxFit.fill,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Image.asset(
+                                                    'assets/icon/icon_empty_graphic.png',
+                                                    width: 80.w,
+                                                    height: 80.w,
+                                                  );
+                                                },
+                                              ))
+                                        ],
+                                      )
                                     ],
                                   )
-                                ],
-                              )
-                      ],
-                    )),
+                          ],
+                        ))),
                 SizedBox(height: 12.h),
-                Container(
-                    padding: EdgeInsets.all(20.w),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: GotchaiColorStyles.gray900,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "assets/icon/icon_history.png",
-                          width: Constants.iconSize,
-                          height: Constants.iconSize,
-                          fit: BoxFit.fill,
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text("내가 풀었던 테스트", style: GotchaiTextStyles.body2),
-                        Spacer(),
-                        Button(
-                            onTap: onSolvedTestForwardTap,
-                            child: Image.asset(
-                              "assets/icon/icon_forward.png",
-                              width: Constants.iconSize,
-                              height: Constants.iconSize,
-                              fit: BoxFit.fill,
-                            ))
-                      ],
-                    )),
+                GestureDetector(
+                  onTap: onSolvedTestForwardTap,
+                  child: Container(
+                      padding: EdgeInsets.all(20.w),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: GotchaiColorStyles.gray900,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/icon/icon_history.png",
+                            width: Constants.iconSize,
+                            height: Constants.iconSize,
+                            fit: BoxFit.fill,
+                          ),
+                          SizedBox(
+                            width: 8.w,
+                          ),
+                          Text("내가 풀었던 테스트", style: GotchaiTextStyles.body2),
+                          Spacer(),
+                          Image.asset(
+                            "assets/icon/icon_forward.png",
+                            width: Constants.iconSize,
+                            height: Constants.iconSize,
+                            fit: BoxFit.fill,
+                          )
+                        ],
+                      )),
+                ),
                 SizedBox(height: 150.h),
               ],
             ),

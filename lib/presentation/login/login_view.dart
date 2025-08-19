@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/color_style.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/login/login_view_model.dart';
-import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/popup/custom_toast.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -20,7 +20,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
     ref.listen<LoginState>(loginViewModelProvider, (previous, next) {
       if (next is LoginFailure) {
-        CustomSnackBar.showError(context, next.message);
+        CustomToast.showError(context, next.message);
+      }
+
+      if (next is LoginSuccess) {
+        CustomToast.showSuccess(context, next.message);
       }
     });
 
