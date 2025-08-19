@@ -31,6 +31,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
 
   Future<void> saveBadgeCardAsImage() async {
     try {
+      final result = ref.read(testFlowViewModelProvider);
       bool hasPermission =
           await PermissionUtils.handleStoragePermission(context);
 
@@ -38,16 +39,53 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
         return;
       }
 
+      OverlayEntry? overlayEntry;
+
+      overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+          top: -2000,
+          left: 0,
+          child: Material(
+            color: Colors.transparent,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: RepaintBoundary(
+                key: _badgeCardKey,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Constants.horizontalPadding),
+                  child: BadgeCardWidget(
+                    badgeImage: result.testResultData.badgeImage,
+                    correctCount: result.testResultData.correctCount,
+                    tier: result.testResultData.tier,
+                    badgeName: result.testResultData.badgeName,
+                    description: result.testResultData.description,
+                    isCapturing: true,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      Overlay.of(context).insert(overlayEntry);
+
+      await Future.delayed(const Duration(milliseconds: 50));
+
       final boundary = _badgeCardKey.currentContext!.findRenderObject()!
           as RenderRepaintBoundary;
       final image = await boundary.toImage(pixelRatio: 2);
       final byteData = await image.toByteData(format: ImageByteFormat.png);
+
+      overlayEntry.remove();
+
       if (byteData != null) {
         final uint8List = byteData.buffer.asUint8List();
 
         await Gal.putImageBytes(
           uint8List,
-          album: "Gotchai", // 앨범 이름
+          album: "Gotchai",
           name: "gotchai_badge_${DateTime.now().millisecondsSinceEpoch}.png",
         );
 
@@ -149,15 +187,12 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                 child: Column(
               children: [
                 SizedBox(height: 112.h),
-                RepaintBoundary(
-                  key: _badgeCardKey,
-                  child: BadgeCardWidget(
-                    badgeImage: result.testResultData.badgeImage,
-                    correctCount: result.testResultData.correctCount,
-                    tier: result.testResultData.tier,
-                    badgeName: result.testResultData.badgeName,
-                    description: result.testResultData.description,
-                  ),
+                BadgeCardWidget(
+                  badgeImage: result.testResultData.badgeImage,
+                  correctCount: result.testResultData.correctCount,
+                  tier: result.testResultData.tier,
+                  badgeName: result.testResultData.badgeName,
+                  description: result.testResultData.description,
                 ),
                 SizedBox(height: 24.h),
                 BadgeDescriptionCard(

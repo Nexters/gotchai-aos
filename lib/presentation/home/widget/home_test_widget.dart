@@ -20,19 +20,22 @@ class HomeTestWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: Constants.horizontalPadding),
-      decoration: BoxDecoration(
-        color: GotchaiColorStyles.gray900,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: RefreshIndicator(
-        onRefresh: onRefresh,
-        color: GotchaiColorStyles.primary400,
-        backgroundColor: GotchaiColorStyles.gray800,
-        child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      color: GotchaiColorStyles.primary400,
+      backgroundColor: GotchaiColorStyles.gray800,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Container(
+          margin: EdgeInsets.only(
+              left: Constants.horizontalPadding,
+              right: Constants.horizontalPadding,
+              top: 20.h),
+          decoration: BoxDecoration(
+            color: GotchaiColorStyles.gray900,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -156,7 +159,7 @@ class HomeTestWidget extends StatelessWidget {
                   ),
                 );
               }),
-              SizedBox(height: 100.h)
+              SizedBox(height: 10.h)
             ],
           ),
         ),

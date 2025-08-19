@@ -10,6 +10,7 @@ class BadgeCardWidget extends StatelessWidget {
   final Tier tier;
   final String badgeName;
   final String description;
+  final bool isCapturing;
 
   const BadgeCardWidget({
     super.key,
@@ -18,6 +19,7 @@ class BadgeCardWidget extends StatelessWidget {
     required this.tier,
     required this.badgeName,
     required this.description,
+    this.isCapturing = false,
   });
 
   @override
@@ -30,6 +32,15 @@ class BadgeCardWidget extends StatelessWidget {
               Border.all(width: 1, color: Color.fromRGBO(255, 255, 255, 0.2)),
         ),
         child: Stack(children: [
+          Visibility(
+              visible: isCapturing,
+              child: Positioned.fill(
+                  child: Container(
+                decoration: BoxDecoration(
+                  color: GotchaiColorStyles.gray950,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ))),
           Positioned.fill(
             child: Opacity(
               opacity: 0.2,

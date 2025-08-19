@@ -44,7 +44,7 @@ class HomeProfileWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 8.h),
+                SizedBox(height: 28.h),
                 ClipOval(
                   child: Image.network(
                     "",

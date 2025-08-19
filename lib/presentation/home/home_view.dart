@@ -86,9 +86,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
                     Expanded(
                         child: TabBarView(children: [
                       HomeTestWidget(
@@ -115,6 +112,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             recentBadge: homeState.recentBadge,
                           ))
                     ])),
+                    SizedBox(height: 60.h)
                   ],
                 ))));
   }
