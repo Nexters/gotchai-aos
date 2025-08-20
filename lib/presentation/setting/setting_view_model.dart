@@ -1,3 +1,4 @@
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:turing/core/utils/url_util.dart';
 import 'package:turing/data/datasources/remote/login_service.dart';
 import 'package:turing/data/models/root_response.dart';
@@ -45,6 +46,7 @@ class SettingViewModel extends _$SettingViewModel {
   Future<void> logout() async {
     await LoginService().logout().then((result) {
       if (result is Success<void>) {
+        kakaoUnlink();
         state = SettingSuccess("로그아웃 성공");
         NavigationService().navigateClear(NavigationRoute.login);
       } else if (result is Error<void>) {
@@ -55,9 +57,18 @@ class SettingViewModel extends _$SettingViewModel {
     });
   }
 
+  void kakaoUnlink() async {
+    try {
+      await UserApi.instance.unlink();
+    } catch (error) {
+      state = SettingFailure('unlink fail : ${error.toString()}');
+    }
+  }
+
   Future<void> withdrawal() async {
     await LoginService().withdrawal().then((result) {
       if (result is Success<void>) {
+        kakaoUnlink();
         state = SettingSuccess("회원탈퇴 성공");
         NavigationService().navigateClear(NavigationRoute.login);
       } else if (result is Error<void>) {

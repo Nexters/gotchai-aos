@@ -27,6 +27,7 @@ class HomeTestWidget extends StatelessWidget {
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
         child: Container(
+          width: double.infinity,
           margin: EdgeInsets.only(
               left: Constants.horizontalPadding,
               right: Constants.horizontalPadding,

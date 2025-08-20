@@ -29,6 +29,8 @@ class TestResultView extends ConsumerStatefulWidget {
 class _TestResultViewState extends ConsumerState<TestResultView> {
   final GlobalKey _badgeCardKey = GlobalKey();
 
+  Future<void> instagramShare() async {}
+
   Future<void> saveBadgeCardAsImage() async {
     try {
       final result = ref.read(testFlowViewModelProvider);
@@ -289,7 +291,9 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                       ),
                       Expanded(
                           child: Button(
-                              onTap: () {},
+                              onTap: () {
+                                instagramShare();
+                              },
                               height: 54.h,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.primary400,
