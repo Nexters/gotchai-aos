@@ -10,13 +10,28 @@ import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
-class TestIntroView extends ConsumerWidget {
+class TestIntroView extends ConsumerStatefulWidget {
   const TestIntroView({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<TestIntroView> createState() => _TestIntroViewState();
+}
+
+class _TestIntroViewState extends ConsumerState<TestIntroView> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final test = ref.watch(testViewModelProvider);
+      ref.watch(testFlowViewModelProvider.notifier).startTest(test.id);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final test = ref.watch(testViewModelProvider);
 
     void navigateToBack() {
@@ -24,7 +39,6 @@ class TestIntroView extends ConsumerWidget {
     }
 
     void navigateToTestFlow() {
-      ref.watch(testFlowViewModelProvider.notifier).startTest(test.id);
       NavigationService().navigateWithFade(NavigationRoute.testFlow);
     }
 

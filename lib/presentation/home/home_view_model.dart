@@ -12,6 +12,7 @@ part 'home_view_model.g.dart';
 
 class HomesState {
   final List<Test> testList;
+  final List<MyBadgeItem> badges;
   final MyBadgeItem recentBadge;
   final int ranking;
   final String name;
@@ -19,6 +20,7 @@ class HomesState {
 
   const HomesState(
       {required this.testList,
+      required this.badges,
       required this.recentBadge,
       required this.ranking,
       required this.name,
@@ -26,12 +28,14 @@ class HomesState {
 
   HomesState copyWith(
       {List<Test>? testList,
+      List<MyBadgeItem>? badges,
       MyBadgeItem? recentBadge,
       int? ranking,
       String? name,
       String? errorMessage}) {
     return HomesState(
       testList: testList ?? this.testList,
+      badges: badges ?? this.badges,
       recentBadge: recentBadge ?? this.recentBadge,
       ranking: ranking ?? this.ranking,
       name: name ?? this.name,
@@ -49,6 +53,7 @@ class HomeViewModel extends _$HomeViewModel {
     getMyBadgeList();
     return HomesState(
         testList: [],
+        badges: [],
         recentBadge: MyBadgeItem.empty(),
         ranking: 0,
         name: '',
@@ -87,6 +92,7 @@ class HomeViewModel extends _$HomeViewModel {
       if (result is Success<MyBadgeResponse>) {
         final badges = result.data.badges;
         state = state.copyWith(
+            badges: badges,
             recentBadge: badges.isNotEmpty ? badges.first : MyBadgeItem.empty(),
             errorMessage: "");
       } else if (result is Error<MyBadgeResponse>) {

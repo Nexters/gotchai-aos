@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/color_style.dart';
+import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/text_style.dart';
+import 'package:turing/data/models/my_badge_response.dart';
+import 'package:turing/data/models/test_list_response.dart';
 import 'package:turing/presentation/home/home_view_model.dart';
 import 'package:turing/presentation/home/widget/home_profile_widget.dart';
 import 'package:turing/presentation/home/widget/home_test_widget.dart';
@@ -24,6 +27,40 @@ class _HomeViewState extends ConsumerState<HomeView> {
     super.initState();
   }
 
+  Future<void> _precacheTestImages(List<Test> testList) async {
+    for (final test in testList) {
+      try {
+        precacheImage(
+          NetworkImage(test.backgroundImage),
+          context,
+        );
+        precacheImage(
+          NetworkImage(test.coverImage),
+          context,
+        );
+        precacheImage(
+          NetworkImage(test.iconImage),
+          context,
+        );
+      } catch (e) {
+        logger.d('Failed to precache image: $e');
+      }
+    }
+  }
+
+  Future<void> _precacheBadgeImages(List<MyBadgeItem> badges) async {
+    for (final badge in badges) {
+      try {
+        precacheImage(
+          NetworkImage(badge.image),
+          context,
+        );
+      } catch (e) {
+        logger.d('Failed to precache image: $e');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
@@ -33,6 +70,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
     ref.listen<HomesState>(homeViewModelProvider, (previous, next) {
       if (next.errorMessage.isNotEmpty) {
         CustomToast.showError(context, next.errorMessage);
+      }
+
+      if (previous?.testList != next.testList && next.testList.isNotEmpty) {
+        _precacheTestImages(next.testList);
+      }
+
+      if (previous?.badges != next.badges && next.badges.isNotEmpty) {
+        _precacheBadgeImages(next.badges);
       }
     });
 

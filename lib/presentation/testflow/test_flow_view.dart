@@ -23,6 +23,14 @@ class TestFlowView extends ConsumerStatefulWidget {
 
 class _TestFlowViewState extends ConsumerState<TestFlowView> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.watch(testFlowViewModelProvider.notifier).startCountdown();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final test = ref.watch(testViewModelProvider);
     final testFlowViewModel = ref.watch(testFlowViewModelProvider.notifier);
