@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -5,10 +6,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gal/gal.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/permission_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/popup/custom_toast.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
@@ -29,59 +32,32 @@ class TestResultView extends ConsumerStatefulWidget {
 class _TestResultViewState extends ConsumerState<TestResultView> {
   final GlobalKey _badgeCardKey = GlobalKey();
 
-  Future<void> instagramShare() async {}
+  Future<void> instagramShare() async {
+    try {
+      final byteData = await getWidgetImage();
+      if (byteData != null) {
+        final uint8List = byteData.buffer.asUint8List();
+
+        final dir = await getTemporaryDirectory();
+        final file = File(
+            '${dir.path}/badge_${DateTime.now().millisecondsSinceEpoch}.png');
+        await file.writeAsBytes(uint8List);
+        final params = ShareParams(
+          files: [
+            XFile(file.path),
+          ],
+        );
+
+        await SharePlus.instance.share(params);
+      }
+    } catch (e) {
+      logger.d(e);
+    }
+  }
 
   Future<void> saveBadgeCardAsImage() async {
+    final byteData = await getWidgetImage();
     try {
-      final result = ref.read(testFlowViewModelProvider);
-      bool hasPermission =
-          await PermissionUtils.handleStoragePermission(context);
-
-      if (!hasPermission) {
-        return;
-      }
-
-      OverlayEntry? overlayEntry;
-
-      overlayEntry = OverlayEntry(
-        builder: (context) => Positioned(
-          top: -2000,
-          left: 0,
-          child: Material(
-            color: Colors.transparent,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: RepaintBoundary(
-                key: _badgeCardKey,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Constants.horizontalPadding),
-                  child: BadgeCardWidget(
-                    badgeImage: result.testResultData.badgeImage,
-                    correctCount: result.testResultData.correctCount,
-                    tier: result.testResultData.tier,
-                    badgeName: result.testResultData.badgeName,
-                    description: result.testResultData.description,
-                    isCapturing: true,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-
-      Overlay.of(context).insert(overlayEntry);
-
-      await Future.delayed(const Duration(milliseconds: 50));
-
-      final boundary = _badgeCardKey.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
-      final image = await boundary.toImage(pixelRatio: 2);
-      final byteData = await image.toByteData(format: ImageByteFormat.png);
-
-      overlayEntry.remove();
-
       if (byteData != null) {
         final uint8List = byteData.buffer.asUint8List();
 
@@ -100,6 +76,51 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
         CustomToast.showError(context, e.toString());
       }
     }
+  }
+
+  Future<ByteData?> getWidgetImage() async {
+    final result = ref.read(testFlowViewModelProvider);
+    OverlayEntry? overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: -2000,
+        left: 0,
+        child: Material(
+          color: Colors.transparent,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: RepaintBoundary(
+              key: _badgeCardKey,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Constants.horizontalPadding),
+                child: BadgeCardWidget(
+                  badgeImage: result.testResultData.badgeImage,
+                  correctCount: result.testResultData.correctCount,
+                  tier: result.testResultData.tier,
+                  badgeName: result.testResultData.badgeName,
+                  description: result.testResultData.description,
+                  isCapturing: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry);
+
+    await Future.delayed(const Duration(milliseconds: 50));
+
+    final boundary = _badgeCardKey.currentContext!.findRenderObject()!
+        as RenderRepaintBoundary;
+    final image = await boundary.toImage(pixelRatio: 2);
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+
+    overlayEntry.remove();
+    return byteData;
   }
 
   @override

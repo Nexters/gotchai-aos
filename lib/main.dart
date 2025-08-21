@@ -15,8 +15,11 @@ import 'package:turing/presentation/navigation_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
+      statusBarColor: GotchaiColorStyles.gray950,
+      statusBarBrightness: Brightness.light,
       systemNavigationBarColor: GotchaiColorStyles.gray950,
       systemNavigationBarIconBrightness: Brightness.light,
     ),

@@ -2,7 +2,7 @@ name: turing
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 1.0.4+5
+version: 1.1.1+8
 
 environment:
   sdk: ^3.6.2
@@ -27,6 +27,8 @@ dependencies:
   flutter_screenutil: ^5.9.3
   url_launcher: ^6.2.1
   flutter_native_splash: ^2.4.4
+  path_provider: ^2.1.5
+  share_plus: ^11.1.0
 
 dev_dependencies:
   flutter_test:

@@ -17,7 +17,7 @@
     </queries>
 
     <application
-        android:label="gotchai"
+        android:label="Gotchai"
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true">
         <activity
@@ -53,6 +53,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+    
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
