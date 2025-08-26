@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -5,13 +6,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gal/gal.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/permission_util.dart';
-
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:turing/core/utils/log_util.dart';
 import 'package:turing/core/utils/text_style.dart';
-import 'package:turing/presentation/popup/custom_snackbar.dart';
+import 'package:turing/presentation/popup/custom_toast.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/testflow/widget/badge_card.dart';
@@ -30,37 +32,95 @@ class TestResultView extends ConsumerStatefulWidget {
 class _TestResultViewState extends ConsumerState<TestResultView> {
   final GlobalKey _badgeCardKey = GlobalKey();
 
-  Future<void> saveBadgeCardAsImage() async {
+  Future<void> instagramShare() async {
     try {
-      bool hasPermission =
-          await PermissionUtils.handleStoragePermission(context);
+      final byteData = await getWidgetImage();
+      if (byteData != null) {
+        final uint8List = byteData.buffer.asUint8List();
 
-      if (!hasPermission) {
-        return;
+        final dir = await getTemporaryDirectory();
+        final file = File(
+            '${dir.path}/badge_${DateTime.now().millisecondsSinceEpoch}.png');
+        await file.writeAsBytes(uint8List);
+        final params = ShareParams(
+          files: [
+            XFile(file.path),
+          ],
+        );
+
+        await SharePlus.instance.share(params);
       }
+    } catch (e) {
+      logger.d(e);
+    }
+  }
 
-      final boundary = _badgeCardKey.currentContext!.findRenderObject()!
-          as RenderRepaintBoundary;
-      final image = await boundary.toImage(pixelRatio: 2);
-      final byteData = await image.toByteData(format: ImageByteFormat.png);
+  Future<void> saveBadgeCardAsImage() async {
+    final byteData = await getWidgetImage();
+    try {
       if (byteData != null) {
         final uint8List = byteData.buffer.asUint8List();
 
         await Gal.putImageBytes(
           uint8List,
-          album: "Gotchai", // 앨범 이름
+          album: "Gotchai",
           name: "gotchai_badge_${DateTime.now().millisecondsSinceEpoch}.png",
         );
 
         if (mounted) {
-          CustomSnackBar.showInfo(context, "배지 이미지가 앨범에 저장되었습니다");
+          CustomToast.showSuccess(context, "이미지를 저장했어요");
         }
       }
     } catch (e) {
       if (mounted) {
-        CustomSnackBar.showError(context, e.toString());
+        CustomToast.showError(context, e.toString());
       }
     }
+  }
+
+  Future<ByteData?> getWidgetImage() async {
+    final result = ref.read(testFlowViewModelProvider);
+    OverlayEntry? overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: -2000,
+        left: 0,
+        child: Material(
+          color: Colors.transparent,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: RepaintBoundary(
+              key: _badgeCardKey,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Constants.horizontalPadding),
+                child: BadgeCardWidget(
+                  badgeImage: result.testResultData.badgeImage,
+                  correctCount: result.testResultData.correctCount,
+                  tier: result.testResultData.tier,
+                  badgeName: result.testResultData.badgeName,
+                  description: result.testResultData.description,
+                  isCapturing: true,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry);
+
+    await Future.delayed(const Duration(milliseconds: 50));
+
+    final boundary = _badgeCardKey.currentContext!.findRenderObject()!
+        as RenderRepaintBoundary;
+    final image = await boundary.toImage(pixelRatio: 2);
+    final byteData = await image.toByteData(format: ImageByteFormat.png);
+
+    overlayEntry.remove();
+    return byteData;
   }
 
   @override
@@ -149,18 +209,15 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                SizedBox(height: 200.h),
-                RepaintBoundary(
-                  key: _badgeCardKey,
-                  child: BadgeCardWidget(
-                    badgeImage: result.testResultData.badgeImage,
-                    correctCount: result.testResultData.correctCount,
-                    tier: result.testResultData.tier,
-                    badgeName: result.testResultData.badgeName,
-                    description: result.testResultData.description,
-                  ),
+                SizedBox(height: 112.h),
+                BadgeCardWidget(
+                  badgeImage: result.testResultData.badgeImage,
+                  correctCount: result.testResultData.correctCount,
+                  tier: result.testResultData.tier,
+                  badgeName: result.testResultData.badgeName,
+                  description: result.testResultData.description,
                 ),
-                SizedBox(height: 60.h),
+                SizedBox(height: 24.h),
                 BadgeDescriptionCard(
                   theme: test.theme,
                   prompt: test.prompt,
@@ -168,13 +225,13 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                   onTap: copyPromptToClipboard,
                 ),
                 SizedBox(
-                  height: 400.h,
+                  height: 150.h,
                 )
               ],
             ))),
         Container(
           width: double.infinity,
-          height: 200.h,
+          height: 112.h,
           decoration: BoxDecoration(
               gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -183,7 +240,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
             stops: [0.0, 1.0],
           )),
           child: Padding(
-            padding: EdgeInsets.only(right: 6.w, bottom: 6.w),
+            padding: EdgeInsets.only(right: 27.w, bottom: 35.h),
             child: Align(
               alignment: Alignment.bottomRight,
               child: Button(
@@ -201,7 +258,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
           left: 0,
           right: 0,
           child: Container(
-              height: 400.h,
+              height: 162.h,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: GotchaiColorStyles.gray950,
@@ -220,17 +277,17 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                     ]),
               ),
               child: Padding(
-                  padding: EdgeInsets.only(bottom: Constants.topPadding),
+                  padding: EdgeInsets.only(bottom: 56.h),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        width: 10.w,
+                        width: 24.w,
                       ),
                       Expanded(
                           child: Button(
                               onTap: saveBadgeCardAsImage,
-                              height: 120.h,
+                              height: 54.h,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.primary100,
                                 borderRadius: BorderRadius.circular(16),
@@ -251,12 +308,14 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 ],
                               ))),
                       SizedBox(
-                        width: 10.w,
+                        width: 12.w,
                       ),
                       Expanded(
                           child: Button(
-                              onTap: () {},
-                              height: 120.h,
+                              onTap: () {
+                                instagramShare();
+                              },
+                              height: 54.h,
                               decoration: BoxDecoration(
                                 color: GotchaiColorStyles.primary400,
                                 borderRadius: BorderRadius.circular(16),
@@ -277,7 +336,7 @@ class _TestResultViewState extends ConsumerState<TestResultView> {
                                 ],
                               ))),
                       SizedBox(
-                        width: 10.w,
+                        width: 24.w,
                       ),
                     ],
                   ))),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
 
@@ -10,6 +10,7 @@ class BadgeCardWidget extends StatelessWidget {
   final Tier tier;
   final String badgeName;
   final String description;
+  final bool isCapturing;
 
   const BadgeCardWidget({
     super.key,
@@ -18,6 +19,7 @@ class BadgeCardWidget extends StatelessWidget {
     required this.tier,
     required this.badgeName,
     required this.description,
+    this.isCapturing = false,
   });
 
   @override
@@ -30,6 +32,15 @@ class BadgeCardWidget extends StatelessWidget {
               Border.all(width: 1, color: Color.fromRGBO(255, 255, 255, 0.2)),
         ),
         child: Stack(children: [
+          Visibility(
+              visible: isCapturing,
+              child: Positioned.fill(
+                  child: Container(
+                decoration: BoxDecoration(
+                  color: GotchaiColorStyles.gray950,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ))),
           Positioned.fill(
             child: Opacity(
               opacity: 0.2,
@@ -101,14 +112,17 @@ class BadgeCardWidget extends StatelessWidget {
           Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+                padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 27.h),
                 child: Column(
                   children: [
-                    SizedBox(height: 40.h),
+                    SizedBox(
+                      height: 7.h,
+                    ),
                     Image.network(
                       badgeImage,
-                      width: 100.w,
-                      height: 100.w,
+                      width: 212.w,
+                      height: 212.w,
+                      fit: BoxFit.fill,
                     ),
                     SizedBox(height: 20.h),
                     Text(
@@ -123,7 +137,6 @@ class BadgeCardWidget extends StatelessWidget {
                         Tier.none => GotchaiColorStyles.gray400,
                       }),
                     ),
-                    SizedBox(height: 10.h),
                     Text(
                       badgeName,
                       style: GotchaiTextStyles.title3.copyWith(
@@ -134,13 +147,13 @@ class BadgeCardWidget extends StatelessWidget {
                         Tier.none => GotchaiColorStyles.gray400,
                       }),
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 16.h),
                     Text(
                       description,
                       style: GotchaiTextStyles.body4,
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 60.h),
+                    SizedBox(height: 40.h),
                     Image.asset(
                       switch (tier) {
                         Tier.bronze => "assets/icon/icon_badge_logo_bronze.png",
@@ -148,12 +161,9 @@ class BadgeCardWidget extends StatelessWidget {
                         Tier.gold => "assets/icon/icon_badge_logo_gold.png",
                         Tier.none => "assets/icon/icon_badge_logo_bronze.png",
                       },
-                      width: 30.w,
-                      height: 20.w,
+                      width: 56.w,
+                      height: 12.h,
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    )
                   ],
                 ),
               ))

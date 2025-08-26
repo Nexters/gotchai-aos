@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/widgets/button.dart';
 
@@ -26,7 +26,7 @@ class BadgeDescriptionCard extends StatelessWidget {
         color: Color.fromRGBO(191, 201, 231, 0.1),
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      padding: EdgeInsets.only(top: 40.h, right: 20.w, left: 20.w, bottom: 8.h),
       child: Column(
         children: [
           Text(
@@ -35,40 +35,40 @@ class BadgeDescriptionCard extends StatelessWidget {
                 .copyWith(color: GotchaiColorStyles.primary300),
           ),
           Text("이 프롬프트로 만들었어요", style: GotchaiTextStyles.subtitle1),
-          SizedBox(height: 40.h),
+          SizedBox(height: 16.h),
           ClipOval(
               child: Image.network(
             iconImage,
-            width: 130.w,
-            height: 130.w,
-            fit: BoxFit.cover,
+            width: 133.w,
+            height: 133.w,
+            fit: BoxFit.fill,
             errorBuilder: (context, error, stackTrace) {
               return Image.asset(
                 'assets/icon/icon_empty_graphic.png',
-                width: 130.w,
-                height: 130.w,
-                fit: BoxFit.cover,
+                width: 133.w,
+                height: 133.w,
+                fit: BoxFit.fill,
               );
             },
           )),
-          SizedBox(height: 40.h),
+          SizedBox(height: 16.h),
           Text(prompt,
+              textAlign: TextAlign.center,
               style: GotchaiTextStyles.body4
                   .copyWith(color: Color.fromRGBO(255, 255, 255, 0.8))),
-          SizedBox(height: 40.h),
+          SizedBox(height: 32.h),
           Divider(
             color: GotchaiColorStyles.gray500,
           ),
-          SizedBox(height: 20.h),
           Button(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 20.h),
+              padding: EdgeInsets.symmetric(vertical: 14.h),
               onTap: onTap,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/icon/icon_copy.png',
-                      width: 10.w, height: 10.w),
+                      width: 20.w, height: 20.w),
                   SizedBox(
                     width: 4.w,
                   ),

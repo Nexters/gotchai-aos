@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:turing/data/datasources/remote/profile_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/my_badge_response.dart';
 import 'package:turing/presentation/navigation_service.dart';
 
@@ -18,9 +18,10 @@ class MyBadgeLoading extends MyBadgeState {
   const MyBadgeLoading();
 }
 
-class MybadgeLoaded extends MyBadgeState {
+class MyBadgeLoaded extends MyBadgeState {
   final List<MyBadgeItem> badges;
-  const MybadgeLoaded(this.badges);
+  final int curBadgeCount;
+  const MyBadgeLoaded(this.badges, this.curBadgeCount);
 }
 
 class MyBadgeFailure extends MyBadgeState {
@@ -44,13 +45,13 @@ class MyBadgeViewModel extends _$MyBadgeViewModel {
       if (result is Success<MyBadgeResponse>) {
         final badges = result.data.badges;
         final totalBadgeCount = result.data.totalBadgeCount;
-        state = MybadgeLoaded([
+        state = MyBadgeLoaded([
           ...badges,
           ...List.generate(
               (totalBadgeCount - badges.length),
               (index) => MyBadgeItem(
                   id: -1, name: "숨겨진 배지", image: "", acquiredAt: ""))
-        ]);
+        ], badges.length);
       } else if (result is Error<MyBadgeResponse>) {}
     }).catchError((error) {});
   }

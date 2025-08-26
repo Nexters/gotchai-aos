@@ -2,7 +2,7 @@ name: turing
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.1.1+8
 
 environment:
   sdk: ^3.6.2
@@ -24,6 +24,11 @@ dependencies:
   permission_handler: ^11.3.1
   device_info_plus: ^9.1.0
   gal: ^2.3.2
+  flutter_screenutil: ^5.9.3
+  url_launcher: ^6.2.1
+  flutter_native_splash: ^2.4.4
+  path_provider: ^2.1.5
+  share_plus: ^11.1.0
 
 dev_dependencies:
   flutter_test:
@@ -33,12 +38,19 @@ dev_dependencies:
   riverpod_lint: ^2.3.10
   build_runner: ^2.4.11
   json_serializable: ^6.6.1
-  flutter_native_splash: ^2.4.4
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path_android: "assets/icon/app_icon.png"
+
 flutter_native_splash:
   android: true
-  color: "#FFFFFF"
-  image: assets/icon/icon_logo.png
-  fullscreen: true
+  color: "#151519"
+  image: assets/icon/app_splash_logo.png
+  android_12:
+    color: "#151519"
+    image: assets/icon/app_splash_logo.png
 
 flutter:
   uses-material-design: true
@@ -68,6 +80,7 @@ flutter:
     - assets/image/image_onboarding1.png
     - assets/image/image_onboarding2.png
     - assets/image/image_onboarding3.png
+    - assets/image/image_onboarding4.png
     - assets/icon/icon_B_button.png
     - assets/icon/icon_A_button.png
     - assets/icon/icon_correct.png
@@ -91,3 +104,6 @@ flutter:
     - assets/icon/icon_note.png
     - assets/icon/icon_safe.png
     - assets/icon/icon_ask.png
+    - assets/icon/icon_empty_profile.png
+    - assets/icon/app_icon.png
+    - assets/icon/app_splash_logo.png

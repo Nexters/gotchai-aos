@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:turing/data/datasources/remote/test_service.dart';
-import 'package:turing/data/models/base_response.dart';
+import 'package:turing/data/models/root_response.dart';
 import 'package:turing/data/models/grade_quiz_response.dart';
 import 'package:turing/data/models/quiz_response.dart';
 import 'package:turing/data/models/test_end_response.dart';
@@ -189,9 +189,34 @@ class TestFlowViewModel extends _$TestFlowViewModel {
           quizIds: data.quizIds,
           curIndex: 0,
         );
-        loadNextQuiz();
+        loadInitialQuiz();
       } else if (result is Error<TestStartResponse>) {
         // Handle End
+      }
+    }).catchError((error) {});
+  }
+
+  Future<void> loadInitialQuiz() async {
+    final quizId = state.quizIds[state.curIndex];
+    await TestService().getQuiz(quizId).then((result) {
+      if (result is Success<QuizResponse>) {
+        state = state.copyWith(
+            curIndex: state.curIndex + 1,
+            curQuizData: CurQuizData(
+              question: result.data.contents,
+              contentAData: ContentData(
+                id: result.data.quizPicks[0].id,
+                content: result.data.quizPicks[0].contents,
+              ),
+              contentBData: ContentData(
+                id: result.data.quizPicks[1].id,
+                content: result.data.quizPicks[1].contents,
+              ),
+              selectQuizPick: -1,
+            ),
+            curQuizState: CurQuizLoaded());
+      } else if (result is Error<QuizResponse>) {
+        // Handle Error
       }
     }).catchError((error) {});
   }

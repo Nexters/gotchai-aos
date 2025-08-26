@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/testflow/test_flow_view_model.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
@@ -10,28 +10,42 @@ import 'package:turing/presentation/navigation_route.dart';
 import 'package:turing/presentation/navigation_service.dart';
 import 'package:turing/widgets/button.dart';
 
-class TestIntroView extends ConsumerWidget {
+class TestIntroView extends ConsumerStatefulWidget {
   const TestIntroView({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final exam = ref.watch(testViewModelProvider);
+  ConsumerState<TestIntroView> createState() => _TestIntroViewState();
+}
+
+class _TestIntroViewState extends ConsumerState<TestIntroView> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final test = ref.watch(testViewModelProvider);
+      ref.watch(testFlowViewModelProvider.notifier).startTest(test.id);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final test = ref.watch(testViewModelProvider);
 
     void navigateToBack() {
       NavigationService().goBackUntil(NavigationRoute.home);
     }
 
     void navigateToTestFlow() {
-      ref.watch(testFlowViewModelProvider.notifier).startTest(exam.id);
       NavigationService().navigateWithFade(NavigationRoute.testFlow);
     }
 
     return Scaffold(
         body: Stack(
       children: [
-        Image.network(exam.backgroundImage,
+        Image.network(test.backgroundImage,
             width: double.infinity, height: double.infinity, fit: BoxFit.fill),
         Container(
           width: double.infinity,
@@ -59,7 +73,7 @@ class TestIntroView extends ConsumerWidget {
         ),
         Padding(
           padding: EdgeInsets.only(
-              top: Constants.topPadding,
+              top: 56.h,
               left: Constants.horizontalPadding,
               right: Constants.horizontalPadding),
           child: Column(
@@ -75,17 +89,21 @@ class TestIntroView extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: 80.h,
+                height: 40.h,
               ),
-              Text(exam.description, style: GotchaiTextStyles.body1),
+              Text(
+                test.description,
+                style: GotchaiTextStyles.body3,
+                textAlign: TextAlign.center,
+              ),
               Spacer(),
               Button(
                 onTap: navigateToTestFlow,
-                width: double.infinity,
-                height: 120.h,
+                width: 345.w,
+                height: 57.h,
                 child: Container(
-                  width: double.infinity,
-                  height: 120.h,
+                  width: 345.w,
+                  height: 57.h,
                   decoration: BoxDecoration(
                     color: GotchaiColorStyles.primary400,
                     borderRadius: BorderRadius.circular(16),
@@ -100,7 +118,7 @@ class TestIntroView extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: 120.h,
+                height: 60.h,
               ),
             ],
           ),

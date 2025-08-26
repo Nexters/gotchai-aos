@@ -20,42 +20,30 @@ class MySolvedTestResponse {
 class MySolvedTest {
   final int id;
   final String title;
-  final String subTitle;
-  final String description;
-  final String prompt;
-  final String backgroundImage;
   final String iconImage;
-  final String coverImage;
-  final String theme;
-  final bool isSolved;
-  final String createdAt;
+  final int correctAnswerRate;
+  final int totalQuizCount;
+  final int correctAnswerCount;
+  final String solvedAt;
 
   MySolvedTest({
     required this.id,
     required this.title,
-    required this.subTitle,
-    required this.description,
-    required this.prompt,
-    required this.backgroundImage,
     required this.iconImage,
-    required this.coverImage,
-    required this.theme,
-    required this.isSolved,
-    required this.createdAt,
+    required this.correctAnswerRate,
+    required this.totalQuizCount,
+    required this.correctAnswerCount,
+    required this.solvedAt,
   });
 
   MySolvedTest.empty()
       : id = 0,
         title = '',
-        subTitle = '',
-        description = '',
-        prompt = '',
-        backgroundImage = '',
         iconImage = '',
-        coverImage = '',
-        theme = '',
-        isSolved = false,
-        createdAt = '';
+        correctAnswerRate = 0,
+        totalQuizCount = 0,
+        correctAnswerCount = 0,
+        solvedAt = '';
 
   factory MySolvedTest.fromJson(Map<String, dynamic> json) =>
       _$MySolvedTestFromJson(json);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:turing/core/constants/Constants.dart';
 import 'package:turing/core/utils/color_style.dart';
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:turing/core/utils/text_style.dart';
 import 'package:turing/presentation/testflow/test_view_model.dart';
 import 'package:turing/presentation/navigation_route.dart';
@@ -29,7 +29,7 @@ class TestCoverView extends ConsumerWidget {
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.only(
-          top: Constants.topPadding,
+          top: 56.h,
           left: Constants.horizontalPadding,
           right: Constants.horizontalPadding),
       child: Column(
@@ -45,10 +45,10 @@ class TestCoverView extends ConsumerWidget {
             ),
           ),
           SizedBox(
-            height: 10.h,
+            height: 20.h,
           ),
           Image.network(test.iconImage,
-              width: 20.w, height: 20.w, fit: BoxFit.fill),
+              width: 40.w, height: 40.w, fit: BoxFit.fill),
           SizedBox(
             height: 20.h,
           ),
@@ -65,7 +65,7 @@ class TestCoverView extends ConsumerWidget {
             ),
           ),
           SizedBox(
-            height: 40.h,
+            height: 24.h,
           ),
           Text(
             "AI가 한 말은 무엇일까요?",
@@ -74,33 +74,31 @@ class TestCoverView extends ConsumerWidget {
             ),
           ),
           SizedBox(
-            height: 60.h,
+            height: 34.h,
           ),
           ClipOval(
               child: Image.network(
             test.coverImage,
-            width: 130.w,
-            height: 130.w,
-            fit: BoxFit.cover,
+            width: 305.w,
+            height: 305.w,
+            fit: BoxFit.fill,
             errorBuilder: (context, error, stackTrace) {
               return Image.asset(
                 'assets/icon/icon_empty_graphic.png',
-                width: 130.w,
-                height: 130.w,
-                fit: BoxFit.cover,
+                width: 305.w,
+                height: 305.w,
+                fit: BoxFit.fill,
               );
             },
           )),
-          SizedBox(
-            height: 80.h,
-          ),
+          Spacer(),
           Button(
             onTap: navigateToTestIntro,
-            width: double.infinity,
-            height: 120.h,
+            width: 345.w,
+            height: 57.h,
             child: Container(
-              width: double.infinity,
-              height: 120.h,
+              width: 345.w,
+              height: 57.h,
               decoration: BoxDecoration(
                 color: GotchaiColorStyles.primary400,
                 borderRadius: BorderRadius.circular(16),
@@ -113,26 +111,8 @@ class TestCoverView extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 16.h),
-          Button(
-            onTap: () {},
-            width: double.infinity,
-            height: 120.h,
-            child: Container(
-              width: double.infinity,
-              height: 120.h,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Text(
-                  "테스트 공유하기",
-                  style: GotchaiTextStyles.body3
-                      .copyWith(color: GotchaiColorStyles.gray200),
-                ),
-              ),
-            ),
+          SizedBox(
+            height: 60.h,
           ),
         ],
       ),

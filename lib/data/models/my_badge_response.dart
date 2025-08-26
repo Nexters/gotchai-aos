@@ -32,6 +32,12 @@ class MyBadgeItem {
     required this.acquiredAt,
   });
 
+  MyBadgeItem.empty()
+      : id = -1,
+        name = "",
+        image = "",
+        acquiredAt = "";
+
   factory MyBadgeItem.fromJson(Map<String, dynamic> json) =>
       _$MyBadgeItemFromJson(json);
 

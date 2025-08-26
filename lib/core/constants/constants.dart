@@ -1,9 +1,8 @@
-import 'package:turing/core/utils/size_extension.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Constants {
-  static final double topPadding = 100.h;
-  static final double horizontalPadding = 10.w;
-  static final double iconSize = 12.w;
+  static final double horizontalPadding = 24.w;
+  static final double iconSize = 26.w;
 
   static final double bigRadius = 10.w;
 }

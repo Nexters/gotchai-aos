@@ -7,6 +7,7 @@ class Button extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxDecoration? decoration;
+  final Alignment? alignment;
 
   const Button({
     super.key,
@@ -16,6 +17,7 @@ class Button extends StatelessWidget {
     this.width,
     this.height,
     this.decoration,
+    this.alignment,
   });
 
   @override
@@ -24,6 +26,7 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
+        alignment: alignment,
         height: height,
         padding: padding,
         decoration: decoration,
