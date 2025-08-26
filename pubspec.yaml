@@ -1,8 +1,8 @@
 name: turing
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
-version: 1.0.0+1
+version: 1.1.1+8
 
 environment:
   sdk: ^3.6.2
@@ -11,12 +11,99 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  flutter_riverpod: ^2.3.1
+  riverpod_annotation: any
+  http: ^1.3.0
+  http_interceptor: ^2.0.0
+  logger: ^2.0.2
+  json_annotation: ^4.8.0
+  kakao_flutter_sdk_user: ^1.9.6
+  flutter_dotenv: ^5.2.1
+  flutter_svg: ^2.2.0
+  shared_preferences: ^2.5.3
+  permission_handler: ^11.3.1
+  device_info_plus: ^9.1.0
+  gal: ^2.3.2
+  flutter_screenutil: ^5.9.3
+  url_launcher: ^6.2.1
+  flutter_native_splash: ^2.4.4
+  path_provider: ^2.1.5
+  share_plus: ^11.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  riverpod_generator: ^2.4.0
+  riverpod_lint: ^2.3.10
+  build_runner: ^2.4.11
+  json_serializable: ^6.6.1
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path_android: "assets/icon/app_icon.png"
+
+flutter_native_splash:
+  android: true
+  color: "#151519"
+  image: assets/icon/app_splash_logo.png
+  android_12:
+    color: "#151519"
+    image: assets/icon/app_splash_logo.png
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: PretendardRegular
+      fonts:
+        - asset: assets/fonts/Pretendard-Regular.otf
+    - family: PretendardMedium
+      fonts:
+        - asset: assets/fonts/Pretendard-Medium.otf
+    - family: PretendardSemiBold
+      fonts:
+        - asset: assets/fonts/Pretendard-SemiBold.otf
+    - family: PretendardBold
+      fonts:
+        - asset: assets/fonts/Pretendard-Bold.otf
 
+  assets:
+    - assets/config/.env
+    - assets/icon/gotchai_logo.png
+    - assets/icon/icon_back.png
+    - assets/icon/icon_kakao_login.png
+    - assets/icon/icon_setting.png
+    - assets/icon/icon_ab.png
+    - assets/icon/icon_empty_graphic.png
+    - assets/icon/icon_close.png
+    - assets/image/image_onboarding1.png
+    - assets/image/image_onboarding2.png
+    - assets/image/image_onboarding3.png
+    - assets/image/image_onboarding4.png
+    - assets/icon/icon_B_button.png
+    - assets/icon/icon_A_button.png
+    - assets/icon/icon_correct.png
+    - assets/icon/icon_wrong.png
+    - assets/icon/icon_timeout.png
+    - assets/icon/icon_badge_logo_gold.png
+    - assets/icon/icon_badge_logo_silver.png
+    - assets/icon/icon_badge_logo_bronze.png
+    - assets/icon/icon_copy.png
+    - assets/icon/icon_save.png
+    - assets/icon/icon_insta.png
+    - assets/image/image_ranking5.png
+    - assets/image/image_ranking10.png
+    - assets/image/image_ranking25.png
+    - assets/image/image_ranking50.png
+    - assets/icon/icon_badge.png
+    - assets/icon/icon_history.png
+    - assets/icon/icon_forward.png
+    - assets/icon/icon_party.png
+    - assets/icon/icon_questionmark.png
+    - assets/icon/icon_note.png
+    - assets/icon/icon_safe.png
+    - assets/icon/icon_ask.png
+    - assets/icon/icon_empty_profile.png
+    - assets/icon/app_icon.png
+    - assets/icon/app_splash_logo.png
